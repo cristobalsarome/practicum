@@ -132,8 +132,13 @@ shell("chisqu_pvalue.png")
 table(poverty.binary.df$NBI_Ninos_no_asisten) %>% print
 table(poverty.binary.df$p55) %>% print
 table(poverty.binary.df$NBI_Baño) %>% print
+summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
 ```
 
+```{r}
+hogares.clean[poverty.binary] <- poverty.binary.df
+hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
+```
 
 
 
