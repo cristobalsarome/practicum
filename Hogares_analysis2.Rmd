@@ -138,9 +138,35 @@ summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
 ```{r}
 hogares.clean[poverty.binary] <- poverty.binary.df
 hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
+hogares.factor <- hogares.factor[-1] #remove the survey year
 ```
 
+```{r}
+nrFields <- length(hogares.factor)
+chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value ,hogares.factor,rep(hogares.factor[1],nrFields)))
+names(chisq.table)<-names(hogares.factor[1])
+for (field in c(2:nrFields)){
+  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value
+               ,hogares.factor,rep(hogares.factor[field],nrFields)))
+  names(chisq.newcol)<-names(hogares.factor[field])
+  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
+}
+for (i in c(1:(nrFields-1))){
+  for(j in c((i+1):nrFields)){
+    chisq.table[i,j] <- NA
+  }
+}
+#For some reason melt function handles variable names better with 
+#matrices than with data frames
+chisq.table <- as.matrix(chisq.table)
+melted_chisq <- melt(chisq.table)
+melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
+p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
+ggsave(filename = "chisqu_pvalue_full.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
+shell("chisqu_pvalue_full.png")
 
+```
 
 
 
