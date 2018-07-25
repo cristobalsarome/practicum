@@ -1,0 +1,474 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+#install.packages("ggplot2")
+library(foreign)
+library(ggplot2)
+library(plyr)
+```
+```{r}
+#hogares (homes)
+#Reading the .sav file (SPSS)
+hogares.filename <- "Base EDSA hogares 2010.Difusión (V.BETA).sav"
+hogares <- read.spss(hogares.filename)
+hogares.attr<-attributes(hogares)
+hogares.df <- read.spss(hogares.filename,to.data.frame = T)
+#str(hogares.df)
+#Writing data into a CSV
+#write.csv(hogares.df,file="homes_data.csv")
+
+```
+
+
+```{r}
+ggplot(hogares.df[1], aes(ENCUESTA)) +
+  stat_count()
+```
+```{r}
+ggplot(hogares.df[2], aes(hogares.df[[2]])) +
+  stat_count()
+```
+```{r}
+#The first two fields don't contain useful information
+hogares.clean <- hogares.df[-c(1,2)]
+```
+```{r}
+#Removing 29 observations with missing values (5682 to 5653)
+sum(is.na(hogares.clean$PON_HOG))
+hogares.clean <- hogares.clean[!is.na(hogares.clean$PON_HOG),]
+str(hogares.clean)
+#LOST FIELD ATTRIBUTES DOING THIS
+```
+```{r}
+#hogares.clean$PON_HOG
+field.nr <- 1
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  geom_histogram(bins = 50)+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean$PON_HOG
+field.nr <- 2
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  geom_histogram(bins = 50)+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 3
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  geom_histogram(bins = 50)+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 4
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  geom_histogram(bins = 50)+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 5
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 6
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+#hogares.clean
+field.nr <- 7
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 8
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 9
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 10
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+#hogares.clean
+field.nr <- 11
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+#hogares.clean
+field.nr <- 12
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+#hogares.clean
+field.nr <- 13
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 14
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 15
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+#hogares.clean
+field.nr <- 16
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r}
+#hogares.clean
+field.nr <- 17
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+#hogares.clean
+field.nr <- 18
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+```{r}
+#hogares.clean
+field.nr <- 19
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r}
+#hogares.clean
+field.nr <- 20
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+```{r}
+#hogares.clean
+field.nr <- 21
+ggplot(hogares.clean[field.nr], aes(hogares.clean[[field.nr]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+```{r}
+#hogares.clean
+field.nr <- 22
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(names(hogares.clean[field.nr]))+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+
+
+```{r}
+#Field 23 to 30
+#Data Count
+
+lack.count <-as.data.frame(table(hogares.clean[23]))
+lack.count$param <- hogares.attr$variable.labels[25]
+
+fields.lacks <- c(24:46)
+for (i in fields.lacks){
+  temp.count <-as.data.frame(table(hogares.clean[i]))
+  temp.count$param <- hogares.attr$variable.labels[i+2]
+  lack.count <-  rbind.data.frame(lack.count,temp.count)
+  
+}
+lack.count$Var1 <- tolower(lack.count$Var1)
+lack.count$Var1 <- revalue(lack.count$Var1,c("0"="sin déficit","1"="con déficit"))
+lack.count$param <- stringr::str_wrap(lack.count$param,40)  
+```
+
+
+```{r}
+ggplot(lack.count[c(1:16),], aes(fill=Var1, y=Freq, x=param)) + 
+    geom_bar(position="dodge", stat="identity")+coord_flip()
+```
+
+
+```{r}
+ggplot(lack.count[c(17:32),], aes(fill=Var1, y=Freq, x=param)) + 
+    geom_bar(position="dodge", stat="identity")+coord_flip()
+```
+
+```{r}
+ggplot(lack.count[c(33:48),], aes(fill=Var1, y=Freq, x=param)) + 
+    geom_bar(position="dodge", stat="identity")+coord_flip()
+```
+```{r}
+field.nr <- 49
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 50
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+
+```{r}
+field.nr <- 51
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(bins = 50,fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+
+```{r}
+#Same plot excluding outliers
+field.nr <- 51
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(bins = 50,fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))+ xlim(0, 17000)
+```
+
+```{r}
+field.nr <- 52
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(bins = 50,fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))+ xlim(0, 11000)
+```
+
+```{r}
+field.nr <- 53
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(bins = 50,fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))+xlim(0, 12000)
+```
+```{r}
+field.nr <- 54
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 55
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 56
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 57
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 58
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 59
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 60
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 61
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 62
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 63
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 64
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 65
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 66
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 67
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 68
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+
+```{r}
+field.nr <- 69
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 70
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 71
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 72
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 73
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 74
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 75
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+```{r}
+field.nr <- 76
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+```{r}
+field.nr <- 77
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]])) +
+stat_count(fill="steelblue",color="black")+ggtitle(names(hogares.clean[field.nr]))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

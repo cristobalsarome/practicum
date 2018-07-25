@@ -1,0 +1,47 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(foreign)
+```
+```{r}
+#Hogares (homes)
+Hogares.filename <- "Base EDSA Hogares 2010.Difusión (V.BETA).sav"
+Hogares <- read.spss(Hogares.filename)
+Hogares.attr<-attributes(Hogares)
+Hogares.df <- read.spss(Hogares.filename,to.data.frame = T)
+```
+
+```{r}
+#Respondentes
+Respondentes.filename <- "Base EDSA Respondentes 2010. Difusión (V.BETA)_1.sav"
+Respondentes <- read.spss(Respondentes.filename)
+Respondentes.attr<-attributes(Respondentes)
+Respondentes.df <- read.spss(Respondentes.filename,to.data.frame = T)
+```
+
+```{r}
+
+#Componentes
+Componentes <- read.spss("Base EDSA Componentes 2010. Difusión (V.BETA).sav")
+Componentes.attr<-attributes(Componentes)
+Componentes.df <- read.spss("Base EDSA Componentes 2010. Difusión (V.BETA).sav",to.data.frame = T)
+```
+```{r}
+#Infancia
+Infancia.filename <- "Base EDSA Infancia 2010. Difusión (V.BETA).sav"
+Infancia <- read.spss(Infancia.filename)
+Infancia.attr<-attributes(Infancia)
+Infancia.df <- read.spss(Infancia.filename,to.data.frame = T)
+```
+
+```{r}
+#Estratificacion y Movilidad socila
+Estrat_Movil.filename <- "Base EDSA Estratificacion y movilidad 2010. Difusión (V.BETA).sav"
+Estrat_Movil <- read.spss(Estrat_Movil.filename)
+Estrat_Movil.attr<-attributes(Estrat_Movil)
+Estrat_Movil.df <- read.spss(Estrat_Movil.filename,to.data.frame = T)
+```
+
