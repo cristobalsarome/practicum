@@ -33,25 +33,42 @@ metadata <- as.data.frame(hogares.attr[c(2,3)])
 metadata$field_nr <- c(1:length(metadata[[1]]))
 metadata$type <- as.vector(sapply(hogares.df,class))
 metadata$levels <- sapply(hogares.df,levels) %>% sapply(paste,collapse="; ") %>% as.vector()
+#We export metadata
+write.xlsx(metadata,"metadata.xlsx")
+
 
 ```
+
 ```{r}
+#We add some information to metadata
+metadata2 <- as.data.frame(hogares.attr[c(2,3)])
+metadata2$field_nr <- c(1:length(metadata2[[1]]))
+metadata2$type <- as.vector(sapply(hogares.clean,class))
+metadata2$levels <- sapply(hogares.clean,levels) %>% sapply(paste,collapse="; ") %>% as.vector()
+write.xlsx(cbind.data.frame(metadata,metadata2),"metadata2.xlsx")
+#We import the english labels from the excel file
+english_labels <- read.xlsx("metadata_modified.xlsx",1,stringsAsFactors=F)[[3]]
+write.csv(english_labels,file = "english_labels.csv")
+metadata2 <- cbind.data.frame( english_labels,metadata2)
+metadata2 <- metadata2[c(4,1:3,5,6)]
+#We change the field names of the data frame for the english ones
+colnames(hogares.clean) <- english_labels
+```
+
+```{r}
+#We separate all fields that contain dichotomous (binary) information 
+#relatedwith poverty
 binary.fields<-sapply(hogares.df,nlevels)==2
-paste(unname(which(binary.fields)),collapse=", ")
+#paste(unname(which(binary.fields)),collapse=", ") #used as reference in the process
 poverty.binary <- c( 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 45, 47, 48, 58, 59, 60, 61, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79)
 names(poverty.binary) <-  names(hogares.df)[poverty.binary]
-```
-
-```{r}
-#We separate all fields that contain dichotomous information
-
 poverty.binary.df <- hogares.clean[poverty.binary]
 pov.bin.meta <- metadata[poverty.binary,]
 poverty.binary.df <- as.data.frame(sapply(poverty.binary.df,as.factor))
 level.byn <- as.data.frame(sapply(poverty.binary.df,levels))
-write.xlsx(metadata,"metadata.xlsx")
- 
 ```
+
+
 
 ```{r}
 
@@ -75,116 +92,6 @@ poverty.binary.df[swap.levels] <- sapply(poverty.binary.df[swap.levels],factor,
 sapply(poverty.binary.df,setattr,"levels",lev.names) %>%  invisible
 
 ```
-
-```{r}
-nrFields <- length(poverty.binary.df)
-chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$statistic ,poverty.binary.df,rep(poverty.binary.df[1],nrFields)))
-names(chisq.table)<-names(poverty.binary.df[1])
-for (field in c(2:nrFields)){
-  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$statistic
-               ,poverty.binary.df,rep(poverty.binary.df[field],nrFields)))
-  names(chisq.newcol)<-names(poverty.binary.df[field])
-  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
-}
-for (i in c(1:(nrFields-1))){
-  for(j in c((i+1):nrFields)){
-    chisq.table[i,j] <- NA
-  }
-}
-#For some reason melt function handles variable names better with 
-#matrices than with data frames
-chisq.table <- as.matrix(chisq.table)
-melted_chisq <- melt(chisq.table)
-melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
-p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
-ggsave(filename = "chisqu_stat.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
-shell("chisqu_stat.png")
-
-```
-
-
-```{r}
-nrFields <- length(poverty.binary.df)
-chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value ,poverty.binary.df,rep(poverty.binary.df[1],nrFields)))
-names(chisq.table)<-names(poverty.binary.df[1])
-for (field in c(2:nrFields)){
-  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value
-               ,poverty.binary.df,rep(poverty.binary.df[field],nrFields)))
-  names(chisq.newcol)<-names(poverty.binary.df[field])
-  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
-}
-for (i in c(1:(nrFields-1))){
-  for(j in c((i+1):nrFields)){
-    chisq.table[i,j] <- NA
-  }
-}
-#For some reason melt function handles variable names better with 
-#matrices than with data frames
-chisq.table <- as.matrix(chisq.table)
-melted_chisq <- melt(chisq.table)
-melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
-p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
-ggsave(filename = "chisqu_pvalue.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
-shell("chisqu_pvalue.png")
-
-```
-
-```{r}
-table(poverty.binary.df$NBI_Ninos_no_asisten) %>% print
-table(poverty.binary.df$p55) %>% print
-table(poverty.binary.df$NBI_Baño) %>% print
-summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
-```
-
-```{r}
-hogares.clean[poverty.binary] <- poverty.binary.df
-hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
-hogares.factor <- hogares.factor[-1] #remove the survey year
-```
-
-```{r}
-nrFields <- length(hogares.factor)
-chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value ,hogares.factor,rep(hogares.factor[1],nrFields)))
-names(chisq.table)<-names(hogares.factor[1])
-for (field in c(2:nrFields)){
-  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value
-               ,hogares.factor,rep(hogares.factor[field],nrFields)))
-  names(chisq.newcol)<-names(hogares.factor[field])
-  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
-}
-for (i in c(1:(nrFields-1))){
-  for(j in c((i+1):nrFields)){
-    chisq.table[i,j] <- NA
-  }
-}
-#For some reason melt function handles variable names better with 
-#matrices than with data frames
-chisq.table <- as.matrix(chisq.table)
-melted_chisq <- melt(chisq.table)
-melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
-p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
-ggsave(filename = "chisqu_pvalue_full.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
-shell("chisqu_pvalue_full.png")
-
-```
-
-
-
-```{r}
-metadata2 <- as.data.frame(hogares.attr[c(2,3)])
-metadata2$field_nr <- c(1:length(metadata2[[1]]))
-metadata2$type <- as.vector(sapply(hogares.clean,class))
-metadata2$levels <- sapply(hogares.clean,levels) %>% sapply(paste,collapse="; ") %>% as.vector()
-write.xlsx(cbind.data.frame(metadata,metadata2),"metadata2.xlsx")
-english_labels <- read.xlsx("metadata_modified.xlsx",1,stringsAsFactors=F)[[3]]
-write.csv(english_labels,file = "english_labels.csv")
-metadata2 <- cbind.data.frame( english_labels,metadata2)
-metadata2 <- metadata2[c(4,1:3,5,6)]
-```
-
 
 
 ```{r}
@@ -369,6 +276,7 @@ ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
 ```{r}
 #check names before changing them
 #View(cbind.data.frame(english_labels[poverty.binary],row.names(summary_deficit)))
+summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
 deficit_matrix <- as.matrix(summary_deficit)
 row.names(deficit_matrix) <- english_labels[poverty.binary]
 deficit_matrix <- melt(t(deficit_matrix))
@@ -394,6 +302,102 @@ ggplot(deficit_matrix[c(61:90),], aes(fill=forcats::fct_rev(cond), y=count, x=pa
     geom_bar(stat="identity")+coord_flip()+scale_fill_manual("cond",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))
 
 ```
+
+```{r}
+nrFields <- length(poverty.binary.df)
+chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$statistic ,poverty.binary.df,rep(poverty.binary.df[1],nrFields)))
+names(chisq.table)<-names(poverty.binary.df[1])
+for (field in c(2:nrFields)){
+  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$statistic
+               ,poverty.binary.df,rep(poverty.binary.df[field],nrFields)))
+  names(chisq.newcol)<-names(poverty.binary.df[field])
+  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
+}
+for (i in c(1:(nrFields-1))){
+  for(j in c((i+1):nrFields)){
+    chisq.table[i,j] <- NA
+  }
+}
+#For some reason melt function handles variable names better with 
+#matrices than with data frames
+chisq.table <- as.matrix(chisq.table)
+melted_chisq <- melt(chisq.table)
+melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
+p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
+ggsave(filename = "chisqu_stat.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
+shell("chisqu_stat.png")
+
+```
+
+
+```{r}
+nrFields <- length(poverty.binary.df)
+chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value ,poverty.binary.df,rep(poverty.binary.df[1],nrFields)))
+names(chisq.table)<-names(poverty.binary.df[1])
+for (field in c(2:nrFields)){
+  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value
+               ,poverty.binary.df,rep(poverty.binary.df[field],nrFields)))
+  names(chisq.newcol)<-names(poverty.binary.df[field])
+  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
+}
+for (i in c(1:(nrFields-1))){
+  for(j in c((i+1):nrFields)){
+    chisq.table[i,j] <- NA
+  }
+}
+#For some reason melt function handles variable names better with 
+#matrices than with data frames
+chisq.table <- as.matrix(chisq.table)
+melted_chisq <- melt(chisq.table)
+melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
+p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
+ggsave(filename = "chisqu_pvalue.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
+shell("chisqu_pvalue.png")
+
+```
+
+
+
+```{r}
+hogares.clean[poverty.binary] <- poverty.binary.df
+hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
+hogares.factor <- hogares.factor[-1] #remove the survey year
+```
+
+```{r}
+nrFields <- length(hogares.factor)
+chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value ,hogares.factor,rep(hogares.factor[1],nrFields)))
+names(chisq.table)<-names(hogares.factor[1])
+for (field in c(2:nrFields)){
+  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value
+               ,hogares.factor,rep(hogares.factor[field],nrFields)))
+  names(chisq.newcol)<-names(hogares.factor[field])
+  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
+}
+for (i in c(1:(nrFields-1))){
+  for(j in c((i+1):nrFields)){
+    chisq.table[i,j] <- NA
+  }
+}
+#For some reason melt function handles variable names better with 
+#matrices than with data frames
+chisq.table <- as.matrix(chisq.table)
+melted_chisq <- melt(chisq.table)
+melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
+p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
+ggsave(filename = "chisqu_pvalue_full.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
+shell("chisqu_pvalue_full.png")
+
+```
+
+
+
+
+
+
 
 
 
