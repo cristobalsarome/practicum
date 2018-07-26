@@ -73,7 +73,7 @@ level.byn <- as.data.frame(sapply(poverty.binary.df,levels))
 ```{r}
 
 #We stadardize the levels of the values so all are expresed in terms
-#of "deficitary" (living conditions are deficitary in observed aspect) adn
+#of "deficitary" (living conditions are deficitary in observed aspect) and
 #"not_deficitary"
 
 #The folowing fields need to change the name and invert the order
@@ -91,6 +91,16 @@ poverty.binary.df[swap.levels] <- sapply(poverty.binary.df[swap.levels],factor,
 #suffer anny change
 sapply(poverty.binary.df,setattr,"levels",lev.names) %>%  invisible
 
+```
+
+```{r}
+#check names before changing them
+#View(cbind.data.frame(english_labels[poverty.binary],row.names(summary_deficit)))
+summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
+deficit_matrix <- as.matrix(summary_deficit)
+row.names(deficit_matrix) <- english_labels[poverty.binary]
+deficit_matrix <- melt(t(deficit_matrix))
+colnames(deficit_matrix) <- c("cond","param","count")
 ```
 
 
@@ -273,15 +283,6 @@ ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
   aesthetics = "fill")
 ```
 
-```{r}
-#check names before changing them
-#View(cbind.data.frame(english_labels[poverty.binary],row.names(summary_deficit)))
-summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
-deficit_matrix <- as.matrix(summary_deficit)
-row.names(deficit_matrix) <- english_labels[poverty.binary]
-deficit_matrix <- melt(t(deficit_matrix))
-colnames(deficit_matrix) <- c("cond","param","count")
-```
 
 
 
