@@ -12,6 +12,8 @@ library(plyr)
 library(bit)
 library(magrittr)
 library(reshape2) #melt
+library(xlsx)
+install.packages("xlsx")
 ```
 ```{r}
 #hogares (homes)
@@ -47,7 +49,7 @@ poverty.binary.df <- hogares.clean[poverty.binary]
 pov.bin.meta <- metadata[poverty.binary,]
 poverty.binary.df <- as.data.frame(sapply(poverty.binary.df,as.factor))
 level.byn <- as.data.frame(sapply(poverty.binary.df,levels))
-
+write.xlsx(metadata,"metadata.xlsx")
 ```
 
 ```{r}
