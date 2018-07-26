@@ -13,7 +13,7 @@ library(bit)
 library(magrittr)
 library(reshape2) #melt
 library(xlsx)
-install.packages("xlsx")
+#install.packages("xlsx")
 ```
 ```{r}
 #hogares (homes)
@@ -31,8 +31,8 @@ hogares.clean <- hogares.df[!is.na(hogares.df$PON_HOG),]
 
 metadata <- as.data.frame(hogares.attr[c(2,3)])
 metadata$field_nr <- c(1:length(metadata[[1]]))
-metadata$type <- as.data.frame(sapply(hogares.df,class))
-metadata$levels <- sapply(hogares.df,levels) %>% sapply(paste,collapse="; ") %>% as.data.frame()
+metadata$type <- as.vector(sapply(hogares.df,class))
+metadata$levels <- sapply(hogares.df,levels) %>% sapply(paste,collapse="; ") %>% as.vector()
 
 ```
 ```{r}
@@ -50,6 +50,7 @@ pov.bin.meta <- metadata[poverty.binary,]
 poverty.binary.df <- as.data.frame(sapply(poverty.binary.df,as.factor))
 level.byn <- as.data.frame(sapply(poverty.binary.df,levels))
 write.xlsx(metadata,"metadata.xlsx")
+ 
 ```
 
 ```{r}
@@ -175,6 +176,15 @@ shell("chisqu_pvalue_full.png")
 
 
 
+```{r}
+metadata2 <- as.data.frame(hogares.attr[c(2,3)])
+metadata2$field_nr <- c(1:length(metadata2[[1]]))
+metadata2$type <- as.vector(sapply(hogares.clean,class))
+metadata2$levels <- sapply(hogares.clean,levels) %>% sapply(paste,collapse="; ") %>% as.vector()
+write.xlsx(cbind.data.frame(metadata,metadata2),"metadata2.xlsx")
+english_labels <- read.xlsx("metadata_modified.xlsx",1,stringsAsFactors=F)[[3]]
+write.csv(english_labels,file = "english_labels.csv")
+```
 
 
 
