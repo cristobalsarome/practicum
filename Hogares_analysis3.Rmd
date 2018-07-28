@@ -353,7 +353,7 @@ chisq.table <- as.matrix(chisq.table)
 melted_chisq <- melt(chisq.table)
 melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
 p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
+  geom_tile()+scale_fill_distiller(palette = "Spectral",limits = c(0,0.1))+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
 ggsave(filename = "chisqu_pvalue.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
 shell("chisqu_pvalue.png")
 
@@ -388,7 +388,7 @@ chisq.table <- as.matrix(chisq.table)
 melted_chisq <- melt(chisq.table)
 melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
 p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile()+scale_fill_distiller(palette = "Spectral")+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
+  geom_tile()+scale_fill_distiller(palette = "Spectral",limits = c(0,0.001))+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
 ggsave(filename = "chisqu_pvalue_full.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
 shell("chisqu_pvalue_full.png")
 

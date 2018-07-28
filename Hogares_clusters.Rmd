@@ -14,6 +14,10 @@ library(magrittr)
 library(reshape2) #melt
 library(xlsx)
 #install.packages("xlsx")
+#install.packages("klaR")
+library(klaR)#clustering for categorical variables
+#install.packages("cba")
+library(cba)
 ```
 ```{r}
 #hogares (homes)
@@ -92,7 +96,15 @@ poverty.binary.df[swap.levels] <- sapply(poverty.binary.df[swap.levels],factor,
 #suffer anny change
 sapply(poverty.binary.df,setattr,"levels",lev.names) %>%  invisible
 
+#finally we replace the columns in hogares.clean by the standardized columns
+hogares.clean[poverty.binary] <- poverty.binary.df
+
+#we generate a list of fields that are factors
+hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
+hogares.factor <- hogares.factor[-1] #remove the survey year
+
 ```
+
 ```{r}
 summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
 deficit_matrix <- as.matrix(summary_deficit)
@@ -100,15 +112,25 @@ deficit_matrix <- melt(t(deficit_matrix))
 colnames(deficit_matrix) <- c("cond","param","count")
 ```
 
+
+
 ```{r}
-hogares.clean[poverty.binary] <- poverty.binary.df
-hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
-hogares.factor <- hogares.factor[-1] #remove the survey year
+hogares_matrix <- as.matrix(hogares.factor)
+x <- as.dummy(hogares.factor)
+clust_cba <- rockCluster(x,theta = 0.3,5,fun= "dist",funArgs =list(method = "Jaccard") )
+View(table(clust_cba$cl))
+```
+
+
+```{r}
+clut_kmodes <- kmodes(hogares.factor,2)
 ```
 
 
 
-
+```{r}
+clust_hclust <- hclust(hogares.factor,method="ward.D")
+```
 
 
 
