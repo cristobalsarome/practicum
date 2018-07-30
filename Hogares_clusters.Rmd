@@ -3,7 +3,7 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-
+##Loading packages
 ```{r}
 #install.packages("ggplot2")
 library(foreign)
@@ -19,6 +19,7 @@ library(klaR)#clustering for categorical variables
 #install.packages("cba")
 library(cba)
 ```
+##Data preprocessing
 ```{r}
 #hogares (homes)
 #Reading the .sav file (SPSS)
@@ -96,6 +97,9 @@ poverty.binary.df[swap.levels] <- sapply(poverty.binary.df[swap.levels],factor,
 #suffer anny change
 sapply(poverty.binary.df,setattr,"levels",lev.names) %>%  invisible
 
+#some fields are stil not factors
+poverty.binary.df <- as.data.frame(sapply(poverty.binary.df,as.factor))
+
 #finally we replace the columns in hogares.clean by the standardized columns
 hogares.clean[poverty.binary] <- poverty.binary.df
 
@@ -105,13 +109,7 @@ hogares.factor <- hogares.factor[-1] #remove the survey year
 
 ```
 
-```{r}
-summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
-deficit_matrix <- as.matrix(summary_deficit)
-deficit_matrix <- melt(t(deficit_matrix))
-colnames(deficit_matrix) <- c("cond","param","count")
-```
-
+##Clustering
 
 
 ```{r}
@@ -122,14 +120,86 @@ View(table(clust_cba$cl))
 ```
 
 
+
+##Cluster 1
 ```{r}
-clut_kmodes <- kmodes(hogares.factor,2)
+summary_deficit <- as.data.frame(t(sapply(poverty.binary.df[cl1_index,],table)))
+deficit_matrix <- as.matrix(summary_deficit)
+deficit_matrix <- melt(t(deficit_matrix))
+colnames(deficit_matrix) <- c("cond","param","count")
+```
+
+```{r}
+str(clust_cba$cl)
+cl1_index <- which(clust_cba$cl==1)
+```
+
+
+```{r}
+field.nr <- 3
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(bins = 50,fill="steelblue",color="black")+ggtitle(english_labels[field.nr])+xlim(0, 12000)
 ```
 
 
 
 ```{r}
-clust_hclust <- hclust(hogares.factor,method="ward.D")
+field.nr <- 7
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+field.nr <- 8
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 8
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+
+
+```{r}
+field.nr <- 9
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 10
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 11
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 10)+ggtitle(english_labels[field.nr])
+```
+
+```{r}
+field.nr <- 12
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 20)+ggtitle(english_labels[field.nr])
 ```
 
 
@@ -138,31 +208,197 @@ clust_hclust <- hclust(hogares.factor,method="ward.D")
 
 
 
+```{r}
+field.nr <- 13
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+field.nr <- 14
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
 
 
+```{r}
+field.nr <- 15
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
 
 
+```{r}
+field.nr <- 16
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
 
+```{r}
+field.nr <- 17
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 18
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
 
+```{r}
+field.nr <- 19
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
 
+```{r}
+field.nr <- 20
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 21
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
 
+```{r}
+field.nr <- 22
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 23
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 24
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
 
+```{r}
+rem_num_fields <- which(!c(1:79) %in% poverty.binary)[which(!c(1:79) %in% poverty.binary)>25]
+#View(metadata2[rem_num_fields,])
+```
+```{r}
+field.nr <- 49
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 10)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 50
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 10)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 51
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 10)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 52
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 53
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 20)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 54
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 20)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 55
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 20)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 56
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 20)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 57
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]])) +
+geom_histogram(fill="steelblue",color="black",bins = 20)+ggtitle(english_labels[field.nr])
+```
+```{r}
+field.nr <- 62
+data.gr <- hogares.clean[cl1_index,field.nr,drop=F]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
 
+```{r}
+ggplot(deficit_matrix[c(1:30),], aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
+    geom_bar(stat="identity")+coord_flip()+scale_fill_manual("cond",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))
 
+```
 
+```{r}
+ggplot(deficit_matrix[c(31:60),], aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
+    geom_bar(stat="identity")+coord_flip()+scale_fill_manual("cond",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))
 
+```
 
+```{r}
+ggplot(deficit_matrix[c(61:90),], aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
+    geom_bar(stat="identity")+coord_flip()+scale_fill_manual("cond",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))
 
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
