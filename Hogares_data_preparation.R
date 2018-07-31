@@ -1,5 +1,6 @@
 ##Loading packages
 
+## ---- preprocessing
 #install.packages("ggplot2")
 library(foreign)
 library(ggplot2)
@@ -90,4 +91,6 @@ hogares.clean[poverty.binary] <- poverty.binary.df
 #we generate a list of fields that are factors
 hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
 hogares.factor <- hogares.factor[-1] #remove the survey year
+
+## ---- end 
 
