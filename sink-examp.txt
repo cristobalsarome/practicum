@@ -1,0 +1,905 @@
+$Jaccard
+      names Jaccard, binary, Reyssac, Roux
+        FUN R_bjaccard
+   distance FALSE
+     PREFUN pr_Jaccard_prefun
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula a / (a + b + c)
+  reference Jaccard, P. (1908). Nouvelles recherches sur la distribution
+            florale. Bull. Soc. Vaud. Sci. Nat., 44, pp. 223--270.
+description The Jaccard Similarity (C implementation) for binary data.
+            It is the proportion of (TRUE, TRUE) pairs, but not
+            considering (FALSE, FALSE) pairs. So it compares the
+            intersection with the union of object sets.
+
+$Kulczynski1
+      names Kulczynski1
+        FUN pr_Kulczynski1
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula a / (b + c)
+  reference Kurzcynski, T.W. (1970). Generalized distance and discrete
+            variables. Biometrics, 26, pp. 525--534.
+description Kulczynski Similarity for binary data. Relates the (TRUE,
+            TRUE) pairs to discordant pairs.
+
+$Kulczynski2
+      names Kulczynski2
+        FUN pr_Kulczynski2
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula [a / (a + b) + a / (a + c)] / 2
+  reference Kurzcynski, T.W. (1970). Generalized distance and discrete
+            variables. Biometrics, 26, pp. 525--534.
+description Kulczynski Similarity for binary data. Relates the (TRUE,
+            TRUE) pairs to the discordant pairs.
+
+$Mountford
+      names Mountford
+        FUN pr_Mountford
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula 2a / (ab + ac + 2bc)
+  reference Mountford, M.D. (1962). An index of similarity and its
+            application to classificatory probems. In P.W. Murphy (ed.),
+            Progress in Soil Zoology, pp. 43--50. Butterworth, London.
+description The Mountford Similarity for binary data.
+
+$Fager
+      names Fager, McGowan
+        FUN pr_fagerMcgowan
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula a / sqrt((a + b)(a + c)) - sqrt(a + c) / 2
+  reference Fager, E. W. and McGowan, J. A. (1963). Zooplankton species
+            groups in the North Pacific. Science, N. Y. 140: 453-460
+description The Fager / McGowan distance.
+
+$Russel
+      names Russel, Rao
+        FUN pr_RusselRao
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula a / n
+  reference Russell, P.F., and Rao T.R. (1940). On habitat and
+            association of species of anopheline larvae in southeastern,
+            Madras, J. Malaria Inst. India 3, pp. 153--178
+description The Russel/Rao Similarity for binary data. It is just the
+            proportion of (TRUE, TRUE) pairs.
+
+$`simple matching`
+      names simple matching, Sokal/Michener
+        FUN pr_SimpleMatching
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula (a + d) / n
+  reference Sokal, R.R., and Michener, C.D. (1958). A statistical method
+            for evaluating systematic relationships. Univ. Kansas Sci.
+            Bull., 39, pp. 1409--1438.
+description The Simple Matching Similarity or binary data. It is the
+            proportion of concordant pairs.
+
+$Hamman
+      names Hamman
+        FUN pr_Hamman
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula ([a + d] - [b + c]) / n
+  reference Hamann, U. (1961). Merkmalbestand und
+            Verwandtschaftsbeziehungen der Farinosae. Ein Beitrag zum
+            System der Monokotyledonen. Willdenowia, 2, pp. 639-768.
+description The Hamman Matching Similarity for binary data. It is the
+            proportion difference of the concordant and discordant
+            pairs.
+
+$Faith
+      names Faith
+        FUN pr_Faith
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula (a + d/2) / n
+  reference Belbin, L., Marshall, C. & Faith, D.P. (1983). Representing
+            relationships by automatic assignment of colour. The
+            Australian Computing Journal 15, 160-163.
+description The Faith similarity
+
+$Tanimoto
+      names Tanimoto, Rogers
+        FUN pr_RogersTanimoto
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula (a + d) / (a + 2b + 2c + d)
+  reference Rogers, D.J, and Tanimoto, T.T. (1960). A computer program
+            for classifying plants. Science, 132, pp. 1115--1118.
+description The Rogers/Tanimoto Similarity for binary data. Similar to
+            the simple matching coefficient, but putting double weight
+            on the discordant pairs.
+
+$Dice
+      names Dice, Czekanowski, Sorensen
+        FUN pr_Dice
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula 2a / (2a + b + c)
+  reference Dice, L.R. (1945). Measures of the amount of ecologic
+            association between species. Ecolology, 26, pp. 297--302.
+description The Dice Similarity
+
+$Phi
+      names Phi
+        FUN pr_Phi
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula (ad - bc) / sqrt[(a + b)(c + d)(a + c)(b + d)]
+  reference Sokal, R.R, and Sneath, P.H.A. (1963). Principles of
+            numerical taxonomy. W.H. Freeman and Company, San Francisco.
+description The Phi Similarity (= Product-Moment-Correlation for binary
+            variables)
+
+$Stiles
+      names Stiles
+        FUN pr_Stiles
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula log(n(|ad-bc| - 0.5n)^2 / [(a + b)(c + d)(a + c)(b + d)])
+  reference Stiles, H.E. (1961). The association factor in information
+            retrieval. Communictions of the ACM, 8, 1, pp. 271--279.
+description The Stiles Similarity (used for information retrieval).
+            Identical to the logarithm of Krylov's distance.
+
+$Michael
+      names Michael
+        FUN pr_Michael
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula 4(ad - bc) / [(a + d)^2 + (b + c)^2]
+  reference Cox, T.F., and Cox, M.A.A. (2001). Multidimensional Scaling.
+            Chapmann and Hall.
+description The Michael Similarity
+
+$Mozley
+      names Mozley, Margalef
+        FUN pr_MozleyMargalef
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula an / (a + b)(a + c)
+  reference Margalef, D.R. (1958). Information theory in ecology. Gen.
+            Systems, 3, pp. 36--71.
+description The Mozley/Margalef Similarity
+
+$Yule
+      names Yule
+        FUN pr_Yule
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula (ad - bc) / (ad + bc)
+  reference Yule, G.U. (1912). On measuring associations between
+            attributes. J. Roy. Stat. Soc., 75, pp. 579--642.
+description Yule Similarity
+
+$Yule2
+      names Yule2
+        FUN pr_Yule2
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula (sqrt(ad) - sqrt(bc)) / (sqrt(ad) + sqrt(bc))
+  reference Yule, G.U. (1912). On measuring associations between
+            attributes. J. Roy. Stat. Soc., 75, pp. 579--642.
+description Yule Similarity
+
+$Ochiai
+      names Ochiai
+        FUN pr_Ochiai
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula a / sqrt[(a + b)(a + c)]
+  reference Sokal, R.R, and Sneath, P.H.A. (1963). Principles of
+            numerical taxonomy. W.H. Freeman and Company, San Francisco.
+description The Ochiai Similarity
+
+$Simpson
+      names Simpson
+        FUN pr_Simpson
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula a / min{(a + b), (a + c)}
+  reference Simpson, G.G. (1960). Notes on the measurement of faunal
+            resemblance. American Journal of Science 258-A: 300-311.
+description The Simpson Similarity (used in Zoology).
+
+$`Braun-Blanquet`
+      names Braun-Blanquet
+        FUN pr_BraunBlanquet
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd TRUE
+    formula a / max{(a + b), (a + c)}
+  reference Braun-Blanquet, J. (1964): Pflanzensoziologie. Springer
+            Verlag, Wien and New York.
+description The Braun-Blanquet Similarity (used in Biology).
+
+$cosine
+      names cosine, angular
+        FUN R_cosine
+   distance FALSE
+     PREFUN pr_cos_prefun
+    POSTFUN NA
+    convert pr_simil2dist
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula xy / sqrt(xx * yy)
+  reference Anderberg, M.R. (1973). Cluster Analysis for Applicaitons.
+            Academic Press.
+description The cos Similarity (C implementation)
+
+$eJaccard
+      names eJaccard, extended_Jaccard
+        FUN R_ejaccard
+   distance FALSE
+     PREFUN pr_eJaccard_prefun
+    POSTFUN NA
+    convert pr_simil2dist
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula xy / (xx + yy - xy)
+  reference Strehl A. and Ghosh J. (2000). Value-based customer grouping
+            from large retail data-sets. In Proc. SPIE Conference on
+            Data Mining and Knowledge Discovery, Orlando, volume 4057,
+            pages 33-42. SPIE.
+description The extended Jaccard Similarity (C implementation; yields
+            Jaccard for binary x,y).
+
+$eDice
+      names eDice, extended_Dice, eSorensen
+        FUN R_edice
+   distance FALSE
+     PREFUN pr_eDice_prefun
+    POSTFUN NA
+    convert pr_simil2dist
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula 2xy / (xx + yy)
+  reference Alexander Strehl. Relationship-based Clustering and Cluster
+            Ensembles for High-dimensional Data Mining. PhD thesis, The
+            University of Texas at Austin, May 2002.
+description The extended Dice Similarity (C implementation; yields Dice
+            for binary x,y).
+
+$correlation
+      names correlation
+        FUN pr_cor
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula xy / sqrt(xx * yy) for centered x,y
+  reference Anderberg, M.R. (1973). Cluster Analysis for Applicaitons.
+            Academic Press.
+description correlation (taking n instead of n-1 for the variance)
+
+$`Chi-squared`
+      names Chi-squared
+        FUN pr_ChiSquared
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type nominal
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_ij (o_i - e_i)^2 / e_i
+  reference Anderberg, M.R. (1973). Cluster Analysis for Applicaitons.
+            Academic Press.
+description Sum of standardized squared deviations from observed and
+            expected values in a cross-tab for x and y.
+
+$`Phi-squared`
+      names Phi-squared
+        FUN pr_PhiSquared
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type nominal
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula [sum_ij (o_i - e_i)^2 / e_i] / n
+  reference Anderberg, M.R. (1973). Cluster Analysis for Applicaitons.
+            Academic Press.
+description Standardized Chi-Squared (= Chi / n).
+
+$Tschuprow
+      names Tschuprow
+        FUN pr_Tschuprow
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type nominal
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt{[sum_ij (o_i - e_i)^2 / e_i] / n / sqrt((p - 1)(q -
+            1))}
+  reference Tschuprow, A.A. (1925). Grundbegriffe und Grundprobleme der
+            Korrelationstheorie. Springer.
+description Tschuprow-standardization of Chi-Squared.
+
+$Cramer
+      names Cramer
+        FUN pr_Cramer
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type nominal
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt{[Chi / n)] / min[(p - 1), (q - 1)]}
+  reference Cramer, H. (1946). The elements of probability theory and
+            some of its applications. Wiley, New York.
+description Cramer-standization of Chi-Squared.
+
+$Pearson
+      names Pearson, contingency
+        FUN pr_Pearson
+   distance FALSE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_simil2dist
+       type nominal
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt{Chi / (n + Chi)}
+  reference Anderberg, M.R. (1973). Cluster Analysis for Applicaitons.
+            Academic Press.
+description Contingency Coefficient. Chi is the Chi-Squared statistic.
+
+$Gower
+      names Gower
+        FUN pr_Gower
+   distance FALSE
+     PREFUN pr_Gower_prefun
+    POSTFUN NA
+    convert pr_simil2dist
+       type NA
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula Sum_k (s_ijk * w_k) / Sum_k (d_ijk * w_k)
+  reference Gower, J.C. (1971). A general coefficient of similarity and
+            some of its properties. Biometrics, 27, pp. 857--871.
+description The Gower Similarity for mixed variable types. w_k are
+            variable weights. d_ijk is 0 for missings or a pair of FALSE
+            logicals, and 1 else. s_ijk is 1 for a pair of TRUE logicals
+            or matching factor levels, and the absolute difference for
+            metric variables. Each metric variable is scaled with its
+            corresponding range, provided the latter is not 0. Ordinal
+            variables are converted to ranks r_i and the scores z_i =
+            (r_i - 1) / (max r_i - 1) are taken as metric variables.
+            Note that in the latter case, unlike the definition of
+            Gower, just the internal integer codes are taken as the
+            ranks, and not what rank() would return. This is for
+            compatibility with daisy() of the cluster package, and will
+            make a slight difference in case of ties. The weights w_k
+            can be specified by passing a numeric vector (recycled as
+            needed) to the 'weights' argument. Ranges for scaling the
+            columns of x and y can be specified using the
+            'ranges.x'/'ranges.y' arguments (or simply 'ranges' for both
+            x and y).
+
+$Euclidean
+      names Euclidean, L2
+        FUN R_euclidean_dist
+   distance TRUE
+     PREFUN pr_Euclidean_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt(sum_i (x_i - y_i)^2))
+  reference Cox, T.F., and Cox, M.A.A. (2001. Multidimensional Scaling.
+            Chapmann and Hall.
+description The Euclidean Distance (C implementation with compensation
+            for excluded components)
+
+$Mahalanobis
+      names Mahalanobis
+        FUN pr_Mahalanobis
+   distance TRUE
+     PREFUN pr_Mahalanobis_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt((x - y) Sigma^(-1) (x - y))
+  reference Mahalanobis P.C. (1936), On the generalised distance in
+            statistics, Proceedings of the National Institute of Science
+            of India 12, pp. 49-55
+description The Mahalanobis Distance. The Variance-Covariance-Matrix is
+            estimated from the input data if unspecified.
+
+$Bhjattacharyya
+      names Bhjattacharyya
+        FUN pr_Bhjattacharyya
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt(sum_i (sqrt(x_i) - sqrt(y_i))^2))
+  reference Bhattacharyya A. (1943). On a measure of divergence between
+            two statistical populations defined by probability
+            distributions, Bull. Calcutta Math. Soc., vol. 35, pp.
+            99--109
+description The Bhjattacharyya Distance
+
+$Manhattan
+      names Manhattan, City-Block, L1, taxi
+        FUN R_manhattan_dist
+   distance TRUE
+     PREFUN pr_Manhattan_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i |x_i - y_i|
+  reference Cox, T.F., and Cox, M.A.A. (2001. Multidimensional Scaling.
+            Chapmann and Hall.
+description The Manhattan/City-Block/Taxi/L1-Distance (C implementation
+            with compensation for excluded components)
+
+$supremum
+      names supremum, max, maximum, Tschebyscheff, Chebyshev
+        FUN R_maximum_dist
+   distance TRUE
+     PREFUN pr_supremum_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula max_i |x_i - y_i|
+  reference Cox, T.F., and Cox, M.A.A. (2001. Multidimensional Scaling.
+            Chapmann and Hall.
+description The Maximum/Supremum/Chebyshev Distance (C implementation)
+
+$Minkowski
+      names Minkowski, Lp
+        FUN R_minkowski_dist
+   distance TRUE
+     PREFUN pr_Minkowski_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula (sum_i (x_i - y_i)^p)^(1/p)
+  reference Cox, T.F., and Cox, M.A.A. (2001. Multidimensional Scaling.
+            Chapmann and Hall.
+description The Minkowski Distance (C implementation with compensation
+            for excluded components)
+
+$Canberra
+      names Canberra
+        FUN R_canberra_dist
+   distance TRUE
+     PREFUN pr_Canberra_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i |x_i - y_i| / |x_i + y_i|
+  reference Cox, T.F., and Cox, M.A.A. (2001. Multidimensional Scaling.
+            Chapmann and Hall.
+description The Canberra Distance (C implementation with compensation
+            for excluded components)
+
+$Wave
+      names Wave, Hedges
+        FUN pr_WaveHedges
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i (1 - min(x_i, y_i) / max(x_i, y_i))
+  reference Cox, T.F., and Cox, M.A.A. (2001). Multidimensional Scaling.
+            Chapmann and Hall.
+description The Wave/Hedges Distance
+
+$divergence
+      names divergence
+        FUN pr_Divergence
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i (x_i - y_i)^2 / (x_i + y_i)^2
+  reference Cox, T.F., and Cox, M.A.A. (2001). Multidimensional Scaling.
+            Chapmann and Hall.
+description The Divergence Distance
+
+$Kullback
+      names Kullback, Leibler
+        FUN pr_KullbackLeibler
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i [x_i * log((x_i / sum_j x_j) / (y_i / sum_j y_j)) /
+            sum_j x_j)]
+  reference Kullback S., and Leibler, R.A. (1951). On information and
+            sufficiency. The Annals of Mathematical Statistics, vol. 22,
+            pp. 79--86
+description The Kullback-Leibler-distance.
+
+$Bray
+      names Bray, Curtis
+        FUN pr_BrayCurtis
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i |x_i - y_i| / sum_i (x_i + y_i)
+  reference Bray J.R., Curtis J.T. (1957). An ordination of the upland
+            forest of the southern Winsconsin. Ecological Monographies,
+            27, pp. 325--349
+description The Bray/Curtis dissimilarity. Note that it is not a
+            distance since it vioalates the triangle inequality.
+
+$Soergel
+      names Soergel
+        FUN pr_Soergel
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i |x_i - y_i| / sum_i max{x_i, y_i}
+  reference Cox, T.F., and Cox, M.A.A. (2001). Multidimensional Scaling.
+            Chapmann and Hall.
+description The Soergel Distance
+
+$Levenshtein
+      names Levenshtein
+        FUN sdists
+   distance TRUE
+     PREFUN pr_Levenshtein_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type other
+       loop FALSE
+      C_FUN FALSE
+    PACKAGE cba
+       abcd FALSE
+    formula Number of insertions, edits, and deletions between to
+            strings
+  reference Levenshtein V.I. (1966). Binary codes capable of correcting
+            deletions, insertions, and reversals. Soviet Physics Doklady
+            10, pp. 707--710
+description Wrapper for sdists() in the cba-package (C implementation).
+
+$Podani
+      names Podani, discordance
+        FUN pr_Podani
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula 1 - 2 * (a - b + c - d) / (n * (n - 1))
+  reference Podani, J. (1997). A measure of discordance for partially
+            ranked data when presence/absence is also meaningful.
+            Coenoses 12: 127--130.
+description The Podany measure of discordance is defined on ranks with
+            ties. In the formula, for two given objects x and y, n is
+            the number of variables, a is is the number of pairs of
+            variables ordered identically, b the number of pairs
+            reversely ordered, c the number of pairs tied in both x and
+            y (corresponding to either joint presence or absence), and d
+            the number of all pairs of variables tied at least for one
+            of the objects compared such that one, two, or thee scores
+            are zero.
+
+$Chord
+      names Chord
+        FUN function (x, y) sqrt(2 * (1 - crossprod(x,
+            y)/sqrt(crossprod(x) * crossprod(y))))
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt(2 * (1 - xy / sqrt(xx * yy)))
+  reference Orloci, L. 1967. An agglomerative method for classification
+            of plant communities. J. Ecol 55:193--206.
+description The Chord distance.
+
+$Geodesic
+      names Geodesic
+        FUN function (x, y) acos(crossprod(x, y)/sqrt(crossprod(x) *
+            crossprod(y)))
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula arccos(xy / sqrt(xx * yy))
+  reference Orloci, L. 1967. Data centering: a review and evaluation
+            with reference to component analysis. Syst. Zool.
+            16:208--212.
+description The geoedesic distance, i.e. the angle between x and y.
+
+$Whittaker
+      names Whittaker
+        FUN function (x, y) sum(abs(x/sum(x) - y/sum(y)))/2
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i |x_i / sum_i x - y_i / sum_i y| / 2
+  reference Whittaker, R.H. (1952) A study of summer foliage insect
+            communities in the Great Smoky Mountains. Ecological
+            Monographs 22, pp. 1--44.
+description The Whittaker distance.
+
+$Hellinger
+      names Hellinger
+        FUN function (x, y) sqrt(crossprod(sqrt(x/sum(x)) -
+            sqrt(y/sum(y))))
+   distance TRUE
+     PREFUN NA
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop TRUE
+      C_FUN FALSE
+    PACKAGE proxy
+       abcd FALSE
+    formula sqrt(sum_i (sqrt(x_i / sum_i x) - sqrt(y_i / sum_i y)) ^ 2)
+  reference Rao, C.R. (1995) Use of Hellinger distance in graphical
+            displays. In E.-M. Tiit, T. Kollo, & H. Niemi (Ed.):
+            Multivariate statistics and matrices in statistics. Leiden
+            (Netherland): Brill Academic Publisher. pp. 143--161.
+description The Hellinger distance.
+
+$fJaccard
+      names fJaccard, fuzzy_Jaccard
+        FUN R_fuzzy_dist
+   distance TRUE
+     PREFUN pr_fJaccard_prefun
+    POSTFUN NA
+    convert pr_dist2simil
+       type metric
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula sum_i (min{x_i, y_i} / max{x_i, y_i})
+  reference Miyamoto S. (1990). Fuzzy sets in information retrieval and
+            cluster analysis, Kluwer Academic Publishers, Dordrecht.
+description The fuzzy Jaccard dissimilarity (C implementation).
+

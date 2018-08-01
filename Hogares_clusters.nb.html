@@ -216,6 +216,10 @@ The following object is masked from &lt;U+393C&gt;&lt;U+3E31&gt;package:base&lt;
 re-encoding from CP1252
 re-encoding from CP1252</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwcm94eSlcbmxpYnJhcnkoY2JhKVxuYGBgIn0= -->
+<pre class="r"><code>library(proxy)
+library(cba)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -225,6 +229,20 @@ re-encoding from CP1252</code></pre>
 hogares_matrix &lt;- as.matrix(hogares.factor)
 x &lt;- as.dummy(hogares.factor)
 clust_cba &lt;- rockCluster(x,theta = 0.3,5,fun= &quot;dist&quot;,funArgs =list(method = &quot;Jaccard&quot;) )</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQ2x1c3RlcmluZzpcbmNvbXB1dGluZyBkaXN0YW5jZXMgLi4uXG4ifQ== -->
+<pre><code>Clustering:
+computing distances ...</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NsdXN0ZXJpbmdcbmhvZ2FyZXNfbWF0cml4IDwtIGFzLm1hdHJpeChob2dhcmVzLmZhY3RvcilcbnggPC0gYXMuZHVtbXkoaG9nYXJlcy5mYWN0b3IpXG5jbHVzdF9jYmEgPC0gcm9ja0NsdXN0ZXIoeCx0aGV0YSA9IDAuMyw0LGZ1bj0gXCJkaXN0XCIsZnVuQXJncyA9bGlzdChtZXRob2QgPSBcIkt1bGN6eW5za2kxXCIpIClcbmBgYCJ9 -->
+<pre class="r"><code>#Clustering
+hogares_matrix &lt;- as.matrix(hogares.factor)
+x &lt;- as.dummy(hogares.factor)
+clust_cba &lt;- rockCluster(x,theta = 0.3,4,fun= &quot;dist&quot;,funArgs =list(method = &quot;Kulczynski1&quot;) )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiQ2x1c3RlcmluZzpcbmNvbXB1dGluZyBkaXN0YW5jZXMgLi4uXG5jb21wdXRpbmcgbGlua3MgLi4uXG5jb21wdXRpbmcgY2x1c3RlcnMgLi4uXG4ifQ== -->
 <pre><code>Clustering:
@@ -237,370 +255,56 @@ computing clusters ...</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-</div>
-<div id="cluster-1" class="section level2">
-<h2>Cluster 1</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeV9kZWZpY2l0IDwtIGFzLmRhdGEuZnJhbWUodChzYXBwbHkocG92ZXJ0eS5iaW5hcnkuZGZbY2wxX2luZGV4LF0sdGFibGUpKSlcbmRlZmljaXRfbWF0cml4IDwtIGFzLm1hdHJpeChzdW1tYXJ5X2RlZmljaXQpXG5kZWZpY2l0X21hdHJpeCA8LSBtZWx0KHQoZGVmaWNpdF9tYXRyaXgpKVxuY29sbmFtZXMoZGVmaWNpdF9tYXRyaXgpIDwtIGMoXCJjb25kXCIsXCJwYXJhbVwiLFwiY291bnRcIilcbmBgYCJ9 -->
-<pre class="r"><code>summary_deficit &lt;- as.data.frame(t(sapply(poverty.binary.df[cl1_index,],table)))
-deficit_matrix &lt;- as.matrix(summary_deficit)
-deficit_matrix &lt;- melt(t(deficit_matrix))
-colnames(deficit_matrix) &lt;- c(&quot;cond&quot;,&quot;param&quot;,&quot;count&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKGNsdXN0X2NiYSRjbClcbmNsMV9pbmRleCA8LSB3aGljaChjbHVzdF9jYmEkY2w9PTEpXG5gYGAifQ== -->
-<pre class="r"><code>str(clust_cba$cl)
-cl1_index &lt;- which(clust_cba$cl==1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gM1xuZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdXG5nZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSkpICtcbmdlb21faGlzdG9ncmFtKGJpbnMgPSA1MCxmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkreGxpbSgwLCAxMjAwMClcbmBgYCJ9 -->
-<pre class="r"><code>field.nr &lt;- 3
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(bins = 50,fill=&quot;steelblue&quot;,color=&quot;black&quot;)+ggtitle(english_labels[field.nr])+xlim(0, 12000)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gN1xuZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdXG5nZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICtcbiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKStcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSBcInF1YWxcIiwgcGFsZXR0ZSA9IDEsIGRpcmVjdGlvbiA9IDEsXG4gIGFlc3RoZXRpY3MgPSBcImZpbGxcIilcbmBgYCJ9 -->
-<pre class="r"><code>field.nr &lt;- 7
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gOFxuZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdXG5nZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICtcbiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKStcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSBcInF1YWxcIiwgcGFsZXR0ZSA9IDEsIGRpcmVjdGlvbiA9IDEsXG4gIGFlc3RoZXRpY3MgPSBcImZpbGxcIilcbmBgYCJ9 -->
-<pre class="r"><code>field.nr &lt;- 8
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gOFxuZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdXG5nZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICtcbiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKStcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSBcInF1YWxcIiwgcGFsZXR0ZSA9IDEsIGRpcmVjdGlvbiA9IDEsXG4gIGFlc3RoZXRpY3MgPSBcImZpbGxcIilcbmBgYCJ9 -->
-<pre class="r"><code>field.nr &lt;- 8
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gOVxuZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdXG5nZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICtcbiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKStcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSBcInF1YWxcIiwgcGFsZXR0ZSA9IDEsIGRpcmVjdGlvbiA9IDEsXG4gIGFlc3RoZXRpY3MgPSBcImZpbGxcIilcbmBgYCJ9 -->
-<pre class="r"><code>field.nr &lt;- 9
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTBcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 10
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTFcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAxMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 11
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 10)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTJcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 12
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 20)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTNcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 13
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTRcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 14
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTVcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 15
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTZcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 16
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTdcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 17
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMThcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 18
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 1, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMTlcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 19
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMjBcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 20
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMjFcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 21
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMjJcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 22
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMjNcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 23
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gMjRcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 24
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVtX251bV9maWVsZHMgPC0gd2hpY2goIWMoMTo3OSkgJWluJSBwb3ZlcnR5LmJpbmFyeSlbd2hpY2goIWMoMTo3OSkgJWluJSBwb3ZlcnR5LmJpbmFyeSk+MjVdXG4jVmlldyhtZXRhZGF0YTJbcmVtX251bV9maWVsZHMsXSlcbmBgYCJ9 -->
-<pre class="r"><code>rem_num_fields &lt;- which(!c(1:79) %in% poverty.binary)[which(!c(1:79) %in% poverty.binary)&gt;25]
-#View(metadata2[rem_num_fields,])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNDlcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAxMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 49
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 10)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTBcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAxMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 50
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 10)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTFcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAxMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 51
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 10)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTJcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 52
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTNcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 53
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 20)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTRcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 54
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 20)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTVcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 55
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 20)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTZcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 56
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 20)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNTdcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArXG5nZW9tX2hpc3RvZ3JhbShmaWxsPVwic3RlZWxibHVlXCIsY29sb3I9XCJibGFja1wiLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 57
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]])) +
-geom_histogram(fill=&quot;steelblue&quot;,color=&quot;black&quot;,bins = 20)+ggtitle(english_labels[field.nr])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmllbGQubnIgPC0gNjJcbmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXVxuZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArXG4gIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gXCJxdWFsXCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLFxuICBhZXN0aGV0aWNzID0gXCJmaWxsXCIpXG5gYGAifQ== -->
-<pre class="r"><code>field.nr &lt;- 62
-data.gr &lt;- hogares.clean[cl1_index,field.nr,drop=F]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = &quot;qual&quot;, palette = 3, direction = 1,
-  aesthetics = &quot;fill&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KGRlZmljaXRfbWF0cml4W2MoMTozMCksXSwgYWVzKGZpbGw9Zm9yY2F0czo6ZmN0X3Jldihjb25kKSwgeT1jb3VudCwgeD1wYXJhbSkpICsgXG4gICAgZ2VvbV9iYXIoc3RhdD1cImlkZW50aXR5XCIpK2Nvb3JkX2ZsaXAoKStzY2FsZV9maWxsX21hbnVhbChcImNvbmRcIix2YWx1ZXMgPSBjKFwiZGVmaWNpdGFyeVwiID0gXCJyZWRcIiwgXCJub3RfZGVmaWNpdGFyeVwiID0gXCJsaWdodHNreWJsdWVcIikpXG5cbmBgYCJ9 -->
-<pre class="r"><code>ggplot(deficit_matrix[c(1:30),], aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
-    geom_bar(stat=&quot;identity&quot;)+coord_flip()+scale_fill_manual(&quot;cond&quot;,values = c(&quot;deficitary&quot; = &quot;red&quot;, &quot;not_deficitary&quot; = &quot;lightskyblue&quot;))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShwcm94eTo6ZGlzdClcblxuYGBgIn0= -->
+<pre class="r"><code>summary(proxy::dist)
 </code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gb2JqZWN0W1tpXV0gOiBvYmplY3Qgb2YgdHlwZSAnY2xvc3VyZScgaXMgbm90IHN1YnNldHRhYmxlXG4ifQ== -->
+<pre><code>Error in object[[i]] : object of type 'closure' is not subsettable</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KGRlZmljaXRfbWF0cml4W2MoMzE6NjApLF0sIGFlcyhmaWxsPWZvcmNhdHM6OmZjdF9yZXYoY29uZCksIHk9Y291bnQsIHg9cGFyYW0pKSArIFxuICAgIGdlb21fYmFyKHN0YXQ9XCJpZGVudGl0eVwiKStjb29yZF9mbGlwKCkrc2NhbGVfZmlsbF9tYW51YWwoXCJjb25kXCIsdmFsdWVzID0gYyhcImRlZmljaXRhcnlcIiA9IFwicmVkXCIsIFwibm90X2RlZmljaXRhcnlcIiA9IFwibGlnaHRza3libHVlXCIpKVxuXG5gYGAifQ== -->
-<pre class="r"><code>ggplot(deficit_matrix[c(31:60),], aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
-    geom_bar(stat=&quot;identity&quot;)+coord_flip()+scale_fill_manual(&quot;cond&quot;,values = c(&quot;deficitary&quot; = &quot;red&quot;, &quot;not_deficitary&quot; = &quot;lightskyblue&quot;))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJfREIkZ2V0X2VudHJ5KFwiSmFjY2FyZFwiKVxuXG5gYGAifQ== -->
+<pre class="r"><code>pr_DB$get_entry(&quot;Jaccard&quot;)
 </code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgbmFtZXMgSmFjY2FyZCwgYmluYXJ5LCBSZXlzc2FjLCBSb3V4XG4gICAgICAgIEZVTiBSX2JqYWNjYXJkXG4gICBkaXN0YW5jZSBGQUxTRVxuICAgICBQUkVGVU4gcHJfSmFjY2FyZF9wcmVmdW5cbiAgICBQT1NURlVOIE5BXG4gICAgY29udmVydCBwcl9zaW1pbDJkaXN0XG4gICAgICAgdHlwZSBiaW5hcnlcbiAgICAgICBsb29wIEZBTFNFXG4gICAgICBDX0ZVTiBUUlVFXG4gICAgUEFDS0FHRSBwcm94eVxuICAgICAgIGFiY2QgRkFMU0VcbiAgICBmb3JtdWxhIGEgLyAoYSArIGIgKyBjKVxuICByZWZlcmVuY2UgSmFjY2FyZCwgUC4gKDE5MDgpLiBOb3V2ZWxsZXMgcmVjaGVyY2hlcyBzdXIgbGEgZGlzdHJpYnV0aW9uXG4gICAgICAgICAgICBmbG9yYWxlLiBCdWxsLiBTb2MuIFZhdWQuIFNjaS4gTmF0LiwgNDQsIHBwLiAyMjMtLTI3MC5cbmRlc2NyaXB0aW9uIFRoZSBKYWNjYXJkIFNpbWlsYXJpdHkgKEMgaW1wbGVtZW50YXRpb24pIGZvciBiaW5hcnkgZGF0YS5cbiAgICAgICAgICAgIEl0IGlzIHRoZSBwcm9wb3J0aW9uIG9mIChUUlVFLCBUUlVFKSBwYWlycywgYnV0IG5vdFxuICAgICAgICAgICAgY29uc2lkZXJpbmcgKEZBTFNFLCBGQUxTRSkgcGFpcnMuIFNvIGl0IGNvbXBhcmVzIHRoZVxuICAgICAgICAgICAgaW50ZXJzZWN0aW9uIHdpdGggdGhlIHVuaW9uIG9mIG9iamVjdCBzZXRzLlxuIn0= -->
+<pre><code>      names Jaccard, binary, Reyssac, Roux
+        FUN R_bjaccard
+   distance FALSE
+     PREFUN pr_Jaccard_prefun
+    POSTFUN NA
+    convert pr_simil2dist
+       type binary
+       loop FALSE
+      C_FUN TRUE
+    PACKAGE proxy
+       abcd FALSE
+    formula a / (a + b + c)
+  reference Jaccard, P. (1908). Nouvelles recherches sur la distribution
+            florale. Bull. Soc. Vaud. Sci. Nat., 44, pp. 223--270.
+description The Jaccard Similarity (C implementation) for binary data.
+            It is the proportion of (TRUE, TRUE) pairs, but not
+            considering (FALSE, FALSE) pairs. So it compares the
+            intersection with the union of object sets.</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KGRlZmljaXRfbWF0cml4W2MoNjE6OTApLF0sIGFlcyhmaWxsPWZvcmNhdHM6OmZjdF9yZXYoY29uZCksIHk9Y291bnQsIHg9cGFyYW0pKSArIFxuICAgIGdlb21fYmFyKHN0YXQ9XCJpZGVudGl0eVwiKStjb29yZF9mbGlwKCkrc2NhbGVfZmlsbF9tYW51YWwoXCJjb25kXCIsdmFsdWVzID0gYyhcImRlZmljaXRhcnlcIiA9IFwicmVkXCIsIFwibm90X2RlZmljaXRhcnlcIiA9IFwibGlnaHRza3libHVlXCIpKVxuXG5gYGAifQ== -->
-<pre class="r"><code>ggplot(deficit_matrix[c(61:90),], aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
-    geom_bar(stat=&quot;identity&quot;)+coord_flip()+scale_fill_manual(&quot;cond&quot;,values = c(&quot;deficitary&quot; = &quot;red&quot;, &quot;not_deficitary&quot; = &quot;lightskyblue&quot;))
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2luayhcInNpbmstZXhhbXAudHh0XCIpXG5wcl9EQiRnZXRfZW50cmllcygpXG5zaW5rKClcbmBgYCJ9 -->
+<pre class="r"><code>sink(&quot;sink-examp.txt&quot;)
+pr_DB$get_entries()
+sink()</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCiMjQ2x1c3RlcmluZw0KYGBge3J9DQpzb3VyY2UoIkhvZ2FyZXNfZGF0YV9wcmVwYXJhdGlvbi5SIikNCmBgYA0KDQoNCmBgYHtyfQ0KI0NsdXN0ZXJpbmcNCmhvZ2FyZXNfbWF0cml4IDwtIGFzLm1hdHJpeChob2dhcmVzLmZhY3RvcikNCnggPC0gYXMuZHVtbXkoaG9nYXJlcy5mYWN0b3IpDQpjbHVzdF9jYmEgPC0gcm9ja0NsdXN0ZXIoeCx0aGV0YSA9IDAuMyw1LGZ1bj0gImRpc3QiLGZ1bkFyZ3MgPWxpc3QobWV0aG9kID0gIkphY2NhcmQiKSApDQpWaWV3KHRhYmxlKGNsdXN0X2NiYSRjbCkpDQpgYGANCg0KDQoNCiMjQ2x1c3RlciAxDQpgYGB7cn0NCnN1bW1hcnlfZGVmaWNpdCA8LSBhcy5kYXRhLmZyYW1lKHQoc2FwcGx5KHBvdmVydHkuYmluYXJ5LmRmW2NsMV9pbmRleCxdLHRhYmxlKSkpDQpkZWZpY2l0X21hdHJpeCA8LSBhcy5tYXRyaXgoc3VtbWFyeV9kZWZpY2l0KQ0KZGVmaWNpdF9tYXRyaXggPC0gbWVsdCh0KGRlZmljaXRfbWF0cml4KSkNCmNvbG5hbWVzKGRlZmljaXRfbWF0cml4KSA8LSBjKCJjb25kIiwicGFyYW0iLCJjb3VudCIpDQpgYGANCg0KYGBge3J9DQpzdHIoY2x1c3RfY2JhJGNsKQ0KY2wxX2luZGV4IDwtIHdoaWNoKGNsdXN0X2NiYSRjbD09MSkNCmBgYA0KDQoNCmBgYHtyfQ0KZmllbGQubnIgPC0gMw0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSkpICsNCmdlb21faGlzdG9ncmFtKGJpbnMgPSA1MCxmaWxsPSJzdGVlbGJsdWUiLGNvbG9yPSJibGFjayIpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKSt4bGltKDAsIDEyMDAwKQ0KYGBgDQoNCg0KDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDcNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMSwgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDgNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMSwgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KYGBge3J9DQpmaWVsZC5uciA8LSA4DQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dLGZpbGw9ZGF0YS5ncltbMV1dKSkgKw0KICBzdGF0X2NvdW50KCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pKw0KICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDMwLCBoanVzdCA9IDEpKStzY2FsZV9maWxsX2JyZXdlciggdHlwZSA9ICJxdWFsIiwgcGFsZXR0ZSA9IDEsIGRpcmVjdGlvbiA9IDEsDQogIGFlc3RoZXRpY3MgPSAiZmlsbCIpDQpgYGANCg0KDQoNCmBgYHtyfQ0KZmllbGQubnIgPC0gOQ0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICsNCiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKSsNCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSAicXVhbCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLA0KICBhZXN0aGV0aWNzID0gImZpbGwiKQ0KYGBgDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDEwDQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dLGZpbGw9ZGF0YS5ncltbMV1dKSkgKw0KICBzdGF0X2NvdW50KCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pKw0KICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDMwLCBoanVzdCA9IDEpKStzY2FsZV9maWxsX2JyZXdlciggdHlwZSA9ICJxdWFsIiwgcGFsZXR0ZSA9IDEsIGRpcmVjdGlvbiA9IDEsDQogIGFlc3RoZXRpY3MgPSAiZmlsbCIpDQpgYGANCmBgYHtyfQ0KZmllbGQubnIgPC0gMTENCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArDQpnZW9tX2hpc3RvZ3JhbShmaWxsPSJzdGVlbGJsdWUiLGNvbG9yPSJibGFjayIsYmlucyA9IDEwKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkNCmBgYA0KDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDEyDQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dKSkgKw0KZ2VvbV9oaXN0b2dyYW0oZmlsbD0ic3RlZWxibHVlIixjb2xvcj0iYmxhY2siLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pDQpgYGANCg0KDQoNCg0KDQoNCg0KYGBge3J9DQpmaWVsZC5uciA8LSAxMw0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICsNCiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKSsNCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSAicXVhbCIsIHBhbGV0dGUgPSAxLCBkaXJlY3Rpb24gPSAxLA0KICBhZXN0aGV0aWNzID0gImZpbGwiKQ0KYGBgDQoNCmBgYHtyfQ0KZmllbGQubnIgPC0gMTQNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMSwgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KDQoNCmBgYHtyfQ0KZmllbGQubnIgPC0gMTUNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMSwgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KDQoNCmBgYHtyfQ0KZmllbGQubnIgPC0gMTYNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMSwgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDE3DQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dLGZpbGw9ZGF0YS5ncltbMV1dKSkgKw0KICBzdGF0X2NvdW50KCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pKw0KICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDMwLCBoanVzdCA9IDEpKStzY2FsZV9maWxsX2JyZXdlciggdHlwZSA9ICJxdWFsIiwgcGFsZXR0ZSA9IDEsIGRpcmVjdGlvbiA9IDEsDQogIGFlc3RoZXRpY3MgPSAiZmlsbCIpDQpgYGANCmBgYHtyfQ0KZmllbGQubnIgPC0gMTgNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMSwgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDE5DQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dLGZpbGw9ZGF0YS5ncltbMV1dKSkgKw0KICBzdGF0X2NvdW50KCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pKw0KICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDMwLCBoanVzdCA9IDEpKStzY2FsZV9maWxsX2JyZXdlciggdHlwZSA9ICJxdWFsIiwgcGFsZXR0ZSA9IDMsIGRpcmVjdGlvbiA9IDEsDQogIGFlc3RoZXRpY3MgPSAiZmlsbCIpDQpgYGANCg0KYGBge3J9DQpmaWVsZC5uciA8LSAyMA0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICsNCiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKSsNCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSAicXVhbCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLA0KICBhZXN0aGV0aWNzID0gImZpbGwiKQ0KYGBgDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDIxDQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dLGZpbGw9ZGF0YS5ncltbMV1dKSkgKw0KICBzdGF0X2NvdW50KCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pKw0KICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDMwLCBoanVzdCA9IDEpKStzY2FsZV9maWxsX2JyZXdlciggdHlwZSA9ICJxdWFsIiwgcGFsZXR0ZSA9IDMsIGRpcmVjdGlvbiA9IDEsDQogIGFlc3RoZXRpY3MgPSAiZmlsbCIpDQpgYGANCg0KYGBge3J9DQpmaWVsZC5uciA8LSAyMg0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSxmaWxsPWRhdGEuZ3JbWzFdXSkpICsNCiAgc3RhdF9jb3VudCgpK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKSsNCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSAzMCwgaGp1c3QgPSAxKSkrc2NhbGVfZmlsbF9icmV3ZXIoIHR5cGUgPSAicXVhbCIsIHBhbGV0dGUgPSAzLCBkaXJlY3Rpb24gPSAxLA0KICBhZXN0aGV0aWNzID0gImZpbGwiKQ0KYGBgDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDIzDQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dLGZpbGw9ZGF0YS5ncltbMV1dKSkgKw0KICBzdGF0X2NvdW50KCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pKw0KICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDMwLCBoanVzdCA9IDEpKStzY2FsZV9maWxsX2JyZXdlciggdHlwZSA9ICJxdWFsIiwgcGFsZXR0ZSA9IDMsIGRpcmVjdGlvbiA9IDEsDQogIGFlc3RoZXRpY3MgPSAiZmlsbCIpDQpgYGANCmBgYHtyfQ0KZmllbGQubnIgPC0gMjQNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMywgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KDQpgYGB7cn0NCnJlbV9udW1fZmllbGRzIDwtIHdoaWNoKCFjKDE6NzkpICVpbiUgcG92ZXJ0eS5iaW5hcnkpW3doaWNoKCFjKDE6NzkpICVpbiUgcG92ZXJ0eS5iaW5hcnkpPjI1XQ0KI1ZpZXcobWV0YWRhdGEyW3JlbV9udW1fZmllbGRzLF0pDQpgYGANCmBgYHtyfQ0KZmllbGQubnIgPC0gNDkNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArDQpnZW9tX2hpc3RvZ3JhbShmaWxsPSJzdGVlbGJsdWUiLGNvbG9yPSJibGFjayIsYmlucyA9IDEwKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkNCmBgYA0KYGBge3J9DQpmaWVsZC5uciA8LSA1MA0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSkpICsNCmdlb21faGlzdG9ncmFtKGZpbGw9InN0ZWVsYmx1ZSIsY29sb3I9ImJsYWNrIixiaW5zID0gMTApK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKQ0KYGBgDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDUxDQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dKSkgKw0KZ2VvbV9oaXN0b2dyYW0oZmlsbD0ic3RlZWxibHVlIixjb2xvcj0iYmxhY2siLGJpbnMgPSAxMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pDQpgYGANCmBgYHtyfQ0KZmllbGQubnIgPC0gNTINCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMywgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KYGBge3J9DQpmaWVsZC5uciA8LSA1Mw0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSkpICsNCmdlb21faGlzdG9ncmFtKGZpbGw9InN0ZWVsYmx1ZSIsY29sb3I9ImJsYWNrIixiaW5zID0gMjApK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKQ0KYGBgDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDU0DQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dKSkgKw0KZ2VvbV9oaXN0b2dyYW0oZmlsbD0ic3RlZWxibHVlIixjb2xvcj0iYmxhY2siLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pDQpgYGANCmBgYHtyfQ0KZmllbGQubnIgPC0gNTUNCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0pKSArDQpnZW9tX2hpc3RvZ3JhbShmaWxsPSJzdGVlbGJsdWUiLGNvbG9yPSJibGFjayIsYmlucyA9IDIwKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkNCmBgYA0KYGBge3J9DQpmaWVsZC5uciA8LSA1Ng0KZGF0YS5nciA8LSBob2dhcmVzLmNsZWFuW2NsMV9pbmRleCxmaWVsZC5ucixkcm9wPUZdDQpnZ3Bsb3QoZGF0YS5nciwgYWVzKGRhdGEuZ3JbWzFdXSkpICsNCmdlb21faGlzdG9ncmFtKGZpbGw9InN0ZWVsYmx1ZSIsY29sb3I9ImJsYWNrIixiaW5zID0gMjApK2dndGl0bGUoZW5nbGlzaF9sYWJlbHNbZmllbGQubnJdKQ0KYGBgDQpgYGB7cn0NCmZpZWxkLm5yIDwtIDU3DQpkYXRhLmdyIDwtIGhvZ2FyZXMuY2xlYW5bY2wxX2luZGV4LGZpZWxkLm5yLGRyb3A9Rl0NCmdncGxvdChkYXRhLmdyLCBhZXMoZGF0YS5ncltbMV1dKSkgKw0KZ2VvbV9oaXN0b2dyYW0oZmlsbD0ic3RlZWxibHVlIixjb2xvcj0iYmxhY2siLGJpbnMgPSAyMCkrZ2d0aXRsZShlbmdsaXNoX2xhYmVsc1tmaWVsZC5ucl0pDQpgYGANCmBgYHtyfQ0KZmllbGQubnIgPC0gNjINCmRhdGEuZ3IgPC0gaG9nYXJlcy5jbGVhbltjbDFfaW5kZXgsZmllbGQubnIsZHJvcD1GXQ0KZ2dwbG90KGRhdGEuZ3IsIGFlcyhkYXRhLmdyW1sxXV0sZmlsbD1kYXRhLmdyW1sxXV0pKSArDQogIHN0YXRfY291bnQoKStnZ3RpdGxlKGVuZ2xpc2hfbGFiZWxzW2ZpZWxkLm5yXSkrDQogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gMzAsIGhqdXN0ID0gMSkpK3NjYWxlX2ZpbGxfYnJld2VyKCB0eXBlID0gInF1YWwiLCBwYWxldHRlID0gMywgZGlyZWN0aW9uID0gMSwNCiAgYWVzdGhldGljcyA9ICJmaWxsIikNCmBgYA0KDQpgYGB7cn0NCmdncGxvdChkZWZpY2l0X21hdHJpeFtjKDE6MzApLF0sIGFlcyhmaWxsPWZvcmNhdHM6OmZjdF9yZXYoY29uZCksIHk9Y291bnQsIHg9cGFyYW0pKSArIA0KICAgIGdlb21fYmFyKHN0YXQ9ImlkZW50aXR5IikrY29vcmRfZmxpcCgpK3NjYWxlX2ZpbGxfbWFudWFsKCJjb25kIix2YWx1ZXMgPSBjKCJkZWZpY2l0YXJ5IiA9ICJyZWQiLCAibm90X2RlZmljaXRhcnkiID0gImxpZ2h0c2t5Ymx1ZSIpKQ0KDQpgYGANCg0KYGBge3J9DQpnZ3Bsb3QoZGVmaWNpdF9tYXRyaXhbYygzMTo2MCksXSwgYWVzKGZpbGw9Zm9yY2F0czo6ZmN0X3Jldihjb25kKSwgeT1jb3VudCwgeD1wYXJhbSkpICsgDQogICAgZ2VvbV9iYXIoc3RhdD0iaWRlbnRpdHkiKStjb29yZF9mbGlwKCkrc2NhbGVfZmlsbF9tYW51YWwoImNvbmQiLHZhbHVlcyA9IGMoImRlZmljaXRhcnkiID0gInJlZCIsICJub3RfZGVmaWNpdGFyeSIgPSAibGlnaHRza3libHVlIikpDQoNCmBgYA0KDQpgYGB7cn0NCmdncGxvdChkZWZpY2l0X21hdHJpeFtjKDYxOjkwKSxdLCBhZXMoZmlsbD1mb3JjYXRzOjpmY3RfcmV2KGNvbmQpLCB5PWNvdW50LCB4PXBhcmFtKSkgKyANCiAgICBnZW9tX2JhcihzdGF0PSJpZGVudGl0eSIpK2Nvb3JkX2ZsaXAoKStzY2FsZV9maWxsX21hbnVhbCgiY29uZCIsdmFsdWVzID0gYygiZGVmaWNpdGFyeSIgPSAicmVkIiwgIm5vdF9kZWZpY2l0YXJ5IiA9ICJsaWdodHNreWJsdWUiKSkNCg0KYGBgDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCiMjQ2x1c3RlcmluZw0KYGBge3J9DQpzb3VyY2UoIkhvZ2FyZXNfZGF0YV9wcmVwYXJhdGlvbi5SIikNCmxpYnJhcnkocHJveHkpDQpsaWJyYXJ5KGNiYSkNCmBgYA0KDQoNCmBgYHtyfQ0KI0NsdXN0ZXJpbmcNCmhvZ2FyZXNfbWF0cml4IDwtIGFzLm1hdHJpeChob2dhcmVzLmZhY3RvcikNCnggPC0gYXMuZHVtbXkoaG9nYXJlcy5mYWN0b3IpDQpjbHVzdF9jYmEgPC0gcm9ja0NsdXN0ZXIoeCx0aGV0YSA9IDAuMyw1LGZ1bj0gImRpc3QiLGZ1bkFyZ3MgPWxpc3QobWV0aG9kID0gIkphY2NhcmQiKSApDQpWaWV3KHRhYmxlKGNsdXN0X2NiYSRjbCkpDQpgYGANCg0KDQpgYGB7cn0NCiNDbHVzdGVyaW5nDQpob2dhcmVzX21hdHJpeCA8LSBhcy5tYXRyaXgoaG9nYXJlcy5mYWN0b3IpDQp4IDwtIGFzLmR1bW15KGhvZ2FyZXMuZmFjdG9yKQ0KY2x1c3RfY2JhIDwtIHJvY2tDbHVzdGVyKHgsdGhldGEgPSAwLjMsNCxmdW49ICJkaXN0IixmdW5BcmdzID1saXN0KG1ldGhvZCA9ICJLdWxjenluc2tpMSIpICkNClZpZXcodGFibGUoY2x1c3RfY2JhJGNsKSkNCmBgYA0KDQpgYGB7cn0NCg0Kc3VtbWFyeShwcl9EQikNCnByX0RCJGdldF9lbnRyeSgiSmFjY2FyZCIpDQpwcm94eTo6cHJfREIkDQpgYGANCg0KYGBge3J9DQpwcl9EQiRnZXRfZW50cnkoIkphY2NhcmQiKQ0KYGBgDQpgYGB7cn0NCnNpbmsoInNpbmstZXhhbXAudHh0IikNCnByX0RCJGdldF9lbnRyaWVzKCkNCnNpbmsoKQ0KYGBgDQoNCg==</div>
 
 
 
