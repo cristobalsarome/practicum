@@ -1,6 +1,6 @@
 ##Loading packages
 
-## ---- preprocessing
+
 #install.packages("ggplot2")
 library(foreign)
 library(ggplot2)
@@ -13,7 +13,9 @@ library(xlsx)
 #install.packages("klaR")
 library(klaR)#clustering for categorical variables
 #install.packages("cba")
-library(cba)
+library(cba) #RockCluster
+
+
 ##Data preprocessing
 
 #hogares (homes)
@@ -29,7 +31,7 @@ hogares.df <- read.spss(hogares.filename,to.data.frame = T)
 #LOST FIELD ATTRIBUTES SUBSETING
 hogares.clean <- hogares.df[!is.na(hogares.df$PON_HOG),]
 
-metadata <- as.data.frame(hogares.attr[c(2,3)])
+metadata <- as.data.frame(hogares.attr[c(2,3)],stringsAsFactors=F)
 metadata$field_nr <- c(1:length(metadata[[1]]))
 metadata$type <- as.vector(sapply(hogares.df,class))
 metadata$levels <- sapply(hogares.df,levels) %>% sapply(paste,collapse="; ") %>% as.vector()
@@ -38,7 +40,7 @@ metadata$levels <- sapply(hogares.df,levels) %>% sapply(paste,collapse="; ") %>%
 
 
 #We add some information to metadata
-metadata2 <- as.data.frame(hogares.attr[c(2,3)])
+metadata2 <- as.data.frame(hogares.attr[c(2,3)],stringsAsFactors=F)
 metadata2$field_nr <- c(1:length(metadata2[[1]]))
 metadata2$type <- as.vector(sapply(hogares.clean,class))
 metadata2$levels <- sapply(hogares.clean,levels) %>% sapply(paste,collapse="; ") %>% as.vector()
@@ -47,7 +49,7 @@ metadata2$levels <- sapply(hogares.clean,levels) %>% sapply(paste,collapse="; ")
 #We import the english labels from the excel file
 english_labels <- read.xlsx("metadata_modified.xlsx",1,stringsAsFactors=F)[[3]]
 #write only once #write.csv(english_labels,file = "english_labels.csv")
-metadata2 <- cbind.data.frame( english_labels,metadata2)
+metadata2 <- cbind.data.frame( english_labels,metadata2,stringsAsFactors=F)
 metadata2 <- metadata2[c(4,1:3,5,6)]
 #We change the field names of the data frame for the english ones
 colnames(hogares.clean) <- english_labels
@@ -91,6 +93,4 @@ hogares.clean[poverty.binary] <- poverty.binary.df
 #we generate a list of fields that are factors
 hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
 hogares.factor <- hogares.factor[-1] #remove the survey year
-
-## ---- end 
 
