@@ -1,0 +1,55 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+source("Hogares_data_preparation.R")
+```
+```{r}
+#fields of interest
+FoI <- c(7,9,15,16,17,18,21,22,23,24,43:48,49,55,58,59,60,61,62,68)
+metadata2$english_labels[FoI]
+```
+```{r}
+
+matrix_1_2 <- as.matrix(table(hogares.clean[FoI[c(1,2)]]))
+melt_1_2 <- melt(matrix_1_2)
+melt_1_2 <- melt_1_2[melt_1_2$value!=0,]
+ggplot(data = melt_1_2, aes(x=socio_ec_class_7, y=work_class, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "GnBu",direction = 1)
+```
+
+```{r}
+field1 <- FoI[1]
+field2 <- FoI[3]
+plot_matrix <- as.matrix(table(hogares.clean[c(field1,field2)]))
+plot_melt <- melt(plot_matrix)
+plot_melt <- plot_melt[plot_melt$value!=0,]
+#names(plot_melt)
+ggplot(data = plot_melt, aes(x=socio_ec_class_7, y=region, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "GnBu",direction = 1)
+```
+
+```{r}
+field1 <- 15
+field2 <-22
+plot_matrix <- as.matrix(table(hogares.clean[c(field1,field2)]))
+plot_melt <- melt(plot_matrix)
+plot_melt <- plot_melt[plot_melt$value!=0,]
+plot_names <- names(plot_melt)
+ggplot(data = plot_melt, aes(x=plot_melt[[1]],y=plot_melt[[2]], fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "GnBu",direction = 1)+xlab(plot_names[1])+ylab(plot_names[2])
+```
+```{r}
+field1 <- 49
+field2 <-9
+plot_matrix <- as.matrix(table(hogares.clean[c(field1,field2)]))
+plot_melt <- melt(plot_matrix)
+plot_melt <- plot_melt[plot_melt$value!=0,]
+plot_names <- names(plot_melt)
+ggplot(data = plot_melt, aes(x=plot_melt[[1]],y=plot_melt[[2]], fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "GnBu",direction = 1)+xlab(plot_names[1])+ylab(plot_names[2])+theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
