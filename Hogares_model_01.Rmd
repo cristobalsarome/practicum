@@ -67,16 +67,14 @@ dev.off()
 #3rd ITERATION
 #Select target and predictor variables
 target_field <- 62
-predictor_fields <- c(3:42)
+predictor_fields <- c(9,13:15,17:24)
+#metadata2$english_labels[predictor_fields]
 dtree_formula3 <- as.formula(
   paste(metadata2$english_labels[target_field],   paste(metadata2$english_labels[predictor_fields],collapse = "+"),sep  = "~"))
-
+dtree_model3 <- rpart(dtree_formula3, method="class", data=hogares.clean[training_index,],control = rpart.control(cp = 0.0015))
+printcp(dtree_model3)
 ```
 
-```{r}
-dtree_model3 <- rpart(dtree_formula3, method="class", data=hogares.clean[training_index,])
-printcp(dtree_model)
-```
 ```{r}
 png(filename="model_01_dtree3.png", 
     units="in", 
@@ -84,8 +82,9 @@ png(filename="model_01_dtree3.png",
     height=4, 
     pointsize=12, 
     res=720)
-rpart.plot(dtree_model3, extra=104, fallen.leaves = T, type=4)
+rpart.plot(dtree_model3, extra=104, fallen.leaves = T, type=4,box.palette = list("Greens", "Grays", "Reds"))
 dev.off()
+shell("model_01_dtree3.png")
 ```
 
 
