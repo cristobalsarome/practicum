@@ -43,6 +43,34 @@ plot(g1)
 plot(g2)
 ```
 ```{r}
+field1 <- 14 #urban_aglom
+field2 <-7 #soc_ec_class
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]))+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+g2 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+plot(g1)
+plot(g2)
+```
+```{r}
+field1 <- 18
+field2 <-7
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]))+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+g2 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+plot(g1)
+plot(g2)
+```
+```{r}
+field1 <- 14 #urban_aglom
+field2 <-7 #soc_ec_class
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]))+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+g2 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+plot(g1)
+plot(g2)
+```
+
+```{r}
 field1 <- 15
 field2 <-22
 plot_matrix <- as.matrix(table(hogares.clean[c(field1,field2)]))
