@@ -94,3 +94,6 @@ hogares.clean[poverty.binary] <- poverty.binary.df
 hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
 hogares.factor <- hogares.factor[-1] #remove the survey year
 
+#levels translation food_safety_category
+levels(hogares.clean$food_safety_category) <- c("safety","mod_unsafety","unsafety")
+

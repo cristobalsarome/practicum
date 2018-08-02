@@ -1,0 +1,93 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+source("Hogares_data_preparation.R")
+```
+```{r}
+#fields of interest
+fields_of_interest <- c(7,9,15,16,17,18,21,22,23,24,43:48,49,55,58,59,60,61,62,68)
+#View(metadata2[fields_of_interest,])
+```
+```{r}
+library(rpart)
+library(caret)
+library(rpart.plot)
+```
+
+```{r}
+#Create test and training sets
+set.seed(1122)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+```
+```{r}
+#Select target and predictor variables
+target_field <- 62
+predictor_fields <- c(15,17,21)
+dtree_formula <- as.formula(
+  paste(metadata2$english_labels[target_field],   paste(metadata2$english_labels[predictor_fields],collapse = "+"),sep  = "~"))
+
+```
+```{r}
+dtree_model <- rpart(dtree_formula, method="class", data=hogares.clean[training_index,])
+summary(dtree_model)
+```
+```{r}
+rpart.plot(dtree_model, extra=104, fallen.leaves = T, type=4)
+```
+```{r}
+#Select target and predictor variables
+target_field <- 62
+predictor_fields <- c(3:42,44:50)
+dtree_formula2 <- as.formula(
+  paste(metadata2$english_labels[target_field],   paste(metadata2$english_labels[predictor_fields],collapse = "+"),sep  = "~"))
+
+```
+
+```{r}
+dtree_model <- rpart(dtree_formula2, method="class", data=hogares.clean[training_index,])
+printcp(dtree_model)
+```
+```{r}
+png(filename="model_01_dtree.png", 
+    units="in", 
+    width=5, 
+    height=4, 
+    pointsize=12, 
+    res=720)
+rpart.plot(dtree_model, extra=104, fallen.leaves = T, type=4)
+dev.off()
+```
+
+```{r}
+#3rd ITERATION
+#Select target and predictor variables
+target_field <- 62
+predictor_fields <- c(3:42)
+dtree_formula3 <- as.formula(
+  paste(metadata2$english_labels[target_field],   paste(metadata2$english_labels[predictor_fields],collapse = "+"),sep  = "~"))
+
+```
+
+```{r}
+dtree_model3 <- rpart(dtree_formula3, method="class", data=hogares.clean[training_index,])
+printcp(dtree_model)
+```
+```{r}
+png(filename="model_01_dtree3.png", 
+    units="in", 
+    width=5, 
+    height=4, 
+    pointsize=12, 
+    res=720)
+rpart.plot(dtree_model3, extra=104, fallen.leaves = T, type=4)
+dev.off()
+```
+
+
+
+
