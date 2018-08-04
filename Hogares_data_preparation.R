@@ -95,5 +95,5 @@ hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
 hogares.factor <- hogares.factor[-1] #remove the survey year
 
 #levels translation food_safety_category
-levels(hogares.clean$food_safety_category) <- c("safety","mod_unsafety","unsafety")
-
+levels(hogares.clean$food_safety_category) <- c("safety","some_unsafety","unsafety")
+hogares.clean$food_safety_category <- factor(hogares.clean$food_safety_category,ordered=T)

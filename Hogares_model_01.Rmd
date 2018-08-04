@@ -3,13 +3,11 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-
-
 ```{r}
 source("Hogares_data_preparation.R")
+
 ```
 ```{r}
-#fields of interest
 fields_of_interest <- c(7,9,15,16,17,18,21,22,23,24,43:48,49,55,58,59,60,61,62,68)
 #View(metadata2[fields_of_interest,])
 ```
@@ -18,11 +16,27 @@ library(rpart)
 library(caret)
 library(rpart.plot)
 ```
+```{r}
+#Function to wraps long split labels over multiple lines.
+#Source: https://stackoverflow.com/questions/22618751/rpart-plot-text-shorter
+split_fun <- function(x, labs, digits, varlen, faclen)
+{
+    # replace commas with spaces (needed for strwrap)
+    labs <- gsub(",", " ", labs)
+    for(i in 1:length(labs)) {
+        # split labs[i] into multiple lines
+        labs[i] <- paste(strwrap(labs[i], width=25), collapse="\n")
+    }
+    labs
+}
+
+#prp(tree, split.fun=split.fun)
+```
 
 ```{r}
 #Create test and training sets
-set.seed(1122)
-training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+set.seed(1234)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.8,list = F)
 ```
 ```{r}
 #Select target and predictor variables
@@ -87,6 +101,40 @@ dev.off()
 shell("model_01_dtree3.png")
 ```
 
+```{r}
+#4th ITERATION
+#Select target and predictor variables
+target_field <- 62
+predictor_fields <- c(9,13:15,17:24)
+model_fields <- c(target_field,predictor_fields)
+#metadata2$english_labels[predictor_fields]
+#to make the code more concise we simplify the formula and select the 
+#predictors subseting the imput dataset
+dtree4_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
+#We create the decision tree model using rpart function
+dtree4_model <- rpart(dtree4_formula, method="class", data=hogares.clean[training_index,model_fields],control = rpart.control(cp = 0.002))
+printcp(dtree4_model)
+```
+```{r}
+png(filename="model_01_dtree4.png", 
+    units="in", 
+    width=5, 
+    height=4, 
+    pointsize=12, 
+    res=720)
+rpart.plot(dtree4_model, extra=104, fallen.leaves = T, type=4,split.fun=split_fun,faclen = 30,box.palette = list("Greens", "Grays", "Reds"))
+dev.off()
+shell("model_01_dtree4.png")
+```
 
+```{r}
+pred<-predict(dtree4_model,hogares.clean[-training_index,model_fields],type = "class")
+tree3_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
+tree3_conf_matrix
 
+```
+```{r}
+table(hogares.clean[-training_index,target_field])
+table(hogares.clean[training_index,target_field])
+```
 

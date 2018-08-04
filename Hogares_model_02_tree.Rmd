@@ -1,0 +1,109 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+source("Hogares_data_preparation.R")
+
+
+```
+
+```{r}
+library(rpart)
+library(caret)
+library(rpart.plot)
+library(stringr)
+```
+```{r}
+#Function to wraps long split labels over multiple lines.
+#Source: https://stackoverflow.com/questions/22618751/rpart-plot-text-shorter
+split_fun <- function(x, labs, digits, varlen, faclen)
+{
+    # replace commas with spaces (needed for strwrap)
+    labs <- gsub(",", " ", labs)
+    for(i in 1:length(labs)) {
+        # split labs[i] into multiple lines
+        labs[i] <- paste(strwrap(labs[i], width=25), collapse="\n")
+    }
+    labs
+}
+
+#prp(tree, split.fun=split.fun)
+```
+
+```{r}
+#Create test and training sets
+set.seed(1234)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+```
+```{r}
+#Select target and predictor variables
+target_field <- 62
+predictor_fields <- c(15,17,21)
+dtree_formula <- as.formula(
+  paste(metadata2$english_labels[target_field],   paste(metadata2$english_labels[predictor_fields],collapse = "+"),sep  = "~"))
+
+```
+
+```{r}
+#Calculatin priors
+food_sec_table <- table(hogares.clean[,target_field])
+food_sec_priors <- as.vector(food_sec_table)/sum(food_sec_table)
+```
+
+```{r}
+#5th ITERATION
+#Select target and predictor variables
+target_field <- 62
+predictor_fields <- c(9,13:15,17:24)
+model_fields <- c(target_field,predictor_fields)
+#metadata2$english_labels[predictor_fields]
+#to make the code more concise we simplify the formula and select the 
+#predictors subseting the imput dataset
+tree5_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
+#We create the decision tree model using rpart function
+tree5_model <- rpart(tree5_formula, method="class", data=hogares.clean[training_index,model_fields],control = rpart.control(cp = 0.01),, parms = list(prior = c(.4,.35,.25)))
+printcp(tree5_model)
+```
+```{r}
+png(filename="model_01_tree5.png", 
+    units="in", 
+    width=5, 
+    height=4, 
+    pointsize=12, 
+    res=720)
+rpart.plot(tree5_model, extra=104, fallen.leaves = T, type=4,split.fun=split_fun,faclen = 30,box.palette = list("Greens", "Grays", "Reds"))
+dev.off()
+shell("model_01_tree5.png")
+```
+
+```{r}
+#Confusion matrix test set
+pred<-predict(tree5_model,hogares.clean[-training_index,model_fields],type = "class")
+tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
+performance_log <- data.frame(name=names(tree5_conf_matrix$overall),
+                              value=tree5_conf_matrix$overall)
+byclass_table <- melt(tree5_conf_matrix$byClass)
+
+field_name_table <- function(row) paste(row[1],row[2],sep = "_") %>% str_replace( "Class: ", "")
+byclass_table[1] <- apply(byclass_table[c(1,2)],1, field_name_table)
+byclass_table[2] <- NULL
+names(byclass_table) <- names(performance_log)
+performance_log <- rbind.data.frame(performance_log,byclass_table)
+tree5_conf_matrix
+
+```
+```{r}
+#Confusion matrix training set
+pred<-predict(tree5_model,hogares.clean[training_index,model_fields],type = "class")
+tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[training_index,target_field])
+tree5_conf_matrix
+
+```
+
+```{r}
+table(hogares.clean[,target_field])
+
+```
+
