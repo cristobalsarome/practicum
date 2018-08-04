@@ -59,41 +59,45 @@ tree5_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
 food_sec_table <- table(hogares.clean[,target_field])
 food_sec_priors <- as.vector(food_sec_table)/sum(food_sec_table)
 prior_list <- list(food_sec_priors,c(0.7,0.2,0.1),c(0.5,0.3,0.2),
-                   c(0.4,0.35,0.25),c(0.34,0.33,0.33))
+                   c(0.4,0.35,0.25),c(0.34,0.33,0.33),c(0.25,0.4,0.35))
 ```
 
 ```{r}
 
-for (model_prior in prior_list[1]) {
-
-#We create a dataframe to log the parameters and performance of different models
-tree_cp <- 0.01 #complexity parameter
-performance_log <- data.frame(name=c("cp","prior_1","prior_2","prior_3"),
-                              value=c(tree_cp,model_prior[1],model_prior[2],model_prior[3]))
-
-
-#We create the decision tree model using rpart function
-tree5_model <- rpart(tree5_formula, method="class", data=hogares.clean[training_index,model_fields],control = rpart.control(cp = 0.01),, parms = list(prior = c(.4,.35,.25)))
-printcp(tree5_model)
-#Confusion matrix test set
-pred<-predict(tree5_model,hogares.clean[-training_index,model_fields],type = "class")
-tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
-#we log the different metrics of performance so we can find
-#the best value for parameter tuning
-performance_log <- data.frame(name=names(tree5_conf_matrix$overall),
-                              value=tree5_conf_matrix$overall)
-byclass_table <- melt(tree5_conf_matrix$byClass)
-
-field_name_table <- function(row) paste(row[1],row[2],sep = "_") %>% str_replace( "Class: ", "")
-byclass_table[1] <- apply(byclass_table[c(1,2)],1, field_name_table)
-byclass_table[2] <- NULL
-names(byclass_table) <- names(performance_log)
-performance_log <- rbind.data.frame(performance_log,byclass_table)
-tree5_conf_matrix
-#Confusion matrix training set
-pred<-predict(tree5_model,hogares.clean[training_index,model_fields],type = "class")
-tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[training_index,target_field])
+sink("tree5_performance.txt",append = T)#,type = "message")
+for (model_prior in prior_list[6]) {
+  tree_cp <- 0.01 #complexity parameter
+  
+  #We log the parameters and performance of different models in a text file
+  writeLines("----#----#----#----#----#----#----#----#----#----#----#----#----")
+  writeLines(as.character(Sys.time()))
+  abr_time <- Sys.time() %>% str_replace_all(":","")%>% str_replace_all(" ","_")
+  writeLines(paste0("cp_parameter: ",tree_cp))
+  output_levels <- paste0(levels(hogares.clean[[target_field]]),collapse = ", ")
+  writeLines(paste0("output_levels: ",output_levels))
+  writeLines(paste0("priors_parameter: ",paste(round( model_prior,digits = 6),collapse = ",")))
+  
+  tree_cp <- 0.01 #complexity parameter
+  #We create the decision tree model using rpart function
+  tree5_model <- rpart(tree5_formula, method="class", data=hogares.clean[training_index,model_fields],control = rpart.control(cp = 0.01), parms = list(prior = model_prior))
+  writeLines("\n")
+  writeLines("--------COMPLEXITY PARAMETER TABLE--------")
+  printcp(tree5_model)
+  #Confusion matrix test set
+  writeLines("\n")
+  writeLines("--------TEST SET - CONFUSION MATRIX--------")
+  pred<-predict(tree5_model,hogares.clean[-training_index,model_fields],type = "class")
+  tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
+  print(tree5_conf_matrix)
+  #Confusion matrix training set
+  writeLines("\n")
+  writeLines("--------TRAINING SET - CONFUSION MATRIX--------")
+  pred<-predict(tree5_model,hogares.clean[training_index,model_fields],type = "class")
+  tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[training_index,target_field])
+  print(tree5_conf_matrix)
+  writeLines("\n\n\n")
 }
+sink()
 
 ```
 
