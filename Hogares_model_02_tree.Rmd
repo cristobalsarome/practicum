@@ -98,14 +98,21 @@ for (tree_cp in c(0.2,0.1,0.05)) {
     
     #We create the decision tree model using rpart function
     tree5_model <- rpart(tree5_formula, method="class", data=hogares.clean[training_index,model_fields],control = rpart.control(cp = 0.01), parms = list(prior = model_prior))
-    model_sum <- summary(tree5_model)%>%  invisible
-    print(model_sum$variable.importance)
+    
+    #We log Variable importance
+    writeLines("Variable Importance:")
+    variable_importance <- ""
+    capture.output(model_sum <- summary(tree5_model))
+    if(!is.null(model_sum$variable.importance)){
+    variable_importance <- cbind(names(model_sum$variable.importance), as.character(round(model_sum$variable.importance,digits = 5)))
+    }
+    print(variable_importance)
     writeLines("\n")
     writeLines("-----COMPLEXITY PARAMETER TABLE-----")
     printcp(tree5_model)
-    #Confusion matrix test set
-    
     writeLines("\n")
+    
+    #Confusion matrix test set
     writeLines("-----TEST SET - CONFUSION MATRIX-----")
     pred<-predict(tree5_model,hogares.clean[-training_index,model_fields],type = "class")
     tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
