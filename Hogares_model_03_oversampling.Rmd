@@ -33,20 +33,17 @@ split_fun <- function(x, labs, digits, varlen, faclen)
 #prp(tree, split.fun=split.fun)
 ```
 
-```{r}
-#Create test and training sets
-set.seed(1234)
-training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
-```
+
 
 
 
 
 ```{r}
-#5th ITERATION
+#6th ITERATION
 #Select target and predictor variables
 target_field <- 62
-predictor_fields <- c(9,13:15,17:24)
+#predictor_fields <- c(9,13:15,17:24)#with work_class
+predictor_fields <- c(13:15,17,18,21:24)#without work_class
 model_fields <- c(target_field,predictor_fields)
 #metadata2$english_labels[predictor_fields]
 #to make the code more concise we simplify the formula and select the 
@@ -54,20 +51,30 @@ model_fields <- c(target_field,predictor_fields)
 tree5_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
 
 ```
+
 ```{r}
-#Calculating original priors
-food_sec_table <- table(hogares.clean[,target_field])
-food_sec_priors <- as.vector(food_sec_table)/sum(food_sec_table)
-prior_list <- list(food_sec_priors,c(0.7,0.2,0.1),c(0.5,0.3,0.2),
-                   c(0.4,0.35,0.25),c(0.34,0.33,0.33),c(0.25,0.4,0.35))
+
 ```
+
+
+
+```{r}
+#Create test and training sets
+
+set.seed(1234)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+UPsampled_data <- caret::upSample(hogares.clean[training_index,],hogares.clean[training_index,target_field])
+UPsampled_data <- UPsampled_data[-which(names(UPsampled_data) == "Class")]
+table(UPsampled_data$food_safety_category)
+```
+
 
 ```{r}
 tree_cp <- 0.01 #complexity parameter
 sink("Reports/tree_performance.txt",append = T)#,type = "message")
 abr_time_old <- ""
 for (tree_cp in c(0.02,0.01,0.005)) {
-  for (model_prior in prior_list) {
+
 
     #We log the parameters and performance of different models in a text file
     writeLines("----#----#----#----#----#----#----#----#----#----#----#----#----")
@@ -82,8 +89,6 @@ for (tree_cp in c(0.02,0.01,0.005)) {
     
     #we log the model cp
     writeLines(paste0("cp_parameter: ",tree_cp))
-    #we log the priors parameters, 
-    writeLines(paste0("priors_parameter: ",paste(round( model_prior,digits = 5),collapse = ", ")))
     writeLines("\n")
     
     #we log the output levels
@@ -97,7 +102,7 @@ for (tree_cp in c(0.02,0.01,0.005)) {
     writeLines("\n")
     
     #We create the decision tree model using rpart function
-    tree5_model <- rpart(tree5_formula, method="class", data=hogares.clean[training_index,model_fields],control = rpart.control(cp = tree_cp), parms = list(prior = model_prior))
+    tree5_model <- rpart(tree5_formula, method="class", data=UPsampled_data[model_fields],control = rpart.control(cp = tree_cp))
     
     #We log Variable importance
     writeLines("Variable Importance:")
@@ -135,7 +140,7 @@ for (tree_cp in c(0.02,0.01,0.005)) {
     dev.off()
     abr_time_old <- abr_time
     
-  }
+
 }
 sink()
 
