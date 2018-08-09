@@ -1,0 +1,154 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+source("Hogares_data_preparation.R")
+library(e1071)
+```
+
+
+```{r}
+#Multinomial Naive Bayes Model
+filename_sufix <- "_w_osamp"
+
+#Select target and predictor variables
+target_field <- 62
+#predictor_fields <- c(9,13:15,17:24)#with work_class
+predictor_fields <- c(13:15,17,18,21:24)#without work_class
+model_fields <- c(target_field,predictor_fields)
+#metadata2$english_labels[predictor_fields]
+#to make the code more concise we simplify the formula and select the 
+#predictors subseting the imput dataset
+model_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
+
+```
+
+```{r}
+#We merge the some_unsafety and safety categories in an attempt
+#to improve the prediction accuracy
+#hogares.clean <- merge_unsafety_some(hogares.clean)
+```
+
+```{r}
+#Create test and training sets
+set.seed(1234)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+UPsampled_data <- caret::upSample(hogares.clean[training_index,],hogares.clean[training_index,target_field])
+UPsampled_data <- UPsampled_data[-which(names(UPsampled_data) == "Class")]
+table(UPsampled_data$food_safety_category)
+```
+
+
+```{r}
+report_filename <- paste0("Reports/model_performance",filename_sufix,".txt")
+sink(report_filename,append = F)
+abr_time_old <- ""
+for (tree_cp in c(0.01)) {
+
+
+    #We log the parameters and performance of different models in a text file
+    writeLines("----#----#----#----#----#----#----#----#----#----#----#----#----")
+    #We log the time
+    abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+    
+    # while(abr_time==abr_time_old){
+    #   Sys.sleep(0.3)#we delay the loop execution a little so we don't produce
+    #               #more than a plot per second (wich will overwrite due to duplicated names)
+    #   abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+    # }
+    writeLines(as.character(Sys.time()))
+    
+
+    
+    #we log the output levels
+    output_levels <- paste0(levels(hogares.clean[[target_field]]),collapse = ", ")
+    writeLines(paste0("output_levels: ",output_levels))
+    
+    #we log the plot name and predictor variables
+    plot_name <- paste0("Reports/tree_plot_",abr_time,".png")
+    writeLines(paste0("plot_name: ",str_replace(plot_name,"Reports/","")))
+    pred_var <- paste0(names(hogares.clean[predictor_fields]),collapse = ", ")
+    writeLines(paste0("predictor_varialbeles: ",pred_var))
+    writeLines("\n")
+    
+    #WE CREATE THE MODEL
+    # homes_model_05 <-naiveBayes(model_formula,
+    #       hogares.clean[training_index,model_fields])#without oversampling
+    homes_model_05 <-naiveBayes(model_formula,
+                                UPsampled_data[model_fields])#with_oversampling
+    
+    
+
+
+    
+    #Confusion matrix test set
+    writeLines("-----TEST SET - CONFUSION MATRIX-----")
+    pred<-predict(homes_model_05,hogares.clean[-training_index,model_fields],type = "class")
+    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
+    print(tree5_conf_matrix)
+    #Confusion matrix training set
+    writeLines("\n")
+    
+    writeLines("-----TRAINING SET - CONFUSION MATRIX-----")
+    pred<-predict(homes_model_05,hogares.clean[training_index,model_fields],type = "class")
+    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[training_index,target_field])
+    print(tree5_conf_matrix)
+    writeLines("\n\n\n")
+    
+
+    abr_time_old <- abr_time
+    
+    
+    # weight_sum <- apply(homes_model_05$tables[[1]],2,FUN=sum)
+    # table <- homes_model_05$tables[[1]]
+    # attributes(table) <- NULL
+    # dim <- attributes(table)[[2]]
+    # attributes(table)[[2]]
+    # attributes(table)[[3]]
+  
+    # var_weight <- base::as.data.frame(homes_model_05$tables[[1]])
+    # var_weight <- mapply("/",homes_model_05$tables[[1]],var_weight)
+    
+    var_weight <- melt(homes_model_05$tables[[1]])
+    var_weight$Var <- names(homes_model_05$tables[1])
+    var_weight <- var_weight[c(4,2,1,3)]
+    names(var_weight) <- c("var","value_var","value_food_safety","prob")
+    var_sum <- data.frame(level=levels(var_weight[[2]]),
+                    sum=as.vector(tapply(var_weight[[4]],var_weight[[2]],sum)))
+    names(var_sum)[1] <- names(var_weight[2])
+    var_weight <- merge(var_weight, var_sum)
+    var_weight$weight <- var_weight$prob/var_weight$sum
+    
+    for (i in c(2:length(homes_model_05$tables))){
+          temp_var_weight <- melt(homes_model_05$tables[[i]])
+          temp_var_weight$Var <- names(homes_model_05$tables[i])
+          temp_var_weight <- temp_var_weight[c(4,2,1,3)]
+          names(temp_var_weight) <- c("var","value_var","value_food_safety","prob")
+          temp_var_sum <- data.frame(level=levels(temp_var_weight[[2]]),                      sum=as.vector(tapply(temp_var_weight[[4]],temp_var_weight[[2]],sum)))
+          names(temp_var_sum)[1] <- names(temp_var_weight[2])
+          temp_var_weight <- merge(temp_var_weight, temp_var_sum)
+          temp_var_weight$weight <- temp_var_weight$prob/temp_var_weight$sum
+          var_weight <- rbind.data.frame(var_weight,temp_var_weight)
+          
+          
+      
+    }
+    
+    var_weight <- var_weight[order(var_weight$weight,decreasing =T ),]
+    
+    #"-----VARIABLE WEIGHT -----")
+    write.csv(var_weight,paste0("Reports/var_weight",filename_sufix,".csv"))
+    
+    writeLines("-----MODEL DETAILS-----")
+    print(homes_model_05)
+    writeLines("\n")
+
+
+}
+sink()
+
+```
+
+

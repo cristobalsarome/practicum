@@ -1,0 +1,139 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-08 22:53:07
+output_levels: safety, unsafety
+plot_name: tree_plot_2018-08-08_22-53-07.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1050       62
+  unsafety    423      160
+                                          
+               Accuracy : 0.7139          
+                 95% CI : (0.6917, 0.7353)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2565          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.7128          
+            Specificity : 0.7207          
+         Pos Pred Value : 0.9442          
+         Neg Pred Value : 0.2744          
+             Prevalence : 0.8690          
+         Detection Rate : 0.6195          
+   Detection Prevalence : 0.6560          
+      Balanced Accuracy : 0.7168          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2405      154
+  unsafety   1033      366
+                                          
+               Accuracy : 0.7001          
+                 95% CI : (0.6856, 0.7144)
+    No Information Rate : 0.8686          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2349          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6995          
+            Specificity : 0.7038          
+         Pos Pred Value : 0.9398          
+         Neg Pred Value : 0.2616          
+             Prevalence : 0.8686          
+         Detection Rate : 0.6076          
+   Detection Prevalence : 0.6465          
+      Balanced Accuracy : 0.7017          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+
+
+-----MODEL DETAILS-----
+
+Naive Bayes Classifier for Discrete Predictors
+
+Call:
+naiveBayes.default(x = X, y = Y, laplace = laplace)
+
+A-priori probabilities:
+Y
+  safety unsafety 
+     0.5      0.5 
+
+Conditional probabilities:
+          urban_aglom2
+Y          Gran Buenos aires Ciudades del Interior (con Rosario)
+  safety           0.3057010                           0.6942990
+  unsafety         0.2766143                           0.7233857
+
+          urban_aglom4
+Y          Ciudad de Buenos Aires Conurbano Bonaerense Otras Áreas Metropolitanas
+  safety               0.08115183           0.22454916                 0.43455497
+  unsafety             0.03781268           0.23880163                 0.43804538
+          urban_aglom4
+Y          Resto Urbano Interior
+  safety              0.25974404
+  unsafety            0.28534031
+
+          region
+Y                AMBA        NOA        NEA       CUYO   PAMPEANA  PATAGONIA
+  safety   0.30570099 0.14107039 0.07766143 0.15357766 0.26381617 0.05817336
+  unsafety 0.27661431 0.19168121 0.09598604 0.15270506 0.25014543 0.03286795
+
+          minors_in_home
+Y          Sin niños Con niños
+  safety   0.4572426 0.5427574
+  unsafety 0.2629436 0.7370564
+
+          home_type1
+Y          Hogar unipersonal Hogar familiar nuclear completo
+  safety          0.06428156                      0.56428156
+  unsafety        0.04421175                      0.46538685
+          home_type1
+Y          Hogar familiar nuclear incompleto Hogar familiar extendido
+  safety                          0.09598604               0.24461896
+  unsafety                        0.14339732               0.31122746
+          home_type1
+Y          Hogar familiar compuesto Hogar multipersonal no familiar
+  safety                 0.02036067                      0.01047120
+  unsafety               0.02675974                      0.00901687
+
+          head_house_empl
+Y          full_employment precarious_employm unemployed   inactive
+  safety        0.47149506         0.22193136 0.08958697 0.21698662
+  unsafety      0.22891216         0.25770797 0.28941245 0.22396742
+
+          head_house_sex
+Y              Varón     Mujer
+  safety   0.7547993 0.2452007
+  unsafety 0.6916812 0.3083188
+
+          head_house_educa
+Y          sec_school_compl sec_school_incompl
+  safety          0.5427574          0.4572426
+  unsafety        0.2492728          0.7507272
+
+          housing_tenure
+Y          Propietario Inquilino Tenencia informal
+  safety     0.7242583 0.1701571         0.1055846
+  unsafety   0.5840605 0.1401978         0.2757417
+
+
+

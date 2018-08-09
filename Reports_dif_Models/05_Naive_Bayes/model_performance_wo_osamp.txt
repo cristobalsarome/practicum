@@ -1,0 +1,157 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-08 22:50:01
+output_levels: safety, some_unsafety, unsafety
+plot_name: tree_plot_2018-08-08_22-50-01.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          1452           124       70
+  some_unsafety      1             9        3
+  unsafety          20             7        8
+
+Overall Statistics
+                                         
+               Accuracy : 0.8672         
+                 95% CI : (0.8501, 0.883)
+    No Information Rate : 0.8695         
+    P-Value [Acc > NIR] : 0.6303         
+                                         
+                  Kappa : 0.1346         
+ Mcnemar's Test P-Value : <2e-16         
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 0.9857             0.064286        0.098765
+Specificity                 0.1222             0.997426        0.983261
+Pos Pred Value              0.8821             0.692308        0.228571
+Neg Pred Value              0.5625             0.922070        0.955998
+Prevalence                  0.8695             0.082645        0.047816
+Detection Rate              0.8571             0.005313        0.004723
+Detection Prevalence        0.9717             0.007674        0.020661
+Balanced Accuracy           0.5540             0.530856        0.541013
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          3363           295      155
+  some_unsafety     30            18       11
+  unsafety          45            16       26
+
+Overall Statistics
+                                          
+               Accuracy : 0.8606          
+                 95% CI : (0.8494, 0.8712)
+    No Information Rate : 0.8684          
+    P-Value [Acc > NIR] : 0.9298          
+                                          
+                  Kappa : 0.1357          
+ Mcnemar's Test P-Value : <2e-16          
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 0.9782             0.054711        0.135417
+Specificity                 0.1363             0.988705        0.983807
+Pos Pred Value              0.8820             0.305085        0.298851
+Neg Pred Value              0.4863             0.920256        0.957128
+Prevalence                  0.8684             0.083102        0.048497
+Detection Rate              0.8495             0.004547        0.006567
+Detection Prevalence        0.9631             0.014903        0.021975
+Balanced Accuracy           0.5572             0.521708        0.559612
+
+
+
+
+-----MODEL DETAILS-----
+
+Naive Bayes Classifier for Discrete Predictors
+
+Call:
+naiveBayes.default(x = X, y = Y, laplace = laplace)
+
+A-priori probabilities:
+Y
+       safety some_unsafety      unsafety 
+   0.86840111    0.08310179    0.04849710 
+
+Conditional probabilities:
+               urban_aglom2
+Y               Gran Buenos aires Ciudades del Interior (con Rosario)
+  safety                0.3057010                           0.6942990
+  some_unsafety         0.2765957                           0.7234043
+  unsafety              0.3333333                           0.6666667
+
+               urban_aglom4
+Y               Ciudad de Buenos Aires Conurbano Bonaerense Otras Áreas Metropolitanas
+  safety                    0.08115183           0.22454916                 0.43455497
+  some_unsafety             0.04255319           0.23404255                 0.42857143
+  unsafety                  0.03645833           0.29687500                 0.47916667
+               urban_aglom4
+Y               Resto Urbano Interior
+  safety                   0.25974404
+  some_unsafety            0.29483283
+  unsafety                 0.18750000
+
+               region
+Y                      AMBA         NOA         NEA        CUYO    PAMPEANA   PATAGONIA
+  safety        0.305700989 0.141070390 0.077661431 0.153577661 0.263816172 0.058173357
+  some_unsafety 0.276595745 0.167173252 0.100303951 0.179331307 0.234042553 0.042553191
+  unsafety      0.333333333 0.208333333 0.072916667 0.119791667 0.260416667 0.005208333
+
+               minors_in_home
+Y               Sin niños Con niños
+  safety        0.4572426 0.5427574
+  some_unsafety 0.3009119 0.6990881
+  unsafety      0.1927083 0.8072917
+
+               home_type1
+Y               Hogar unipersonal Hogar familiar nuclear completo
+  safety               0.06428156                      0.56428156
+  some_unsafety        0.05167173                      0.49544073
+  unsafety             0.02604167                      0.40104167
+               home_type1
+Y               Hogar familiar nuclear incompleto Hogar familiar extendido
+  safety                               0.09598604               0.24461896
+  some_unsafety                        0.11550152               0.30699088
+  unsafety                             0.17708333               0.36979167
+               home_type1
+Y               Hogar familiar compuesto Hogar multipersonal no familiar
+  safety                      0.02036067                      0.01047120
+  some_unsafety               0.01823708                      0.01215805
+  unsafety                    0.02604167                      0.00000000
+
+               head_house_empl
+Y               full_employment precarious_employm unemployed   inactive
+  safety             0.47149506         0.22193136 0.08958697 0.21698662
+  some_unsafety      0.23708207         0.27963526 0.28267477 0.20060790
+  unsafety           0.15104167         0.26562500 0.35416667 0.22916667
+
+               head_house_sex
+Y                   Varón     Mujer
+  safety        0.7547993 0.2452007
+  some_unsafety 0.7264438 0.2735562
+  unsafety      0.6458333 0.3541667
+
+               head_house_educa
+Y               sec_school_compl sec_school_incompl
+  safety               0.5427574          0.4572426
+  some_unsafety        0.2613982          0.7386018
+  unsafety             0.1614583          0.8385417
+
+               housing_tenure
+Y               Propietario Inquilino Tenencia informal
+  safety          0.7242583 0.1701571         0.1055846
+  some_unsafety   0.5531915 0.1519757         0.2948328
+  unsafety        0.5833333 0.0937500         0.3229167
+
+
+
