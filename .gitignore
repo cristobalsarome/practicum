@@ -1,6 +1,5 @@
 /Old
-/Reports
-/Reports_dif_Models
+/Reports/
 .RData
 .Rhistory
 *.sav

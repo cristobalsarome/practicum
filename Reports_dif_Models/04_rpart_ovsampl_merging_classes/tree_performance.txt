@@ -1,0 +1,306 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-08 12:31:39
+cp_parameter: 0.02
+
+
+output_levels: safety, unsafety
+plot_name: tree_plot_2018-08-08_12-31-39.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure
+
+
+Variable Importance:
+     [,1]               [,2]       
+[1,] "head_house_educa" "309.51281"
+[2,] "head_house_empl"  "227.60032"
+[3,] "minors_in_home"   "69.10674" 
+[4,] "housing_tenure"   "21.02823" 
+[5,] "home_type1"       "16.29908" 
+[6,] "urban_aglom4"     "15.69011" 
+[7,] "region"           "0.56833"  
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = UPsampled_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+[1] head_house_educa head_house_empl  minors_in_home  
+
+Root node error: 3438/6876 = 0.5
+
+n= 6876 
+
+        CP nsplit rel error  xerror     xstd
+1 0.293485      0   1.00000 1.03607 0.012052
+2 0.029378      1   0.70652 0.70652 0.011529
+3 0.025160      2   0.67714 0.68296 0.011437
+4 0.020000      4   0.62682 0.63874 0.011245
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1055       68
+  unsafety    418      154
+                                          
+               Accuracy : 0.7133          
+                 95% CI : (0.6911, 0.7347)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2455          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.7162          
+            Specificity : 0.6937          
+         Pos Pred Value : 0.9394          
+         Neg Pred Value : 0.2692          
+             Prevalence : 0.8690          
+         Detection Rate : 0.6224          
+   Detection Prevalence : 0.6625          
+      Balanced Accuracy : 0.7050          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2352      159
+  unsafety   1086      361
+                                          
+               Accuracy : 0.6854          
+                 95% CI : (0.6707, 0.6999)
+    No Information Rate : 0.8686          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2154          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6841          
+            Specificity : 0.6942          
+         Pos Pred Value : 0.9367          
+         Neg Pred Value : 0.2495          
+             Prevalence : 0.8686          
+         Detection Rate : 0.5942          
+   Detection Prevalence : 0.6344          
+      Balanced Accuracy : 0.6892          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+
+
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-08 12:31:40
+cp_parameter: 0.01
+
+
+output_levels: safety, unsafety
+plot_name: tree_plot_2018-08-08_12-31-40.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure
+
+
+Variable Importance:
+     [,1]               [,2]       
+[1,] "head_house_educa" "309.51281"
+[2,] "head_house_empl"  "227.60032"
+[3,] "minors_in_home"   "69.10674" 
+[4,] "housing_tenure"   "21.02823" 
+[5,] "home_type1"       "16.29908" 
+[6,] "urban_aglom4"     "15.69011" 
+[7,] "region"           "0.56833"  
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = UPsampled_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+[1] head_house_educa head_house_empl  minors_in_home  
+
+Root node error: 3438/6876 = 0.5
+
+n= 6876 
+
+        CP nsplit rel error  xerror     xstd
+1 0.293485      0   1.00000 1.03141 0.012054
+2 0.029378      1   0.70652 0.70652 0.011529
+3 0.025160      2   0.67714 0.68121 0.011430
+4 0.010000      4   0.62682 0.62682 0.011188
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1055       68
+  unsafety    418      154
+                                          
+               Accuracy : 0.7133          
+                 95% CI : (0.6911, 0.7347)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2455          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.7162          
+            Specificity : 0.6937          
+         Pos Pred Value : 0.9394          
+         Neg Pred Value : 0.2692          
+             Prevalence : 0.8690          
+         Detection Rate : 0.6224          
+   Detection Prevalence : 0.6625          
+      Balanced Accuracy : 0.7050          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2352      159
+  unsafety   1086      361
+                                          
+               Accuracy : 0.6854          
+                 95% CI : (0.6707, 0.6999)
+    No Information Rate : 0.8686          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2154          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6841          
+            Specificity : 0.6942          
+         Pos Pred Value : 0.9367          
+         Neg Pred Value : 0.2495          
+             Prevalence : 0.8686          
+         Detection Rate : 0.5942          
+   Detection Prevalence : 0.6344          
+      Balanced Accuracy : 0.6892          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+
+
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-08 12:31:41
+cp_parameter: 0.005
+
+
+output_levels: safety, unsafety
+plot_name: tree_plot_2018-08-08_12-31-41.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure
+
+
+Variable Importance:
+      [,1]               [,2]       
+ [1,] "head_house_educa" "309.51281"
+ [2,] "head_house_empl"  "285.42122"
+ [3,] "minors_in_home"   "124.0002" 
+ [4,] "home_type1"       "43.78161" 
+ [5,] "urban_aglom4"     "22.191"   
+ [6,] "housing_tenure"   "21.18513" 
+ [7,] "head_house_sex"   "11.35626" 
+ [8,] "region"           "3.27442"  
+ [9,] "urban_aglom2"     "1.91734"  
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = UPsampled_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+[1] head_house_educa head_house_empl  home_type1       minors_in_home  
+
+Root node error: 3438/6876 = 0.5
+
+n= 6876 
+
+         CP nsplit rel error  xerror     xstd
+1 0.2934846      0   1.00000 1.03694 0.012051
+2 0.0293775      1   0.70652 0.70652 0.011529
+3 0.0251600      2   0.67714 0.68179 0.011433
+4 0.0083382      4   0.62682 0.62682 0.011188
+5 0.0050000      7   0.60180 0.61402 0.011125
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety      997       63
+  unsafety    476      159
+                                          
+               Accuracy : 0.682           
+                 95% CI : (0.6592, 0.7041)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2196          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6768          
+            Specificity : 0.7162          
+         Pos Pred Value : 0.9406          
+         Neg Pred Value : 0.2504          
+             Prevalence : 0.8690          
+         Detection Rate : 0.5882          
+   Detection Prevalence : 0.6254          
+      Balanced Accuracy : 0.6965          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2246      130
+  unsafety   1192      390
+                                          
+               Accuracy : 0.666           
+                 95% CI : (0.6511, 0.6807)
+    No Information Rate : 0.8686          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.216           
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6533          
+            Specificity : 0.7500          
+         Pos Pred Value : 0.9453          
+         Neg Pred Value : 0.2465          
+             Prevalence : 0.8686          
+         Detection Rate : 0.5675          
+   Detection Prevalence : 0.6003          
+      Balanced Accuracy : 0.7016          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+
+

@@ -9,6 +9,9 @@ library(bit)
 library(magrittr)
 library(reshape2) #melt
 library(xlsx)
+library(caret)
+library(rpart.plot)
+library(stringr)
 #install.packages("xlsx")
 #install.packages("klaR")
 library(klaR)#clustering for categorical variables
@@ -102,3 +105,33 @@ levels(hogares.clean$head_house_educa)<- c("sec_school_compl","sec_school_incomp
 levels(hogares.clean$head_house_empl) <- c("full_employment","precarious_employm","unemployed","inactive")
 levels(hogares.clean$work_class) <- c("proff_middle_class","non_proffesional_middle_class","working_class","marginal")
 hogares.clean$work_class <- factor(hogares.clean$work_class,ordered=T)
+
+
+
+#Function to wraps long split labels over multiple lines.
+#Used to improve visualitazion of decision trees using the
+#rpart.plot function
+#Source: https://stackoverflow.com/questions/22618751/rpart-plot-text-shorter
+split_fun <- function(x, labs, digits, varlen, faclen)
+{
+  # replace commas with spaces (needed for strwrap)
+  labs <- gsub(",", " ", labs)
+  for(i in 1:length(labs)) {
+    # split labs[i] into multiple lines
+    labs[i] <- paste(strwrap(labs[i], width=25), collapse="\n")
+  }
+  labs
+}
+
+#prp(tree, split.fun=split.fun)
+
+
+merge_unsafety_some <- function(hogares.clean){
+  #We merge the some_unsafety and safety categories in an attempt
+  #to improve the prediction accuracy
+  records_to_change <- which(hogares.clean[[target_field]]=="some_unsafety")
+  hogares.clean[records_to_change,target_field] <- "unsafety"
+  hogares.clean$food_safety_category <- factor(hogares.clean$food_safety_category,levels =  c("safety","unsafety"),ordered=T)
+  table(hogares.clean[[target_field]])
+  return(hogares.clean)
+}
