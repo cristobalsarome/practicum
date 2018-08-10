@@ -1,0 +1,96 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-09 10:39:46
+output_levels: safety, some_unsafety, unsafety
+plot_name: tree_plot_2018-08-09_10-39-46.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure, nr_home_members, adult_equivalent, children_not_att_school
+
+
+
+Call:
+svm(formula = model_formula, data = training_data[model_fields])
+
+
+Parameters:
+   SVM-Type:  C-classification 
+ SVM-Kernel:  radial 
+       cost:  1 
+      gamma:  0.03846154 
+
+Number of Support Vectors:  1442
+
+ ( 921 192 329 )
+
+
+Number of Classes:  3 
+
+Levels: 
+ safety some_unsafety unsafety
+
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          1473           140       81
+  some_unsafety      0             0        0
+  unsafety           0             0        0
+
+Overall Statistics
+                                          
+               Accuracy : 0.8695          
+                 95% CI : (0.8526, 0.8852)
+    No Information Rate : 0.8695          
+    P-Value [Acc > NIR] : 0.5179          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 1.0000              0.00000         0.00000
+Specificity                 0.0000              1.00000         1.00000
+Pos Pred Value              0.8695                  NaN             NaN
+Neg Pred Value                 NaN              0.91736         0.95218
+Prevalence                  0.8695              0.08264         0.04782
+Detection Rate              0.8695              0.00000         0.00000
+Detection Prevalence        1.0000              0.00000         0.00000
+Balanced Accuracy           0.5000              0.50000         0.50000
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          3438           329      192
+  some_unsafety      0             0        0
+  unsafety           0             0        0
+
+Overall Statistics
+                                          
+               Accuracy : 0.8684          
+                 95% CI : (0.8575, 0.8788)
+    No Information Rate : 0.8684          
+    P-Value [Acc > NIR] : 0.5117          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 1.0000               0.0000          0.0000
+Specificity                 0.0000               1.0000          1.0000
+Pos Pred Value              0.8684                  NaN             NaN
+Neg Pred Value                 NaN               0.9169          0.9515
+Prevalence                  0.8684               0.0831          0.0485
+Detection Rate              0.8684               0.0000          0.0000
+Detection Prevalence        1.0000               0.0000          0.0000
+Balanced Accuracy           0.5000               0.5000          0.5000
+
+
+
+

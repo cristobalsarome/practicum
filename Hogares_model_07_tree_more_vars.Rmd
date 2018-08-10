@@ -1,0 +1,170 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+source("Hogares_data_preparation.R")
+```
+
+
+
+```{r}
+#
+#Select target and predictor variables
+target_field <- 62
+#13,14 urban_aglom2
+#15 region
+#21 head_house_empl
+#21 head_house_sex
+#23 head_house_educa
+#30 gas_network
+#34 stormwater_drainage
+#50 nr_home_members
+predictor_fields <- c(14,15,21,22,23,30,34,50)#without work_class
+
+model_fields <- c(target_field,predictor_fields)
+#metadata2$english_labels[predictor_fields]
+#to make the code more concise we simplify the formula and select the 
+#predictors subseting the imput dataset
+tree5_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
+
+```
+```{r}
+#We decide fi we want to merge the unsafety and some_unsafety classes
+will_merge <- T
+#We decide if we want to oversample to deal with the unbalanced data
+will_oversample <-T
+
+merge_suffix <- "_wO_merge"
+plot_colors <- list("Greens", "Grays", "Reds")
+if(will_merge){
+
+    #We merge the some_unsafety and safety categories in an attempt
+    #to improve the prediction accuracy
+    hogares.clean <- merge_unsafety_some(hogares.clean)
+    merge_suffix <- "_w_merge"
+    plot_colors <- list("Greens", "Reds")
+}
+
+
+#Create test and training sets
+
+set.seed(1234)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+
+oversample_suffix <- "_wO_oversamp"
+training_data <- hogares.clean[training_index,]
+if (will_oversample){
+  training_data <- upSample(hogares.clean[training_index,],hogares.clean[training_index,                                                                   target_field])
+  training_data <- training_data[-which(names(training_data) == "Class")]
+  oversample_suffix <- "_w_oversamp"
+}
+
+table(training_data$food_safety_category)
+file_suffix <- paste0(merge_suffix,oversample_suffix)
+
+```
+
+
+```{r}
+tree_cp <- 0.01 #complexity parameter
+
+abr_time_old <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+sink(paste0("Reports/model_07_performance_",abr_time_old,file_suffix,".txt"))
+for (tree_cp in c(0.01)) {
+
+
+    #We log the parameters and performance of different models in a text file
+    writeLines("----#----#----#----#----#----#----#----#----#----#----#----#----")
+    #We log the time
+    abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+    while(abr_time==abr_time_old){
+      Sys.sleep(0.3)#we delay the loop execution a little so we don't produce
+                  #more than a plot per second (wich will overwrite due to duplicated names)
+      abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+    }
+    writeLines(as.character(Sys.time()))
+    
+    #we log the model cp
+    writeLines(paste0("cp_parameter: ",tree_cp))
+    writeLines("\n")
+    
+    #we log the output levels
+    output_levels <- paste0(levels(hogares.clean[[target_field]]),collapse = ", ")
+    writeLines(paste0("output_levels: ",output_levels))
+    #we log the plot name and predictor variables
+    plot_name <- paste0("Reports/tree_plot_",abr_time,".png")
+    writeLines(paste0("plot_name: ",str_replace(plot_name,"Reports/","")))
+    pred_var <- paste0(names(hogares.clean[predictor_fields]),collapse = ", ")
+    writeLines(paste0("predictor_varialbeles: ",pred_var))
+    writeLines("\n")
+    
+    #We create the decision tree model using rpart function
+    tree5_model <- rpart(tree5_formula, method="class", data=training_data[model_fields],control = rpart.control(cp = tree_cp))
+    
+    #We log Variable importance
+    writeLines("Variable Importance:")
+    variable_importance <- ""
+    capture.output(model_sum <- summary(tree5_model))
+    if(!is.null(model_sum$variable.importance)){
+    variable_importance <- cbind(names(model_sum$variable.importance), as.character(round(model_sum$variable.importance,digits = 5)))
+    }
+    print(variable_importance)
+    writeLines("\n")
+    writeLines("-----COMPLEXITY PARAMETER TABLE-----")
+    printcp(tree5_model)
+    writeLines("\n")
+    
+    #Confusion matrix test set
+    writeLines("-----TEST SET - CONFUSION MATRIX-----")
+    pred<-predict(tree5_model,hogares.clean[-training_index,model_fields],type = "class")
+    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
+    print(tree5_conf_matrix)
+    if(!will_merge){
+        writeLines("\n\n")
+        writeLines("-Merged results - Confusion Matrix-")
+        writeLines("\n")
+        table(pred)
+        merged_class <- hogares.clean[-training_index,target_field]
+        merged_class[merged_class=="some_unsafety"] <- "unsafety"
+        merged_class <- factor(merged_class)
+        table(merged_class)
+        merged_pred <- pred
+        merged_pred[merged_pred=="some_unsafety"] <- "unsafety"
+        merged_pred <- factor(merged_pred)
+        table(merged_pred)
+        print(confusionMatrix(merged_pred, merged_class))
+    }
+    
+    
+    
+    #Confusion matrix training set
+
+    
+    
+    writeLines("-----TRAINING SET - CONFUSION MATRIX-----")
+    pred<-predict(tree5_model,hogares.clean[training_index,model_fields],type = "class")
+    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[training_index,target_field])
+    print(tree5_conf_matrix)
+    writeLines("\n\n\n")
+    png(filename=plot_name, 
+      units="in", 
+      width=5, 
+      height=4, 
+      pointsize=12, 
+      res=720)
+    rpart.plot(tree5_model, extra=104, fallen.leaves = T, type=4,split.fun=split_fun,
+               faclen = 30,box.palette = plot_colors)
+    dev.off()
+    abr_time_old <- abr_time
+    
+    
+    
+
+}
+sink()
+
+```
+
+

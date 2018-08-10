@@ -1,0 +1,77 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+source("Hogares_data_preparation.R")
+library(e1071)
+```
+
+
+```{r}
+#Multinomial Naive Bayes Model
+filename_sufix <- "_w_osamp"
+
+#Select target and predictor variables
+target_field <- 62
+#predictor_fields <- c(9,13:15,17:24)#with work_class
+predictor_fields <- c(13:15,17,18,21:24)#without work_class
+model_fields <- c(target_field,predictor_fields)
+#metadata2$english_labels[predictor_fields]
+#to make the code more concise we simplify the formula and select the 
+#predictors subseting the imput dataset
+model_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
+
+```
+
+```{r}
+#We merge the some_unsafety and safety categories in an attempt
+#to improve the prediction accuracy
+#hogares.clean <- merge_unsafety_some(hogares.clean)
+```
+
+```{r}
+#Create test and training sets
+set.seed(1234)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+UPsampled_data <- caret::upSample(hogares.clean[training_index,],hogares.clean[training_index,target_field])
+UPsampled_data <- UPsampled_data[-which(names(UPsampled_data) == "Class")]
+table(UPsampled_data$food_safety_category)
+```
+
+
+```{r}
+report_filename <- paste0("Reports/model_performance",filename_sufix,".txt")
+sink(report_filename,append = F)
+abr_time_old <- ""
+
+
+    #We log the parameters and performance of different models in a text file
+    writeLines("----#----#----#----#----#----#----#----#----#----#----#----#----")
+    #We log the time
+    abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+    writeLines(as.character(Sys.time()))
+    
+    factor_index <- model_fields[model_fields %in% homes_factor]
+    num_index<- model_fields[!model_fields %in% homes_factor]
+    names(hogares.clean[factor_index])
+    names(hogares.clean[num_index])
+
+    
+    #we log the output levels
+    output_levels <- paste0(levels(hogares.clean[[target_field]]),collapse = ", ")
+    writeLines(paste0("output_levels: ",output_levels))
+    
+
+    homes_model_06 <-rockCluster(hogares.clean[training_index,model_fields],theta = 0.3,5,fun= "dist",funArgs =list(method = "Jaccard") )
+    
+    
+
+
+
+sink()
+
+```
+
+

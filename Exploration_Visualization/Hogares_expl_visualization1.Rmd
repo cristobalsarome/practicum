@@ -12,10 +12,11 @@ library(plyr)
 ```{r}
 #hogares (homes)
 #Reading the .sav file (SPSS)
+directory <- "C:/OneDrive/2018/_CSP572_Practicum/EDSA UCA/"
 hogares.filename <- "Base EDSA hogares 2010.Difusión (V.BETA).sav"
-hogares <- read.spss(hogares.filename)
+hogares <- read.spss(paste0(directory,hogares.filename))
 hogares.attr<-attributes(hogares)
-hogares.df <- read.spss(hogares.filename,to.data.frame = T)
+hogares.df <- read.spss(paste0(directory,hogares.filename),to.data.frame = T)
 #str(hogares.df)
 #Writing data into a CSV
 #write.csv(hogares.df,file="homes_data.csv")

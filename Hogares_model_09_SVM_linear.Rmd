@@ -1,0 +1,115 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+source("Hogares_data_preparation.R")
+```
+
+
+
+```{r}
+#
+#Select target and predictor variables
+target_field <- 62
+predictor_fields <- c(13:15,17,18,21:24,50,51,78)#without work_class, home_type2 only
+model_fields <- c(target_field,predictor_fields)
+#metadata2$english_labels[predictor_fields]
+#to make the code more concise we simplify the formula and select the 
+#predictors subseting the imput dataset
+model_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
+
+```
+
+
+
+
+```{r}
+#We decide fi we want to merge the unsafety and some_unsafety classes
+will_merge <- T
+#We decide if we want to oversample to deal with the unbalanced data
+will_oversample <-T
+
+merge_suffix <- "_wO_merge"
+if(will_merge){
+
+    #We merge the some_unsafety and safety categories in an attempt
+    #to improve the prediction accuracy
+    hogares.clean <- merge_unsafety_some(hogares.clean)
+    merge_suffix <- "_w_merge"
+}
+
+
+#Create test and training sets
+
+set.seed(1234)
+training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
+
+oversample_suffix <- "_wO_oversamp"
+training_data <- hogares.clean[training_index,]
+if (will_oversample){
+  training_data <- upSample(hogares.clean[training_index,],hogares.clean[training_index,                                                                         target_field])
+  training_data <- training_data[-which(names(training_data) == "Class")]
+  table(training_data$food_safety_category)
+  oversample_suffix <- "_w_oversamp"
+}
+
+file_suffix <- paste0(merge_suffix,oversample_suffix)
+
+```
+
+```{r}
+
+sink(paste0("Reports/model_performance_SVM_linear",file_suffix,".txt"))
+
+
+
+    #We log the parameters and performance of different models in a text file
+    writeLines("----#----#----#----#----#----#----#----#----#----#----#----#----")
+    #We log the time
+    abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+    writeLines(as.character(Sys.time()))
+    
+
+    
+    #we log the output levels
+    output_levels <- paste0(levels(hogares.clean[[target_field]]),collapse = ", ")
+    writeLines(paste0("output_levels: ",output_levels))
+    
+    #we log the plot name and predictor variables
+    plot_name <- paste0("Reports/tree_plot_",abr_time,".png")
+    writeLines(paste0("plot_name: ",str_replace(plot_name,"Reports/","")))
+    pred_var <- paste0(names(hogares.clean[predictor_fields]),collapse = ", ")
+    writeLines(paste0("predictor_varialbeles: ",pred_var))
+    writeLines("\n")
+    
+    
+    
+    #WE CREATE THE MODEL
+    homes_model_08 <-svm(model_formula,data = training_data[model_fields],kernel ="linear")
+    varImp(homes_model_08)
+    
+    #rminer::Importance(homes_model_08,training_data[model_fields])
+    
+    #Confusion matrix test set
+    writeLines("-----TEST SET - CONFUSION MATRIX-----")
+    pred<-predict(homes_model_08,hogares.clean[-training_index,model_fields],type = "class")
+    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
+    print(tree5_conf_matrix)
+    #Confusion matrix training set
+    writeLines("\n")
+    writeLines("-----TRAINING SET - CONFUSION MATRIX-----")
+    pred<-predict(homes_model_08,hogares.clean[training_index,model_fields],type = "class")
+    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[training_index,target_field])
+    print(tree5_conf_matrix)
+    writeLines("\n\n\n")
+
+    abr_time_old <- abr_time
+    
+
+sink()
+
+```
+
+

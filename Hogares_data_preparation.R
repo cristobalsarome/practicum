@@ -1,6 +1,6 @@
 ##Loading packages
 
-
+rm(list=ls(all=TRUE))
 #install.packages("ggplot2")
 library(foreign)
 library(ggplot2)
@@ -17,6 +17,7 @@ library(stringr)
 library(klaR)#clustering for categorical variables
 #install.packages("cba")
 library(cba) #RockCluster
+library(e1071)#SVM and NaiveBayes
 
 
 ##Data preprocessing
@@ -94,7 +95,8 @@ poverty.binary.df <- as.data.frame(sapply(poverty.binary.df,as.factor))
 hogares.clean[poverty.binary] <- poverty.binary.df
 
 #we generate a list of fields that are factors
-hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
+homes_factor <- which(unlist(sapply(hogares.clean,class))=="factor")
+hogares.factor <- hogares.clean[homes_factor]
 hogares.factor <- hogares.factor[-1] #remove the survey year
 
 

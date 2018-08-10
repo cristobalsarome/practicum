@@ -96,8 +96,12 @@ for (tree_cp in c(0.01)) {
     #WE CREATE THE MODEL
     # homes_model_05 <-naiveBayes(model_formula,
     #       hogares.clean[training_index,model_fields])#without oversampling
-    homes_model_05 <-naiveBayes(model_formula,
-                               training_data)#with_oversampling
+    
+    #naive bayes from e1071 package
+    # homes_model_05 <-naiveBayes(model_formula,
+    #                            training_data[model_fields])#with_oversampling
+    #naive bayes from klar package
+    homes_model_05 <-NaiveBayes(model_formula,training_data[model_fields])
     
     
     #rminer::Importance(homes_model_05,UPsampled_data[model_fields])
@@ -105,7 +109,7 @@ for (tree_cp in c(0.01)) {
     
     #Confusion matrix test set
     writeLines("-----TEST SET - CONFUSION MATRIX-----")
-    pred<-predict(homes_model_05,data=training_data[model_fields],type = "class")
+    pred<-predict(homes_model_05,hogares.clean[-training_index,model_fields])
     tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
     print(tree5_conf_matrix)
     #Confusion matrix training set
@@ -160,7 +164,7 @@ for (tree_cp in c(0.01)) {
     var_weight <- var_weight[order(var_weight$weight,decreasing =T ),]
     
     #"-----VARIABLE WEIGHT -----")
-    write.csv(var_weight,paste0("Reports/var_weight",filename_sufix,".csv"))
+    write.csv(var_weight,paste0("Reports/var_weight",file_suffix,".csv"))
     
     writeLines("-----MODEL DETAILS-----")
     print(homes_model_05)

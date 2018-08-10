@@ -1,0 +1,90 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-09 10:38:55
+output_levels: safety, unsafety
+plot_name: tree_plot_2018-08-09_10-38-55.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure, nr_home_members, adult_equivalent, children_not_att_school
+
+
+
+Call:
+svm(formula = model_formula, data = training_data[model_fields])
+
+
+Parameters:
+   SVM-Type:  C-classification 
+ SVM-Kernel:  radial 
+       cost:  1 
+      gamma:  0.03846154 
+
+Number of Support Vectors:  1342
+
+ ( 822 520 )
+
+
+Number of Classes:  2 
+
+Levels: 
+ safety unsafety
+
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1473      222
+  unsafety      0        0
+                                         
+               Accuracy : 0.869          
+                 95% CI : (0.852, 0.8847)
+    No Information Rate : 0.869          
+    P-Value [Acc > NIR] : 0.5179         
+                                         
+                  Kappa : 0              
+ Mcnemar's Test P-Value : <2e-16         
+                                         
+            Sensitivity : 1.000          
+            Specificity : 0.000          
+         Pos Pred Value : 0.869          
+         Neg Pred Value :   NaN          
+             Prevalence : 0.869          
+         Detection Rate : 0.869          
+   Detection Prevalence : 1.000          
+      Balanced Accuracy : 0.500          
+                                         
+       'Positive' Class : safety         
+                                         
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     3438      520
+  unsafety      0        0
+                                         
+               Accuracy : 0.8686         
+                 95% CI : (0.8577, 0.879)
+    No Information Rate : 0.8686         
+    P-Value [Acc > NIR] : 0.5117         
+                                         
+                  Kappa : 0              
+ Mcnemar's Test P-Value : <2e-16         
+                                         
+            Sensitivity : 1.0000         
+            Specificity : 0.0000         
+         Pos Pred Value : 0.8686         
+         Neg Pred Value :    NaN         
+             Prevalence : 0.8686         
+         Detection Rate : 0.8686         
+   Detection Prevalence : 1.0000         
+      Balanced Accuracy : 0.5000         
+                                         
+       'Positive' Class : safety         
+                                         
+
+
+
+
