@@ -1,0 +1,293 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+source("Hogares_data_preparation.R")
+```
+
+```{r}
+#check names before changing them
+#View(cbind.data.frame(english_labels[poverty.binary],row.names(summary_deficit)))
+
+#Build the deficit matrix
+summary_deficit <- as.data.frame(t(sapply(poverty.binary.df,table)))
+deficit_matrix <- as.matrix(summary_deficit)
+row.names(deficit_matrix) <- english_labels[poverty.binary]
+deficit_matrix <- melt(t(deficit_matrix))
+colnames(deficit_matrix) <- c("cond","param","count")
+```
+
+```{r}
+field.nr <- 7
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+#REPORT
+field.nr <- 8
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle("Socio-economic Class")+
+  theme(axis.text.x = element_text(angle =0),legend.position = "none")+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill",name = "Class")+xlab("Class")
+```
+```{r}
+# field.nr <- 8
+# data.gr <- hogares.clean[field.nr]
+# ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+#   stat_count()+ggtitle(english_labels[field.nr])+
+#   theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+#   aesthetics = "fill")
+
+# field.nr <- 9
+# data.gr <- hogares.clean[field.nr]
+# ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+#   stat_count()+ggtitle(english_labels[field.nr])+
+#   theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+#   aesthetics = "fill")
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+field.nr <- 13
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+field.nr <- 14
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle("Urban Aglomerate")+
+  theme(axis.text.x = element_text(angle = 0),legend.position="none")+scale_fill_brewer( type = "qual", palette = 1, direction = 1,  aesthetics = "fill", name="")+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
+# field.nr <- 8
+# data.gr <- hogares.clean[field.nr]
+# ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+#   stat_count()+ggtitle("Socio-economic Class")+
+#   theme(axis.text.x = element_text(angle =0, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+#   aesthetics = "fill",name = "Class")+xlab("Class")
+```
+
+
+```{r}
+field.nr <- 15
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+
+```{r}
+field.nr <- 16
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+field.nr <- 17
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 18
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+field.nr <- 19
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+field.nr <- 20
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 21
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+field.nr <- 22
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 23
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+```{r}
+field.nr <- 24
+data.gr <- hogares.clean[field.nr]
+ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
+  stat_count()+ggtitle(english_labels[field.nr])+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
+  aesthetics = "fill")
+```
+
+```{r}
+plot_data <- deficit_matrix[c(1:30),]
+ggplot(plot_data, aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
+    geom_bar(stat="identity")+coord_flip()+scale_fill_manual("condition",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))+xlab("")
+```
+
+
+
+```{r}
+plot_data <- deficit_matrix[c(1:30),]
+ggplot(plot_data, aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
+    geom_bar(stat="identity",width=1.7)+coord_flip()+scale_fill_manual("condition",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))+scale_x_discrete(limits = rev(plot_data$param))+xlab("")
+```
+
+```{r}
+plot_data <- deficit_matrix[c(31:60),]
+ggplot(plot_data, aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
+    geom_bar(stat="identity",width=1.7)+coord_flip()+scale_fill_manual("condition",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))+scale_x_discrete(limits = rev(plot_data$param))+xlab("")
+
+```
+
+```{r}
+plot_data <- deficit_matrix[c(61:90),]
+ggplot(plot_data, aes(fill=forcats::fct_rev(cond), y=count, x=param)) + 
+    geom_bar(stat="identity",width=1.7)+coord_flip()+scale_fill_manual("condition",values = c("deficitary" = "red", "not_deficitary" = "lightskyblue"))+scale_x_discrete(limits = rev(plot_data$param))+xlab("")
+```
+
+
+
+
+
+
+```{r}
+hogares.clean[poverty.binary] <- poverty.binary.df
+hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
+hogares.factor <- hogares.factor[-1] #remove the survey year
+```
+
+```{r}
+nrFields <- length(hogares.factor)
+chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value ,hogares.factor,rep(hogares.factor[1],nrFields)))
+names(chisq.table)<-names(hogares.factor[1])
+for (field in c(2:nrFields)){
+  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value
+               ,hogares.factor,rep(hogares.factor[field],nrFields)))
+  names(chisq.newcol)<-names(hogares.factor[field])
+  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
+}
+for (i in c(1:(nrFields-1))){
+  for(j in c((i+1):nrFields)){
+    chisq.table[i,j] <- NA
+  }
+}
+#For some reason melt function handles variable names better with 
+#matrices than with data frames
+chisq.table <- as.matrix(chisq.table)
+melted_chisq <- melt(chisq.table)
+melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
+p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "Spectral",limits = c(0,0.001))+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
+ggsave(filename = "chisqu_pvalue_full.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
+shell("chisqu_pvalue_full.png")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

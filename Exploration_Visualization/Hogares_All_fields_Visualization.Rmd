@@ -57,9 +57,9 @@ ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
 field.nr <- 8
 data.gr <- hogares.clean[field.nr]
 ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
-  aesthetics = "fill")
+  stat_count()+ggtitle("Socio-economic Class")+
+  theme(axis.text.x = element_text(angle =0, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
+  aesthetics = "fill",name = "Class")+xlab("Class")
 ```
 ```{r}
 field.nr <- 8
