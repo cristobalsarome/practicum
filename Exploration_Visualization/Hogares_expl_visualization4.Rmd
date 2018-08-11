@@ -6,6 +6,8 @@ output: html_notebook
 
 
 ```{r}
+directory <- "C:/OneDrive/2018/_CSP572_Practicum/EDSA UCA/"
+setwd(directory)
 source("Hogares_data_preparation.R")
 ```
 ```{r}
@@ -21,8 +23,6 @@ melt_1_2 <- melt_1_2[melt_1_2$value!=0,]
 ggplot(data = melt_1_2, aes(x=socio_ec_class_7, y=work_class, fill=value)) + 
   geom_tile()+scale_fill_distiller(palette = "GnBu",direction = 1)
 ```
-
-
 ```{r}
 field1 <- 7
 field2 <- 15
@@ -32,22 +32,105 @@ plot_melt <- plot_melt[plot_melt$value!=0,]
 #names(plot_melt)
 ggplot(data = plot_melt, aes(x=socio_ec_class_7, y=region, fill=value)) + 
   geom_tile()+scale_fill_distiller(palette = "GnBu",direction = 1)
+str(plot_matrix)
+```
+
+```{r}
+field1 <- 7
+field2 <- 15
+plot_matrix <- as.matrix(table(hogares.clean[c(field1,field2)]))
+matrix_colsum <- colSums(plot_matrix)
+plot_matrix_percent <- sapply(c(1:dim(plot_matrix)[2]),
+                              function (i) plot_matrix[,i]/matrix_colsum[i]*100)
+attributes(plot_matrix_percent) <- attributes(plot_matrix)
+plot_melt <- melt(plot_matrix_percent)
+plot_melt <- plot_melt[plot_melt$value!=0,]
+ggplot(data = plot_melt, aes(x=region, y=socio_ec_class_7, fill=value)) + 
+  geom_tile()+scale_fill_distiller(palette = "GnBu",direction = 1)+theme(legend.position = "none")
+```
+```{r}
+field1 <- 7
+field2 <- 15
+plot_matrix <- as.matrix(table(hogares.clean[c(field1,field2)]))
+matrix_colsum <- colSums(plot_matrix)
+plot_matrix_percent <- sapply(c(1:dim(plot_matrix)[2]),
+                              function (i) plot_matrix[,i]/matrix_colsum[i]*100)
+attributes(plot_matrix_percent) <- attributes(plot_matrix)
+plot_melt <- melt(plot_matrix_percent)
+plot_melt <- plot_melt[plot_melt$value!=0,]
+p <- ggplot(plot_melt, aes(x=region, y=socio_ec_class_7)) 
+p+geom_point( aes(size=value),shape=21, colour="black", fill="skyblue")+
+  scale_size_area(max_size=20)+
+  #Add labels to axes
+  labs(x="Region", y="Socio Economic Level")
+```
+```{r}
+# #install.packages("ggbeeswarm")
+# library("ggbeeswarm")
+# field1 <- 7
+# field2 <- 15
+# plot_matrix <- as.matrix(table(hogares.clean[c(field1,field2)]))
+# matrix_colsum <- colSums(plot_matrix)
+# plot_matrix_percent <- sapply(c(1:dim(plot_matrix)[2]),
+#                               function (i) plot_matrix[,i]/matrix_colsum[i]*100)
+# attributes(plot_matrix_percent) <- attributes(plot_matrix)
+# plot_melt <- melt(plot_matrix_percent)
+# plot_melt <- plot_melt[plot_melt$value!=0,]
+# p <-ggplot(data = plot_melt, aes(x=region, y=socio_ec_class_7, fill=value))
+# p+geom_beeswarm(aes(color = region))
+
+```
+
+
+```{r}
+field1 <- 7
+field2 <- 15
+plot_data <- hogares.clean[c(field1,field2)]
+# plot_melt <- melt(plot_data)
+# plot_melt <- plot_melt[plot_melt$value!=0,]
+p <- ggplot(data = plot_data, aes(x=region)) 
+p <- p + stat_count(aes(x=socio_ec_class_7, fill=region))
+p <- p + scale_fill_brewer(palette="Set3")
+p <- p + facet_wrap( ~ region, ncol=1,scales="free",shrink = F)
+p <- p + theme(strip.text = element_text(face="bold", size=9,lineheight=5.0),aspect.ratio = 0.1)
+print(p)
+ggsave("plt.png", width = 16, height = 9, dpi = 120)
+```
+```{r}
+field1 <- 13
+field2 <-7
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
+g1 <- g1+ xlab(plot_names[1])+scale_fill_brewer(name = plot_names[2],palette="RdYlGn")
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")
+g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
+plot(g1)
+plot(g2)
+```
+
+```{r}
+field1 <- 14
+field2 <-7
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
+g1 <- g1+ xlab(plot_names[1])+scale_fill_brewer(name = plot_names[2],palette="RdYlGn")
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")
+g2 <- g2+ scale_y_continuous(labels = scales::percent)+ylab("")
+g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
+plot(g1)
+plot(g2)
 ```
 ```{r}
 field1 <- 15
 field2 <-7
 plot_names <- names(hogares.clean[c(field1,field2)])
-g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]))+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])
-g2 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])
-plot(g1)
-plot(g2)
-```
-```{r}
-field1 <- 14 #urban_aglom
-field2 <-7 #soc_ec_class
-plot_names <- names(hogares.clean[c(field1,field2)])
-g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]))+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
-g2 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")+ xlab(plot_names[1])+scale_fill_discrete(name = plot_names[2])+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
+g1 <- g1+ xlab(plot_names[1])+scale_fill_brewer(name = plot_names[2],palette="RdYlBu")
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")
+g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
 plot(g1)
 plot(g2)
 ```

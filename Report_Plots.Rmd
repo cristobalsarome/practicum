@@ -149,22 +149,7 @@ ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
   aesthetics = "fill")
 ```
 
-```{r}
-field.nr <- 22
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
-  aesthetics = "fill")
-```
-```{r}
-field.nr <- 23
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
-  aesthetics = "fill")
-```
+
 ```{r}
 field.nr <- 24
 data.gr <- hogares.clean[field.nr]
@@ -207,37 +192,20 @@ ggplot(plot_data, aes(fill=forcats::fct_rev(cond), y=count, x=param)) +
 
 
 ```{r}
-hogares.clean[poverty.binary] <- poverty.binary.df
-hogares.factor <- hogares.clean[unlist(sapply(hogares.clean,class))=="factor"]
-hogares.factor <- hogares.factor[-1] #remove the survey year
+field1 <- 14
+field2 <-7
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
+g1 <- g1+ xlab(plot_names[1])+scale_fill_brewer(name = plot_names[2],palette="RdYlGn")
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill",reverse=1)
+g2 <- g2+ scale_y_continuous(labels = scales::percent)+ylab("")
+g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
+plot(g1)
+plot(g2)
 ```
 
-```{r}
-nrFields <- length(hogares.factor)
-chisq.table <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value ,hogares.factor,rep(hogares.factor[1],nrFields)))
-names(chisq.table)<-names(hogares.factor[1])
-for (field in c(2:nrFields)){
-  chisq.newcol <- as.data.frame(mapply(function(x, y) chisq.test(x, y)$p.value
-               ,hogares.factor,rep(hogares.factor[field],nrFields)))
-  names(chisq.newcol)<-names(hogares.factor[field])
-  chisq.table <- cbind.data.frame(chisq.table,chisq.newcol)
-}
-for (i in c(1:(nrFields-1))){
-  for(j in c((i+1):nrFields)){
-    chisq.table[i,j] <- NA
-  }
-}
-#For some reason melt function handles variable names better with 
-#matrices than with data frames
-chisq.table <- as.matrix(chisq.table)
-melted_chisq <- melt(chisq.table)
-melted_chisq <-melted_chisq [!is.na(melted_chisq$value),]
-p1 <- ggplot(data = melted_chisq, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile()+scale_fill_distiller(palette = "Spectral",limits = c(0,0.001))+theme(axis.text.x = element_text(angle = 60, hjust = 1))+theme(panel.grid= element_line(colour = "black"))
-ggsave(filename = "chisqu_pvalue_full.png", p1, width = 50, height = 40, dpi = 300,units = "cm")
-shell("chisqu_pvalue_full.png")
 
-```
 
 
 

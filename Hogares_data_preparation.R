@@ -100,15 +100,18 @@ hogares.factor <- hogares.clean[homes_factor]
 hogares.factor <- hogares.factor[-1] #remove the survey year
 
 
-#levels translation food_safety_category
+#levels translation 
+#food_safety_category
 levels(hogares.clean$food_safety_category) <- c("safety","some_unsafety","unsafety")
 hogares.clean$food_safety_category <- factor(hogares.clean$food_safety_category,ordered=T)
 levels(hogares.clean$head_house_educa)<- c("sec_school_compl","sec_school_incompl")
 levels(hogares.clean$head_house_empl) <- c("full_employment","precarious_employm","unemployed","inactive")
 levels(hogares.clean$work_class) <- c("proff_middle_class","non_proffesional_middle_class","working_class","marginal")
 hogares.clean$work_class <- factor(hogares.clean$work_class,ordered=T)
-
-
+levels(hogares.clean$urban_aglom2)
+levels(hogares.clean$urban_aglom4) <- c("Buenos Aires City", "Buenos Aires Suburbs", 
+                                        "Other Metropolitan Areas", "Smaller cities in the Provinces")
+levels(hogares.clean$region)
 
 #Function to wraps long split labels over multiple lines.
 #Used to improve visualitazion of decision trees using the
