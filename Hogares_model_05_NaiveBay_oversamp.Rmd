@@ -15,7 +15,7 @@ library(e1071)
 #Select target and predictor variables
 target_field <- 62
 #predictor_fields <- c(9,13:15,17:24)#with work_class
-predictor_fields <- c(13:15,17,18,21:24)#without work_class
+#predictor_fields <- c(13:15,17,18,21:24)#without work_class
 predictor_fields <- c(13:15,17,18,21:24,30,34,50)#without work_class
 model_fields <- c(target_field,predictor_fields)
 #metadata2$english_labels[predictor_fields]
@@ -64,8 +64,8 @@ file_suffix <- paste0(merge_suffix,oversample_suffix)
 ```{r}
 report_filename <- paste0("Reports/model_performance",file_suffix,".txt")
 sink(report_filename,append = F)
-abr_time_old <- ""
-for (tree_cp in c(0.01)) {
+
+
 
 
     #We log the parameters and performance of different models in a text file
@@ -73,11 +73,7 @@ for (tree_cp in c(0.01)) {
     #We log the time
     abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
     
-    # while(abr_time==abr_time_old){
-    #   Sys.sleep(0.3)#we delay the loop execution a little so we don't produce
-    #               #more than a plot per second (wich will overwrite due to duplicated names)
-    #   abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
-    # }
+
     writeLines(as.character(Sys.time()))
     
 
@@ -97,7 +93,7 @@ for (tree_cp in c(0.01)) {
     # homes_model_05 <-naiveBayes(model_formula,
     #       hogares.clean[training_index,model_fields])#without oversampling
     homes_model_05 <-naiveBayes(model_formula,
-                               training_data)#with_oversampling
+                               training_data[model_fields])#with_oversampling
     
     
     #rminer::Importance(homes_model_05,UPsampled_data[model_fields])
@@ -105,7 +101,7 @@ for (tree_cp in c(0.01)) {
     
     #Confusion matrix test set
     writeLines("-----TEST SET - CONFUSION MATRIX-----")
-    pred<-predict(homes_model_05,data=training_data[model_fields],type = "class")
+    pred<-predict(homes_model_05,hogares.clean[-training_index,model_fields],type = "class")
     tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
     print(tree5_conf_matrix)
     #Confusion matrix training set
@@ -160,14 +156,13 @@ for (tree_cp in c(0.01)) {
     var_weight <- var_weight[order(var_weight$weight,decreasing =T ),]
     
     #"-----VARIABLE WEIGHT -----")
-    write.csv(var_weight,paste0("Reports/var_weight",filename_sufix,".csv"))
+    write.csv(var_weight,paste0("Reports/var_weight",file_suffix,".csv"))
     
     writeLines("-----MODEL DETAILS-----")
     print(homes_model_05)
     writeLines("\n")
 
 
-}
 sink()
 
 ```
