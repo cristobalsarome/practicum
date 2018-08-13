@@ -90,8 +90,6 @@ sink(report_filename,append = F)
     writeLines("\n")
     
     #WE CREATE THE MODEL
-    # homes_model_05 <-naiveBayes(model_formula,
-    #       hogares.clean[training_index,model_fields])#without oversampling
     homes_model_05 <-naiveBayes(model_formula,
                                training_data[model_fields])#with_oversampling
     

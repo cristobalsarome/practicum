@@ -102,16 +102,17 @@ hogares.factor <- hogares.factor[-1] #remove the survey year
 
 #levels translation 
 #food_safety_category
-levels(hogares.clean$food_safety_category) <- c("safety","some_unsafety","unsafety")
+levels(hogares.clean$food_safety_category) <- c("safety","moderate unsafety","unsafety")
 hogares.clean$food_safety_category <- factor(hogares.clean$food_safety_category,ordered=T)
 levels(hogares.clean$head_house_educa)<- c("sec_school_compl","sec_school_incompl")
 levels(hogares.clean$head_house_empl) <- c("full_employment","precarious_employm","unemployed","inactive")
 levels(hogares.clean$work_class) <- c("proff_middle_class","non_proffesional_middle_class","working_class","marginal")
 hogares.clean$work_class <- factor(hogares.clean$work_class,ordered=T)
-levels(hogares.clean$urban_aglom2)
+
 levels(hogares.clean$urban_aglom4) <- c("Buenos Aires City", "Buenos Aires Suburbs", 
                                         "Other Metropolitan Areas", "Smaller cities in the Provinces")
 levels(hogares.clean$region)
+levels(hogares.clean$minors_in_home) <- c("without children", "with children")
 
 #Function to wraps long split labels over multiple lines.
 #Used to improve visualitazion of decision trees using the
@@ -134,7 +135,7 @@ split_fun <- function(x, labs, digits, varlen, faclen)
 merge_unsafety_some <- function(hogares.clean){
   #We merge the some_unsafety and safety categories in an attempt
   #to improve the prediction accuracy
-  records_to_change <- which(hogares.clean[[target_field]]=="some_unsafety")
+  records_to_change <- which(hogares.clean[[target_field]]=="moderate unsafety")
   hogares.clean[records_to_change,target_field] <- "unsafety"
   hogares.clean$food_safety_category <- factor(hogares.clean$food_safety_category,levels =  c("safety","unsafety"),ordered=T)
   table(hogares.clean[[target_field]])

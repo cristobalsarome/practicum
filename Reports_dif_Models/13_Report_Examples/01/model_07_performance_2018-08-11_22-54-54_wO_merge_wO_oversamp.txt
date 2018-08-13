@@ -1,0 +1,286 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-11 22:54:55
+cp_parameter: 0.02
+
+
+output_levels: safety, moderate unsafety, unsafety
+plot_name: tree_plot_2018-08-11_22-54-55.png
+predictor_varialbeles: year_survey, questionnaire_id, weight_homes, weight_total, weight_not_elevated, weight_not_elevated_tot, socio_ec_class_7, socio_ec_class_6, work_class, socio_ec_quartile, socio_ec_quintile, socio_ec_deciles, urban_aglom2, urban_aglom4, region, socio_ec_level, minors_in_home, home_type1, home_type2, home_type3, head_house_empl, head_house_sex, head_house_educa, housing_tenure, housing_irregular_tenacy, housing_adequacy1, toilette, overcrowding1, running_water, gas_network, sewer_network, public_lightning, paved_streets, stormwater_drainage, garbage_collection, police_surveillance, dumsites_in_vicinity, poluting_industries_vic, water_contamination, plague_problems, flood_prone_streets, drugs_in_area, alimentation, health_services, basic_service_connection, decent_housing, access_to_education, employment_soc_seq, sum_deficits, nr_home_members, adult_equivalent, no_income_declaration, total_home_income, per_capita_income, per_eq_adult_income, food_basket_cost, total_basket_cost, indigency_income, poverty_income, insuficient_income_subjec, saving_capacity_subject, total_food_insecurity, moderate_food_insecurity, severe_food_insecurity, social_plans1, social_plans2, social_plans3, lack_housing_payment, no_medical_att_medicines, no_medical_att, no_medicines, basic_needs_not_covered, overcrowding2, overcrowding3, housing_adequacy2, toilette2, children_not_att_school, subsistence_capacity
+
+
+Variable Importance:
+      [,1]                       [,2]       
+ [1,] "alimentation"             "694.29752"
+ [2,] "moderate_food_insecurity" "680.92108"
+ [3,] "severe_food_insecurity"   "255.86396"
+ [4,] "sum_deficits"             "203.89159"
+ [5,] "questionnaire_id"         "13.89251" 
+ [6,] "adult_equivalent"         "12.62956" 
+ [7,] "nr_home_members"          "11.3666"  
+ [8,] "per_capita_income"        "10.661"   
+ [9,] "total_home_income"        "9.32837"  
+[10,] "weight_homes"             "5.05182"  
+[11,] "weight_total"             "5.05182"  
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = training_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+[1] alimentation             moderate_food_insecurity
+
+Root node error: 521/3959 = 0.1316
+
+n= 3959 
+
+       CP nsplit rel error  xerror     xstd
+1 0.63148      0   1.00000 1.00000 0.040826
+2 0.36852      1   0.36852 0.36852 0.025943
+3 0.02000      2   0.00000 0.00000 0.000000
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+                   Reference
+Prediction          safety moderate unsafety unsafety
+  safety              1473                 0        0
+  moderate unsafety      0               140        0
+  unsafety               0                 0       81
+
+Overall Statistics
+                                     
+               Accuracy : 1          
+                 95% CI : (0.9978, 1)
+    No Information Rate : 0.8695     
+    P-Value [Acc > NIR] : < 2.2e-16  
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+
+Statistics by Class:
+
+                     Class: safety Class: moderate unsafety Class: unsafety
+Sensitivity                 1.0000                  1.00000         1.00000
+Specificity                 1.0000                  1.00000         1.00000
+Pos Pred Value              1.0000                  1.00000         1.00000
+Neg Pred Value              1.0000                  1.00000         1.00000
+Prevalence                  0.8695                  0.08264         0.04782
+Detection Rate              0.8695                  0.08264         0.04782
+Detection Prevalence        0.8695                  0.08264         0.04782
+Balanced Accuracy           1.0000                  1.00000         1.00000
+
+
+
+-Merged results - Confusion Matrix-
+
+
+Confusion Matrix and Statistics
+
+                   Reference
+Prediction          safety moderate unsafety unsafety
+  safety              1473                 0        0
+  moderate unsafety      0               140        0
+  unsafety               0                 0       81
+
+Overall Statistics
+                                     
+               Accuracy : 1          
+                 95% CI : (0.9978, 1)
+    No Information Rate : 0.8695     
+    P-Value [Acc > NIR] : < 2.2e-16  
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+
+Statistics by Class:
+
+                     Class: safety Class: moderate unsafety Class: unsafety
+Sensitivity                 1.0000                  1.00000         1.00000
+Specificity                 1.0000                  1.00000         1.00000
+Pos Pred Value              1.0000                  1.00000         1.00000
+Neg Pred Value              1.0000                  1.00000         1.00000
+Prevalence                  0.8695                  0.08264         0.04782
+Detection Rate              0.8695                  0.08264         0.04782
+Detection Prevalence        0.8695                  0.08264         0.04782
+Balanced Accuracy           1.0000                  1.00000         1.00000
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+                   Reference
+Prediction          safety moderate unsafety unsafety
+  safety              3438                 0        0
+  moderate unsafety      0               329        0
+  unsafety               0                 0      192
+
+Overall Statistics
+                                     
+               Accuracy : 1          
+                 95% CI : (0.9991, 1)
+    No Information Rate : 0.8684     
+    P-Value [Acc > NIR] : < 2.2e-16  
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+
+Statistics by Class:
+
+                     Class: safety Class: moderate unsafety Class: unsafety
+Sensitivity                 1.0000                   1.0000          1.0000
+Specificity                 1.0000                   1.0000          1.0000
+Pos Pred Value              1.0000                   1.0000          1.0000
+Neg Pred Value              1.0000                   1.0000          1.0000
+Prevalence                  0.8684                   0.0831          0.0485
+Detection Rate              0.8684                   0.0831          0.0485
+Detection Prevalence        0.8684                   0.0831          0.0485
+Balanced Accuracy           1.0000                   1.0000          1.0000
+
+
+
+
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-11 22:54:56
+cp_parameter: 0.01
+
+
+output_levels: safety, moderate unsafety, unsafety
+plot_name: tree_plot_2018-08-11_22-54-56.png
+predictor_varialbeles: year_survey, questionnaire_id, weight_homes, weight_total, weight_not_elevated, weight_not_elevated_tot, socio_ec_class_7, socio_ec_class_6, work_class, socio_ec_quartile, socio_ec_quintile, socio_ec_deciles, urban_aglom2, urban_aglom4, region, socio_ec_level, minors_in_home, home_type1, home_type2, home_type3, head_house_empl, head_house_sex, head_house_educa, housing_tenure, housing_irregular_tenacy, housing_adequacy1, toilette, overcrowding1, running_water, gas_network, sewer_network, public_lightning, paved_streets, stormwater_drainage, garbage_collection, police_surveillance, dumsites_in_vicinity, poluting_industries_vic, water_contamination, plague_problems, flood_prone_streets, drugs_in_area, alimentation, health_services, basic_service_connection, decent_housing, access_to_education, employment_soc_seq, sum_deficits, nr_home_members, adult_equivalent, no_income_declaration, total_home_income, per_capita_income, per_eq_adult_income, food_basket_cost, total_basket_cost, indigency_income, poverty_income, insuficient_income_subjec, saving_capacity_subject, total_food_insecurity, moderate_food_insecurity, severe_food_insecurity, social_plans1, social_plans2, social_plans3, lack_housing_payment, no_medical_att_medicines, no_medical_att, no_medicines, basic_needs_not_covered, overcrowding2, overcrowding3, housing_adequacy2, toilette2, children_not_att_school, subsistence_capacity
+
+
+Variable Importance:
+      [,1]                       [,2]       
+ [1,] "alimentation"             "694.29752"
+ [2,] "moderate_food_insecurity" "680.92108"
+ [3,] "severe_food_insecurity"   "255.86396"
+ [4,] "sum_deficits"             "203.89159"
+ [5,] "questionnaire_id"         "13.89251" 
+ [6,] "adult_equivalent"         "12.62956" 
+ [7,] "nr_home_members"          "11.3666"  
+ [8,] "per_capita_income"        "10.661"   
+ [9,] "total_home_income"        "9.32837"  
+[10,] "weight_homes"             "5.05182"  
+[11,] "weight_total"             "5.05182"  
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = training_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+[1] alimentation             moderate_food_insecurity
+
+Root node error: 521/3959 = 0.1316
+
+n= 3959 
+
+       CP nsplit rel error  xerror     xstd
+1 0.63148      0   1.00000 1.00000 0.040826
+2 0.36852      1   0.36852 0.36852 0.025943
+3 0.01000      2   0.00000 0.00000 0.000000
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+                   Reference
+Prediction          safety moderate unsafety unsafety
+  safety              1473                 0        0
+  moderate unsafety      0               140        0
+  unsafety               0                 0       81
+
+Overall Statistics
+                                     
+               Accuracy : 1          
+                 95% CI : (0.9978, 1)
+    No Information Rate : 0.8695     
+    P-Value [Acc > NIR] : < 2.2e-16  
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+
+Statistics by Class:
+
+                     Class: safety Class: moderate unsafety Class: unsafety
+Sensitivity                 1.0000                  1.00000         1.00000
+Specificity                 1.0000                  1.00000         1.00000
+Pos Pred Value              1.0000                  1.00000         1.00000
+Neg Pred Value              1.0000                  1.00000         1.00000
+Prevalence                  0.8695                  0.08264         0.04782
+Detection Rate              0.8695                  0.08264         0.04782
+Detection Prevalence        0.8695                  0.08264         0.04782
+Balanced Accuracy           1.0000                  1.00000         1.00000
+
+
+
+-Merged results - Confusion Matrix-
+
+
+Confusion Matrix and Statistics
+
+                   Reference
+Prediction          safety moderate unsafety unsafety
+  safety              1473                 0        0
+  moderate unsafety      0               140        0
+  unsafety               0                 0       81
+
+Overall Statistics
+                                     
+               Accuracy : 1          
+                 95% CI : (0.9978, 1)
+    No Information Rate : 0.8695     
+    P-Value [Acc > NIR] : < 2.2e-16  
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+
+Statistics by Class:
+
+                     Class: safety Class: moderate unsafety Class: unsafety
+Sensitivity                 1.0000                  1.00000         1.00000
+Specificity                 1.0000                  1.00000         1.00000
+Pos Pred Value              1.0000                  1.00000         1.00000
+Neg Pred Value              1.0000                  1.00000         1.00000
+Prevalence                  0.8695                  0.08264         0.04782
+Detection Rate              0.8695                  0.08264         0.04782
+Detection Prevalence        0.8695                  0.08264         0.04782
+Balanced Accuracy           1.0000                  1.00000         1.00000
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+                   Reference
+Prediction          safety moderate unsafety unsafety
+  safety              3438                 0        0
+  moderate unsafety      0               329        0
+  unsafety               0                 0      192
+
+Overall Statistics
+                                     
+               Accuracy : 1          
+                 95% CI : (0.9991, 1)
+    No Information Rate : 0.8684     
+    P-Value [Acc > NIR] : < 2.2e-16  
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+
+Statistics by Class:
+
+                     Class: safety Class: moderate unsafety Class: unsafety
+Sensitivity                 1.0000                   1.0000          1.0000
+Specificity                 1.0000                   1.0000          1.0000
+Pos Pred Value              1.0000                   1.0000          1.0000
+Neg Pred Value              1.0000                   1.0000          1.0000
+Prevalence                  0.8684                   0.0831          0.0485
+Detection Rate              0.8684                   0.0831          0.0485
+Detection Prevalence        0.8684                   0.0831          0.0485
+Balanced Accuracy           1.0000                   1.0000          1.0000
+
+
+
+

@@ -65,6 +65,7 @@ set.seed(1234)
 training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,list = F)
 UPsampled_data <- caret::upSample(hogares.clean[training_index,],hogares.clean[training_index,target_field])
 UPsampled_data <- UPsampled_data[-which(names(UPsampled_data) == "Class")]
+table(hogares.clean[training_index,target_field])
 table(UPsampled_data$food_safety_category)
 ```
 
@@ -97,8 +98,10 @@ for (tree_cp in c(0.02,0.01,0.005)) {
     #we log the plot name and predictor variables
     plot_name <- paste0("Reports/tree_plot_",abr_time,".png")
     writeLines(paste0("plot_name: ",str_replace(plot_name,"Reports/","")))
-    pred_var <- paste0(names(hogares.clean[predictor_fields]),collapse = ", ")
-    writeLines(paste0("predictor_varialbeles: ",pred_var))
+    pred_var_name <- paste0(names(hogares.clean[predictor_fields]),collapse = ", ")
+    pred_var_nr<- paste0(predictor_fields,collapse = ", ")
+    writeLines(paste0("predictor_variables_nr: ",pred_var_nr))
+    writeLines(paste0("predictor_variables_name: ",pred_var_name))
     writeLines("\n")
     
     #We create the decision tree model using rpart function

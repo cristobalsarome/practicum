@@ -1,0 +1,104 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-11 15:07:13
+output_levels: safety, unsafety
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure, gas_network, stormwater_drainage, nr_home_members
+
+
+character(0)
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1095       62
+  unsafety    378      160
+                                          
+               Accuracy : 0.7404          
+                 95% CI : (0.7188, 0.7611)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2893          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.7434          
+            Specificity : 0.7207          
+         Pos Pred Value : 0.9464          
+         Neg Pred Value : 0.2974          
+             Prevalence : 0.8690          
+         Detection Rate : 0.6460          
+   Detection Prevalence : 0.6826          
+      Balanced Accuracy : 0.7321          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2479      152
+  unsafety    959      368
+                                         
+               Accuracy : 0.7193         
+                 95% CI : (0.705, 0.7333)
+    No Information Rate : 0.8686         
+    P-Value [Acc > NIR] : 1              
+                                         
+                  Kappa : 0.2585         
+ Mcnemar's Test P-Value : <2e-16         
+                                         
+            Sensitivity : 0.7211         
+            Specificity : 0.7077         
+         Pos Pred Value : 0.9422         
+         Neg Pred Value : 0.2773         
+             Prevalence : 0.8686         
+         Detection Rate : 0.6263         
+   Detection Prevalence : 0.6647         
+      Balanced Accuracy : 0.7144         
+                                         
+       'Positive' Class : safety         
+                                         
+
+
+
+
+-----MODEL DETAILS-----
+Naive Bayes 
+
+6876 samples
+  12 predictor
+   2 classes: 'safety', 'unsafety' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 6876, 6876, 6876, 6876, 6876, 6876, ... 
+Resampling results across tuning parameters:
+
+  usekernel  Accuracy   Kappa    
+  FALSE      0.7127882  0.4255248
+   TRUE      0.7069572  0.4139220
+
+Tuning parameter 'fL' was held constant at a value of 0
+Tuning parameter 'adjust'
+ was held constant at a value of 1
+Accuracy was used to select the optimal model using the largest value.
+The final values used for the model were fL = 0, usekernel = FALSE and adjust = 1.
+
+
+-----VARIABLE IMPORTANCE-----
+"safety"
+"gas_network"		"100.0000"
+"head_house_educa"		" 93.3189"
+"stormwater_drainage"		" 81.4752"
+"head_house_empl"		" 72.8875"
+"nr_home_members"		" 70.9156"
+"minors_in_home"		" 58.8001"
+"housing_tenure"		" 51.1490"
+"home_type1"		" 31.8289"
+"head_house_sex"		" 13.1462"
+"urban_aglom4"		"  8.6475"
+"urban_aglom2"		"  1.3025"
+"region"		"  0.0000"
