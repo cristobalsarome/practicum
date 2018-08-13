@@ -1,0 +1,110 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-13 10:31:52
+cp_parameter: 0.01
+
+
+output_levels: safety, unsafety
+plot_name: tree_plot_2018-08-13_10-31-52.png
+predictor_variables_nr: 13, 14, 15, 17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 50, 51, 56, 57, 78
+predictor_variables_name: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure, housing_irregular_tenacy, housing_adequacy1, toilette, overcrowding1, running_water, gas_network, sewer_network, public_lightning, paved_streets, stormwater_drainage, garbage_collection, police_surveillance, dumsites_in_vicinity, poluting_industries_vic, water_contamination, plague_problems, flood_prone_streets, drugs_in_area, nr_home_members, adult_equivalent, food_basket_cost, total_basket_cost, children_not_att_school
+
+
+Variable Importance:
+      [,1]                      [,2]       
+ [1,] "gas_network"             "347.09569"
+ [2,] "head_house_empl"         "164.61068"
+ [3,] "sewer_network"           "125.47994"
+ [4,] "stormwater_drainage"     "94.78524" 
+ [5,] "toilette"                "87.03433" 
+ [6,] "nr_home_members"         "85.65582" 
+ [7,] "paved_streets"           "85.57683" 
+ [8,] "housing_adequacy1"       "76.24564" 
+ [9,] "adult_equivalent"        "68.58673" 
+[10,] "head_house_educa"        "16.74909" 
+[11,] "overcrowding1"           "5.8966"   
+[12,] "housing_tenure"          "1.50742"  
+[13,] "urban_aglom4"            "1.08869"  
+[14,] "head_house_sex"          "0.58622"  
+[15,] "children_not_att_school" "0.46552"  
+[16,] "home_type1"              "0.41873"  
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = training_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+[1] gas_network      head_house_educa head_house_empl  nr_home_members 
+
+Root node error: 3438/6876 = 0.5
+
+n= 6876 
+
+        CP nsplit rel error  xerror     xstd
+1 0.312682      0   1.00000 1.03607 0.012052
+2 0.072426      1   0.68732 0.68732 0.011455
+3 0.020361      2   0.61489 0.61489 0.011129
+4 0.011635      3   0.59453 0.60006 0.011053
+5 0.010000      4   0.58290 0.58697 0.010983
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety      998       57
+  unsafety    475      165
+                                          
+               Accuracy : 0.6861          
+                 95% CI : (0.6634, 0.7082)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2338          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.74324         
+            Specificity : 0.67753         
+         Pos Pred Value : 0.25781         
+         Neg Pred Value : 0.94597         
+             Prevalence : 0.13097         
+         Detection Rate : 0.09735         
+   Detection Prevalence : 0.37758         
+      Balanced Accuracy : 0.71039         
+                                          
+       'Positive' Class : unsafety        
+                                          
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2266      125
+  unsafety   1172      395
+                                          
+               Accuracy : 0.6723          
+                 95% CI : (0.6574, 0.6869)
+    No Information Rate : 0.8686          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2258          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6591          
+            Specificity : 0.7596          
+         Pos Pred Value : 0.9477          
+         Neg Pred Value : 0.2521          
+             Prevalence : 0.8686          
+         Detection Rate : 0.5725          
+   Detection Prevalence : 0.6041          
+      Balanced Accuracy : 0.7094          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+
+

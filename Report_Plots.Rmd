@@ -17,6 +17,7 @@ deficit_matrix <- as.matrix(summary_deficit)
 row.names(deficit_matrix) <- english_labels[poverty.binary]
 deficit_matrix <- melt(t(deficit_matrix))
 colnames(deficit_matrix) <- c("cond","param","count")
+View(deficit_matrix[deficit_matrix$cond=="deficitary",])
 ```
 
 ```{r}

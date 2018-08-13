@@ -10,7 +10,7 @@ source("Hogares_data_preparation.R")
 
 
 ```{r}
-
+#
 #Select target and predictor variables
 target_field <- 62
 #13,14 urban_aglom2
@@ -21,11 +21,11 @@ target_field <- 62
 #30 gas_network
 #34 stormwater_drainage
 #50 nr_home_members
+predictor_fields <- c(1:61,63:79)
 # predictor_fields <- c(14,15,21,22,23,30,34,50)#without work_class
+# predictor_fields <- c(1:42,44:48,50:61,66:79)
 # predictor_fields <- c(13:15,17,18,21:24,30,34,50)
-# predictor_fields <- c(13:15,17,18,21:24)
-# predictor_fields <- c(13:15,17,18,21:42,50,51,56,57,66:68,78)#virtually all
-predictor_fields <- c(13:15,17,18,21:42,50,51,56,57,78)#all w/o social plans
+
 model_fields <- c(target_field,predictor_fields)
 #metadata2$english_labels[predictor_fields]
 #to make the code more concise we simplify the formula and select the 
@@ -35,13 +35,12 @@ tree5_formula <- as.formula(paste0(metadata2$english_labels[target_field],"~."))
 ```
 ```{r}
 #We decide fi we want to merge the unsafety and some_unsafety classes
-will_merge <- T
+will_merge <- F
 #We decide if we want to oversample to deal with the unbalanced data
-will_oversample <-T
+will_oversample <-F
 
 merge_suffix <- "_wO_merge"
 plot_colors <- list("Greens", "Grays", "Reds")
-
 if(will_merge){
 
     #We merge the some_unsafety and safety categories in an attempt
@@ -49,7 +48,6 @@ if(will_merge){
     hogares.clean <- merge_unsafety_some(hogares.clean)
     merge_suffix <- "_w_merge"
     plot_colors <- list("Greens", "Reds")
-
 }
 
 
@@ -60,32 +58,24 @@ training_index <- createDataPartition(hogares.clean$food_safety_category,p=0.7,l
 
 oversample_suffix <- "_wO_oversamp"
 training_data <- hogares.clean[training_index,]
-model_priors <- c(0.5,0.5)
 if (will_oversample){
   training_data <- upSample(hogares.clean[training_index,],hogares.clean[training_index,                                                                   target_field])
   training_data <- training_data[-which(names(training_data) == "Class")]
   oversample_suffix <- "_w_oversamp"
-  rm(model_priors)
 }
 
 table(training_data$food_safety_category)
 file_suffix <- paste0(merge_suffix,oversample_suffix)
 
 ```
-```{r}
-
-```
 
 
 ```{r}
 tree_cp <- 0.01 #complexity parameter
-abr_time_old <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
-#file_name
-file_suffix <- paste0(file_suffix,"_WO_plans")
-file_name <- paste0("Reports/model_07_",abr_time_old,file_suffix,".txt")
 
-sink(file_name)
-for (tree_cp in c(0.01)) {
+abr_time_old <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
+sink(paste0("Reports/model_07_performance_",abr_time_old,file_suffix,".txt"))
+for (tree_cp in c(0.02,0.01)) {
 
 
     #We log the parameters and performance of different models in a text file
@@ -101,7 +91,6 @@ for (tree_cp in c(0.01)) {
     
     #we log the model cp
     writeLines(paste0("cp_parameter: ",tree_cp))
-     # writeLines(paste0("priors_parameter: ",paste(round( model_priors,digits = 5),collapse = ", ")))
     writeLines("\n")
     
     #we log the output levels
@@ -110,20 +99,12 @@ for (tree_cp in c(0.01)) {
     #we log the plot name and predictor variables
     plot_name <- paste0("Reports/tree_plot_",abr_time,".png")
     writeLines(paste0("plot_name: ",str_replace(plot_name,"Reports/","")))
-    pred_var_name <- paste0(names(hogares.clean[predictor_fields]),collapse = ", ")
-    pred_var_nr<- paste0(predictor_fields,collapse = ", ")
-    writeLines(paste0("predictor_variables_nr: ",pred_var_nr))
-    writeLines(paste0("predictor_variables_name: ",pred_var_name))
+    pred_var <- paste0(names(hogares.clean[predictor_fields]),collapse = ", ")
+    writeLines(paste0("predictor_varialbeles: ",pred_var))
     writeLines("\n")
     
-    #WE CREATE THE DECISION TREE MODEL using rpart function WITHOUT PRIORS
-    
-        tree5_model <- rpart(tree5_formula, method="class", data=training_data[model_fields],control = rpart.control(cp = tree_cp))
-    
-    #We create the decision tree model using rpart function WITH PRIORS
-    
-    # tree5_model <- rpart(tree5_formula, method="class", data=training_data[model_fields],control = rpart.control(cp = tree_cp),
-    #                      parms = list(prior = model_priors))
+    #We create the decision tree model using rpart function
+    tree5_model <- rpart(tree5_formula, method="class", data=training_data[model_fields],control = rpart.control(cp = tree_cp))
     
     #We log Variable importance
     writeLines("Variable Importance:")
@@ -141,7 +122,7 @@ for (tree_cp in c(0.01)) {
     #Confusion matrix test set
     writeLines("-----TEST SET - CONFUSION MATRIX-----")
     pred<-predict(tree5_model,hogares.clean[-training_index,model_fields],type = "class")
-    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field],positive = "unsafety")
+    tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[-training_index,target_field])
     print(tree5_conf_matrix)
     if(!will_merge){
         writeLines("\n\n")
@@ -166,7 +147,7 @@ for (tree_cp in c(0.01)) {
     
     
     writeLines("-----TRAINING SET - CONFUSION MATRIX-----")
-    pred<-predict(tree5_model,hogares.clean[training_index,model_fields],type = "class",positive = "unsafety")
+    pred<-predict(tree5_model,hogares.clean[training_index,model_fields],type = "class")
     tree5_conf_matrix<-confusionMatrix(pred, hogares.clean[training_index,target_field])
     print(tree5_conf_matrix)
     writeLines("\n\n\n")
@@ -187,6 +168,9 @@ for (tree_cp in c(0.01)) {
 }
 sink()
 
+```
+```{r}
+table(hogares.clean$food_safety_category)
 ```
 
 

@@ -1,0 +1,396 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-11 22:45:33
+cp_parameter: 0.01
+
+
+output_levels: safety, some_unsafety, unsafety
+plot_name: tree_plot_2018-08-11_22-45-33.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure, gas_network, stormwater_drainage, nr_home_members
+
+
+Variable Importance:
+[1] ""
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = training_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+character(0)
+
+Root node error: 521/3959 = 0.1316
+
+n= 3959 
+
+  CP nsplit rel error xerror xstd
+1  0      0         1      0    0
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          1473           140       81
+  some_unsafety      0             0        0
+  unsafety           0             0        0
+
+Overall Statistics
+                                          
+               Accuracy : 0.8695          
+                 95% CI : (0.8526, 0.8852)
+    No Information Rate : 0.8695          
+    P-Value [Acc > NIR] : 0.5179          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 1.0000              0.00000         0.00000
+Specificity                 0.0000              1.00000         1.00000
+Pos Pred Value              0.8695                  NaN             NaN
+Neg Pred Value                 NaN              0.91736         0.95218
+Prevalence                  0.8695              0.08264         0.04782
+Detection Rate              0.8695              0.00000         0.00000
+Detection Prevalence        1.0000              0.00000         0.00000
+Balanced Accuracy           0.5000              0.50000         0.50000
+
+
+
+-Merged results - Confusion Matrix-
+
+
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1473      221
+  unsafety      0        0
+                                          
+               Accuracy : 0.8695          
+                 95% CI : (0.8526, 0.8852)
+    No Information Rate : 0.8695          
+    P-Value [Acc > NIR] : 0.5179          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 1.0000          
+            Specificity : 0.0000          
+         Pos Pred Value : 0.8695          
+         Neg Pred Value :    NaN          
+             Prevalence : 0.8695          
+         Detection Rate : 0.8695          
+   Detection Prevalence : 1.0000          
+      Balanced Accuracy : 0.5000          
+                                          
+       'Positive' Class : safety          
+                                          
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          3438           329      192
+  some_unsafety      0             0        0
+  unsafety           0             0        0
+
+Overall Statistics
+                                          
+               Accuracy : 0.8684          
+                 95% CI : (0.8575, 0.8788)
+    No Information Rate : 0.8684          
+    P-Value [Acc > NIR] : 0.5117          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 1.0000               0.0000          0.0000
+Specificity                 0.0000               1.0000          1.0000
+Pos Pred Value              0.8684                  NaN             NaN
+Neg Pred Value                 NaN               0.9169          0.9515
+Prevalence                  0.8684               0.0831          0.0485
+Detection Rate              0.8684               0.0000          0.0000
+Detection Prevalence        1.0000               0.0000          0.0000
+Balanced Accuracy           0.5000               0.5000          0.5000
+
+
+
+
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-11 22:45:34
+cp_parameter: 0.005
+
+
+output_levels: safety, some_unsafety, unsafety
+plot_name: tree_plot_2018-08-11_22-45-34.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure, gas_network, stormwater_drainage, nr_home_members
+
+
+Variable Importance:
+[1] ""
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = training_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+character(0)
+
+Root node error: 521/3959 = 0.1316
+
+n= 3959 
+
+  CP nsplit rel error xerror xstd
+1  0      0         1      0    0
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          1473           140       81
+  some_unsafety      0             0        0
+  unsafety           0             0        0
+
+Overall Statistics
+                                          
+               Accuracy : 0.8695          
+                 95% CI : (0.8526, 0.8852)
+    No Information Rate : 0.8695          
+    P-Value [Acc > NIR] : 0.5179          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 1.0000              0.00000         0.00000
+Specificity                 0.0000              1.00000         1.00000
+Pos Pred Value              0.8695                  NaN             NaN
+Neg Pred Value                 NaN              0.91736         0.95218
+Prevalence                  0.8695              0.08264         0.04782
+Detection Rate              0.8695              0.00000         0.00000
+Detection Prevalence        1.0000              0.00000         0.00000
+Balanced Accuracy           0.5000              0.50000         0.50000
+
+
+
+-Merged results - Confusion Matrix-
+
+
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1473      221
+  unsafety      0        0
+                                          
+               Accuracy : 0.8695          
+                 95% CI : (0.8526, 0.8852)
+    No Information Rate : 0.8695          
+    P-Value [Acc > NIR] : 0.5179          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 1.0000          
+            Specificity : 0.0000          
+         Pos Pred Value : 0.8695          
+         Neg Pred Value :    NaN          
+             Prevalence : 0.8695          
+         Detection Rate : 0.8695          
+   Detection Prevalence : 1.0000          
+      Balanced Accuracy : 0.5000          
+                                          
+       'Positive' Class : safety          
+                                          
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          3438           329      192
+  some_unsafety      0             0        0
+  unsafety           0             0        0
+
+Overall Statistics
+                                          
+               Accuracy : 0.8684          
+                 95% CI : (0.8575, 0.8788)
+    No Information Rate : 0.8684          
+    P-Value [Acc > NIR] : 0.5117          
+                                          
+                  Kappa : 0               
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 1.0000               0.0000          0.0000
+Specificity                 0.0000               1.0000          1.0000
+Pos Pred Value              0.8684                  NaN             NaN
+Neg Pred Value                 NaN               0.9169          0.9515
+Prevalence                  0.8684               0.0831          0.0485
+Detection Rate              0.8684               0.0000          0.0000
+Detection Prevalence        1.0000               0.0000          0.0000
+Balanced Accuracy           0.5000               0.5000          0.5000
+
+
+
+
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-11 22:45:35
+cp_parameter: 0.002
+
+
+output_levels: safety, some_unsafety, unsafety
+plot_name: tree_plot_2018-08-11_22-45-35.png
+predictor_varialbeles: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure, gas_network, stormwater_drainage, nr_home_members
+
+
+Variable Importance:
+      [,1]                  [,2]      
+ [1,] "gas_network"         "39.33803"
+ [2,] "housing_tenure"      "19.19444"
+ [3,] "nr_home_members"     "18.46479"
+ [4,] "region"              "12.612"  
+ [5,] "head_house_empl"     "8.28926" 
+ [6,] "home_type1"          "7.27002" 
+ [7,] "urban_aglom4"        "5.86678" 
+ [8,] "head_house_sex"      "3.56371" 
+ [9,] "stormwater_drainage" "3.306"   
+[10,] "urban_aglom2"        "2.76528" 
+[11,] "head_house_educa"    "0.69715" 
+[12,] "minors_in_home"      "0.43849" 
+
+
+-----COMPLEXITY PARAMETER TABLE-----
+
+Classification tree:
+rpart(formula = tree5_formula, data = training_data[model_fields], 
+    method = "class", control = rpart.control(cp = tree_cp))
+
+Variables actually used in tree construction:
+[1] gas_network     head_house_empl head_house_sex  home_type1      housing_tenure 
+[6] nr_home_members region          urban_aglom4   
+
+Root node error: 521/3959 = 0.1316
+
+n= 3959 
+
+         CP nsplit rel error xerror     xstd
+1 0.0035189      0   1.00000 1.0000 0.040826
+2 0.0025592     12   0.95393 1.0288 0.041320
+3 0.0020000     15   0.94626 1.0307 0.041352
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          1453           135       77
+  some_unsafety     18             3        2
+  unsafety           2             2        2
+
+Overall Statistics
+                                          
+               Accuracy : 0.8607          
+                 95% CI : (0.8433, 0.8768)
+    No Information Rate : 0.8695          
+    P-Value [Acc > NIR] : 0.8678          
+                                          
+                  Kappa : 0.0329          
+ Mcnemar's Test P-Value : <2e-16          
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                0.98642             0.021429        0.024691
+Specificity                0.04072             0.987130        0.997520
+Pos Pred Value             0.87267             0.130435        0.333333
+Neg Pred Value             0.31034             0.918013        0.953199
+Prevalence                 0.86954             0.082645        0.047816
+Detection Rate             0.85773             0.001771        0.001181
+Detection Prevalence       0.98288             0.013577        0.003542
+Balanced Accuracy          0.51357             0.504279        0.511106
+
+
+
+-Merged results - Confusion Matrix-
+
+
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1453      212
+  unsafety     20        9
+                                          
+               Accuracy : 0.863           
+                 95% CI : (0.8457, 0.8791)
+    No Information Rate : 0.8695          
+    P-Value [Acc > NIR] : 0.7974          
+                                          
+                  Kappa : 0.043           
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.98642         
+            Specificity : 0.04072         
+         Pos Pred Value : 0.87267         
+         Neg Pred Value : 0.31034         
+             Prevalence : 0.86954         
+         Detection Rate : 0.85773         
+   Detection Prevalence : 0.98288         
+      Balanced Accuracy : 0.51357         
+                                          
+       'Positive' Class : safety          
+                                          
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+               Reference
+Prediction      safety some_unsafety unsafety
+  safety          3421           298      163
+  some_unsafety     10            25        9
+  unsafety           7             6       20
+
+Overall Statistics
+                                          
+               Accuracy : 0.8755          
+                 95% CI : (0.8648, 0.8856)
+    No Information Rate : 0.8684          
+    P-Value [Acc > NIR] : 0.09733         
+                                          
+                  Kappa : 0.1538          
+ Mcnemar's Test P-Value : < 2e-16         
+
+Statistics by Class:
+
+                     Class: safety Class: some_unsafety Class: unsafety
+Sensitivity                 0.9951             0.075988        0.104167
+Specificity                 0.1152             0.994766        0.996549
+Pos Pred Value              0.8812             0.568182        0.606061
+Neg Pred Value              0.7792             0.922350        0.956190
+Prevalence                  0.8684             0.083102        0.048497
+Detection Rate              0.8641             0.006315        0.005052
+Detection Prevalence        0.9806             0.011114        0.008335
+Balanced Accuracy           0.5551             0.535377        0.550358
+
+
+
+

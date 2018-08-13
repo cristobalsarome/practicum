@@ -1,0 +1,103 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-13 12:39:08
+Source Filename: Hogares_model_12_NaiveBay_Caret
+output_levels: safety, unsafety
+predictor_variables_nr: 13, 14, 15, 17, 18, 21, 22, 23, 24
+predictor_variables_name: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure
+
+
+character(0)
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1050       62
+  unsafety    423      160
+                                          
+               Accuracy : 0.7139          
+                 95% CI : (0.6917, 0.7353)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2565          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.7128          
+            Specificity : 0.7207          
+         Pos Pred Value : 0.9442          
+         Neg Pred Value : 0.2744          
+             Prevalence : 0.8690          
+         Detection Rate : 0.6195          
+   Detection Prevalence : 0.6560          
+      Balanced Accuracy : 0.7168          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2405      154
+  unsafety   1033      366
+                                          
+               Accuracy : 0.7001          
+                 95% CI : (0.6856, 0.7144)
+    No Information Rate : 0.8686          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2349          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6995          
+            Specificity : 0.7038          
+         Pos Pred Value : 0.9398          
+         Neg Pred Value : 0.2616          
+             Prevalence : 0.8686          
+         Detection Rate : 0.6076          
+   Detection Prevalence : 0.6465          
+      Balanced Accuracy : 0.7017          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+
+
+-----MODEL DETAILS-----
+Naive Bayes 
+
+6876 samples
+   9 predictor
+   2 classes: 'safety', 'unsafety' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 6876, 6876, 6876, 6876, 6876, 6876, ... 
+Resampling results across tuning parameters:
+
+  usekernel  Accuracy   Kappa    
+  FALSE      0.6957517  0.3914759
+   TRUE      0.6957517  0.3914759
+
+Tuning parameter 'fL' was held constant at a value of 0
+Tuning parameter 'adjust'
+ was held constant at a value of 1
+Accuracy was used to select the optimal model using the largest value.
+The final values used for the model were fL = 0, usekernel = FALSE and adjust = 1.
+
+
+-----VARIABLE IMPORTANCE-----
+"safety"
+"head_house_educa"		"100.0000"
+"head_house_empl"		" 78.1058"
+"minors_in_home"		" 63.0099"
+"housing_tenure"		" 54.8110"
+"home_type1"		" 34.1076"
+"head_house_sex"		" 14.0874"
+"urban_aglom4"		"  9.2666"
+"urban_aglom2"		"  1.3958"
+"region"		"  0.0000"
