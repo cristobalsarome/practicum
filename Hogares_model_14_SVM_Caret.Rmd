@@ -5,11 +5,11 @@ output: html_notebook
 
 ```{r}
 source("Hogares_data_preparation.R")
+library(parallel)
 ```
 
 
 ```{r}
-#Multinomial Naive Bayes Model
 
 #Select target and predictor variables
 target_field <- 62
@@ -35,7 +35,7 @@ if(will_merge){
     #We merge the some_unsafety and safety categories in an attempt
     #to improve the prediction accuracy
     hogares.clean <- merge_unsafety_some(hogares.clean)
-    merge_suffix <- "_w_merge"
+    merge_suffix <- "_wmerg"
     plot_colors <- list("Greens", "Reds")
 }
 
@@ -50,7 +50,7 @@ training_data <- hogares.clean[training_index,]
 if (will_oversample){
   training_data <- upSample(hogares.clean[training_index,],hogares.clean[training_index,                                                                   target_field])
   training_data <- training_data[-which(names(training_data) == "Class")]
-  oversample_suffix <- "_w_oversamp"
+  oversample_suffix <- "_wosamp"
 }
 
 table(training_data$food_safety_category)
@@ -61,8 +61,8 @@ file_suffix <- paste0(merge_suffix,oversample_suffix)
 
 ```{r}
 abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
-report_filename <- paste0("Reports/NB_",abr_time,"_",file_suffix,".txt")
-sink(report_filename,append = F)
+report_filename <- paste0("Reports/SVM_",abr_time,"_",file_suffix,".txt")
+sink(report_filename,append = T)
 
 
 
@@ -87,8 +87,8 @@ writeLines(paste0("predictor_variables_name: ",pred_var_name))
 writeLines("\n")
 
 #WE CREATE THE MODEL
-capture.output(home_model_12 <- train(x=training_data[predictor_fields],y=training_data[[target_field]],
-                       method = "svm"))
+home_model_12 <- train(model_formula,training_data[model_fields],
+                       method = "svmLinearWeights",na.action=na.exclude)
 
     
 
@@ -119,6 +119,7 @@ capture.output(home_model_12 <- train(x=training_data[predictor_fields],y=traini
     writeLines("\n")
     
     writeLines("-----VARIABLE IMPORTANCE-----")
+    rm(variable_importance)
     variable_importance <- varImp(home_model_12)
     var_imp_order <- order(variable_importance$importance[1],decreasing = T)
     var_imp_print <- variable_importance$importance[var_imp_order,]
