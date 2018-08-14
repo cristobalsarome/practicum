@@ -1,0 +1,106 @@
+----#----#----#----#----#----#----#----#----#----#----#----#----
+2018-08-13 16:28:00
+Source Filename: Hogares_model_14_SVM_Caret.Rmd
+output_levels: safety, unsafety
+predictor_variables_nr: 13, 14, 15, 17, 18, 21, 22, 23, 24
+predictor_variables_name: urban_aglom2, urban_aglom4, region, minors_in_home, home_type1, head_house_empl, head_house_sex, head_house_educa, housing_tenure
+
+
+-----TEST SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     1033       60
+  unsafety    440      162
+                                          
+               Accuracy : 0.705           
+                 95% CI : (0.6827, 0.7266)
+    No Information Rate : 0.869           
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2496          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.7013          
+            Specificity : 0.7297          
+         Pos Pred Value : 0.9451          
+         Neg Pred Value : 0.2691          
+             Prevalence : 0.8690          
+         Detection Rate : 0.6094          
+   Detection Prevalence : 0.6448          
+      Balanced Accuracy : 0.7155          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+-----TRAINING SET - CONFUSION MATRIX-----
+Confusion Matrix and Statistics
+
+          Reference
+Prediction safety unsafety
+  safety     2388      145
+  unsafety   1050      375
+                                          
+               Accuracy : 0.6981          
+                 95% CI : (0.6835, 0.7124)
+    No Information Rate : 0.8686          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.2391          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.6946          
+            Specificity : 0.7212          
+         Pos Pred Value : 0.9428          
+         Neg Pred Value : 0.2632          
+             Prevalence : 0.8686          
+         Detection Rate : 0.6033          
+   Detection Prevalence : 0.6400          
+      Balanced Accuracy : 0.7079          
+                                          
+       'Positive' Class : safety          
+                                          
+
+
+
+
+-----MODEL DETAILS-----
+Linear Support Vector Machines with Class Weights 
+
+6876 samples
+   9 predictor
+   2 classes: 'safety', 'unsafety' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 6876, 6876, 6876, 6876, 6876, 6876, ... 
+Resampling results across tuning parameters:
+
+  cost  weight  Accuracy   Kappa    
+  0.25  1       0.6974653  0.3950297
+  0.25  2       0.6716401  0.3438487
+  0.25  3       0.5500746  0.1018581
+  0.50  1       0.6971185  0.3943554
+  0.50  2       0.6715811  0.3437058
+  0.50  3       0.5513111  0.1043171
+  1.00  1       0.6977503  0.3956034
+  1.00  2       0.6713016  0.3431627
+  1.00  3       0.5512176  0.1041397
+
+Accuracy was used to select the optimal model using the largest value.
+The final values used for the model were cost = 1 and weight = 1.
+
+
+-----VARIABLE IMPORTANCE-----
+"safety"
+"head_house_educa"		"100.0000"
+"head_house_empl"		" 78.1058"
+"minors_in_home"		" 63.0099"
+"housing_tenure"		" 54.8110"
+"home_type1"		" 34.1076"
+"head_house_sex"		" 14.0874"
+"urban_aglom4"		"  9.2666"
+"urban_aglom2"		"  1.3958"
+"region"		"  0.0000"
