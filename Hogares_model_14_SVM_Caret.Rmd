@@ -15,6 +15,7 @@ library(parallel)
 target_field <- 62
 predictor_fields <- c(13:15,17,18,21:24)#without work_class, home_type2 only
 predictor_fields <- c(13:15,17,18,21:42,50,51,56,57,78)#all w/o social plans
+
 model_fields <- c(target_field,predictor_fields)
 #metadata2$english_labels[predictor_fields]
 #to make the code more concise we simplify the formula and select the 

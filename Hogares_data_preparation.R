@@ -104,7 +104,7 @@ hogares.factor <- hogares.factor[-1] #remove the survey year
 #food_safety_category
 levels(hogares.clean$food_safety_category) <- c("safety","moderate unsafety","unsafety")
 hogares.clean$food_safety_category <- factor(hogares.clean$food_safety_category,ordered=T)
-levels(hogares.clean$head_house_educa)<- c("sec_school_compl","sec_school_incompl")
+levels(hogares.clean$head_house_educa)<- c("sec_school compl","sec_school incompl")
 levels(hogares.clean$head_house_empl) <- c("full_employment","precarious_employm","unemployed","inactive")
 levels(hogares.clean$work_class) <- c("proff_middle_class","non_proffesional_middle_class","working_class","marginal")
 hogares.clean$work_class <- factor(hogares.clean$work_class,ordered=T)
