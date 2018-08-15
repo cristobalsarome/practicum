@@ -38,40 +38,9 @@ ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
   theme(axis.text.x = element_text(angle =0),legend.position = "none")+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
   aesthetics = "fill",name = "Class")+xlab("Class")
 ```
-```{r}
-# field.nr <- 8
-# data.gr <- hogares.clean[field.nr]
-# ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-#   stat_count()+ggtitle(english_labels[field.nr])+
-#   theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
-#   aesthetics = "fill")
-
-# field.nr <- 9
-# data.gr <- hogares.clean[field.nr]
-# ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-#   stat_count()+ggtitle(english_labels[field.nr])+
-#   theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
-#   aesthetics = "fill")
-```
 
 
 
-
-
-
-
-
-
-
-
-```{r}
-field.nr <- 13
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
-  aesthetics = "fill")
-```
 
 ```{r}
 field.nr <- 14
@@ -98,67 +67,16 @@ ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
 ```
 
 
-```{r}
-field.nr <- 16
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
-  aesthetics = "fill")
-```
-
-```{r}
-field.nr <- 17
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
-  aesthetics = "fill")
-```
-```{r}
-field.nr <- 18
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 1, direction = 1,
-  aesthetics = "fill")
-```
-
-```{r}
-field.nr <- 19
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
-  aesthetics = "fill")
-```
-
-```{r}
-field.nr <- 20
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
-  aesthetics = "fill")
-```
-```{r}
-field.nr <- 21
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
-  aesthetics = "fill")
-```
 
 
-```{r}
-field.nr <- 24
-data.gr <- hogares.clean[field.nr]
-ggplot(data.gr, aes(data.gr[[1]],fill=data.gr[[1]])) +
-  stat_count()+ggtitle(english_labels[field.nr])+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+scale_fill_brewer( type = "qual", palette = 3, direction = 1,
-  aesthetics = "fill")
-```
+
+
+
+
+
+
+
+
 
 ```{r}
 plot_data <- deficit_matrix[c(1:30),]
@@ -199,22 +117,78 @@ plot_names <- names(hogares.clean[c(field1,field2)])
 g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
 g1 <- g1+ xlab(plot_names[1])+scale_fill_brewer(name = plot_names[2],palette="RdYlGn")
 g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
-g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill",reverse=1)
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")
 g2 <- g2+ scale_y_continuous(labels = scales::percent)+ylab("")
 g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
 plot(g1)
 plot(g2)
+```
+```{r}
+field1 <- 15
+field2 <-62
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
+g1 <- g1+ xlab(plot_names[1])
+g1 <- g1+scale_fill_manual(values = c("lightskyblue", "orange", "red"),name = plot_names[2])
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")
+g2 <- g2+ scale_y_continuous(labels = scales::percent,limits = c(0,0.25))+ylab("")
+g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
+plot(g1)
+plot(g2)
+```
+```{r}
+field1 <- 15
+field2 <-62
+plot_data <-hogares.clean[ hogares.clean$food_safety_category!="safety",]
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(plot_data[c(field1,field2)],aes(plot_data[[field1]]))
+g1 <- g1+ xlab(plot_names[1])
+g1 <- g1 + scale_fill_manual(values = c( "orange", "red"),name = plot_names[2])
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 15))+xlab("")
+g1 <- g1+ scale_y_continuous(limits = c(0, 220))
+g1 <- g1+ geom_bar(aes(fill = plot_data[[field2]]))
+plot(g1)
 ```
 
 
 
 
 
+```{r}
+field1 <- 23
+field2 <-62
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
+g1 <- g1+ xlab(plot_names[1])
+g1 <- g1+scale_fill_manual(values = c("lightskyblue", "orange", "red"),name = plot_names[2])
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+xlab("")
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")
+g2 <- g2+ scale_y_continuous(labels = scales::percent,limits = c(0,0.25))+ylab("")
+g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
+g1 <- g1+coord_fixed(ratio=1/700)
+g2 <- g2+coord_fixed(ratio=18)
+plot(g1)
+plot(g2)
+```
 
-
-
-
-
+```{r}
+field1 <- 30
+field2 <-62
+plot_names <- names(hogares.clean[c(field1,field2)])
+g1 <- ggplot(hogares.clean[c(field1,field2)],aes(hogares.clean[[field1]]))
+g1 <- g1+ xlab(plot_names[1])
+g1 <- g1+scale_fill_manual(values = c("lightskyblue", "orange", "red"),name = plot_names[2])
+g1 <- g1+scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+g1 <- g1+xlab("Acces to Gas Network")+theme(axis.title.x =element_text(size = 10,margin = margin(t = 10, r = 0, b = 0, l = 0)))
+g2 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]),position="fill")
+g2 <- g2+ scale_y_continuous(labels = scales::percent,limits = c(0,0.5))+ylab("")
+g1 <- g1+geom_bar(aes(fill = hogares.clean[[field2]]))
+g1 <- g1+coord_fixed(ratio=1/1100)
+g2 <- g2+coord_fixed(ratio=8)
+plot(g1)
+plot(g2)
+```
 
 
 

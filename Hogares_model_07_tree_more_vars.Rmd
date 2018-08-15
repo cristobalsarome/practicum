@@ -26,6 +26,7 @@ target_field <- 62
 # predictor_fields <- c(13:15,17,18,21:24)
 # predictor_fields <- c(13:15,17,18,21:42,50,51,56,57,66:68,78)#virtually all
 predictor_fields <- c(13:15,17,18,21:42,50,51,56,57,78)#all w/o social plans
+predictor_fields <- c(13:15,17,18,22:42,50,51,56,57,78)#all w/o social plans, employ
 model_fields <- c(target_field,predictor_fields)
 #metadata2$english_labels[predictor_fields]
 #to make the code more concise we simplify the formula and select the 
@@ -78,14 +79,14 @@ file_suffix <- paste0(merge_suffix,oversample_suffix)
 
 
 ```{r}
-tree_cp <- 0.01 #complexity parameter
+tree_cp <- 0.005 #complexity parameter
 abr_time_old <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
 #file_name
 file_suffix <- paste0(file_suffix,"_WO_plans")
 file_name <- paste0("Reports/model_07_",abr_time_old,file_suffix,".txt")
 
 sink(file_name)
-for (tree_cp in c(0.01)) {
+for (tree_cp in c(0.005)) {
 
 
     #We log the parameters and performance of different models in a text file
@@ -98,6 +99,7 @@ for (tree_cp in c(0.01)) {
       abr_time <- Sys.time() %>% str_replace_all(":","-")%>% str_replace_all(" ","_")
     }
     writeLines(as.character(Sys.time()))
+    writeLines("Source Filename: Hogares_model_07_tree_more_vars.Rmd")
     
     #we log the model cp
     writeLines(paste0("cp_parameter: ",tree_cp))
